@@ -23,8 +23,6 @@ python3 train.py \
     --per_device_train_batch_size 1 \
     --gradient_accumulation_steps 1 \
     --learning_rate 2e-3 \
-    --weight_decay 0. \
-    --warmup_ratio 0.03 \
     --lr_scheduler_type "cosine" \
     --logging_steps 1 \
     --fp16 True \
