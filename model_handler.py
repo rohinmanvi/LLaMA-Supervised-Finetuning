@@ -63,7 +63,7 @@ class ModelHandler:
         )
 
         with torch.no_grad():
-            outputs = model.generate(
+            outputs = self.model.generate(
                 input_ids=input_ids,
                 generation_config=generation_config,
                 return_dict_in_generate=True,
