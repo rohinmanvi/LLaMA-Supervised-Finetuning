@@ -22,7 +22,7 @@ python3 train.py \
     --num_train_epochs 10 \
     --per_device_train_batch_size 1 \
     --gradient_accumulation_steps 1 \
-    --learning_rate 2e-5 \
+    --learning_rate 2e-3 \
     --weight_decay 0. \
     --warmup_ratio 0.03 \
     --lr_scheduler_type "cosine" \
