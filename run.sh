@@ -18,7 +18,7 @@ python3 train.py \
     --lora_dropout 0.05 \
     --model_name_or_path decapoda-research/llama-7b-hf \
     --data_path ./test_data.json \
-    --bf16 True \
+    --bf16 False \
     --output_dir ./checkpoints \
     --num_train_epochs 1 \
     --per_device_train_batch_size 1 \
