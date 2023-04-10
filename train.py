@@ -90,29 +90,6 @@ def safe_save_model_for_hf_trainer(trainer: transformers.Trainer, output_dir: st
         trainer._save(output_dir, state_dict=cpu_state_dict)  # noqa
 
 
-def smart_tokenizer_and_embedding_resize(
-    special_tokens_dict: Dict,
-    tokenizer: transformers.PreTrainedTokenizer,
-    model: transformers.PreTrainedModel,
-):
-    """Resize tokenizer and embedding.
-
-    Note: This is the unoptimized version that may make your embedding size not be divisible by 64.
-    """
-    num_new_tokens = tokenizer.add_special_tokens(special_tokens_dict)
-    # model.resize_token_embeddings(len(tokenizer))
-
-    # if num_new_tokens > 0:
-    #     input_embeddings = model.get_input_embeddings().weight.data
-    #     output_embeddings = model.get_output_embeddings().weight.data
-
-    #     input_embeddings_avg = input_embeddings[:-num_new_tokens].mean(dim=0, keepdim=True)
-    #     output_embeddings_avg = output_embeddings[:-num_new_tokens].mean(dim=0, keepdim=True)
-
-    #     input_embeddings[-num_new_tokens:] = input_embeddings_avg
-    #     output_embeddings[-num_new_tokens:] = output_embeddings_avg
-
-
 def _tokenize_fn(strings: Sequence[str], tokenizer: transformers.PreTrainedTokenizer) -> Dict:
     """Tokenize a list of strings."""
     tokenized_list = [
@@ -253,18 +230,13 @@ def train():
         padding_side="right",
         use_fast=False,
     )
-    if tokenizer.pad_token is None:
-        smart_tokenizer_and_embedding_resize(
-            special_tokens_dict=dict(pad_token=DEFAULT_PAD_TOKEN),
-            tokenizer=tokenizer,
-            model=model,
-        )
-    if "llama" in model_args.model_name_or_path:
-        tokenizer.add_special_tokens({
-            "eos_token": DEFAULT_EOS_TOKEN,
-            "bos_token": DEFAULT_BOS_TOKEN,
-            "unk_token": DEFAULT_UNK_TOKEN,
-        })
+    
+    tokenizer.add_special_tokens({
+        "pad_token": DEFAULT_PAD_TOKEN,
+        "eos_token": DEFAULT_EOS_TOKEN,
+        "bos_token": DEFAULT_BOS_TOKEN,
+        "unk_token": DEFAULT_UNK_TOKEN,
+    })
 
     data_module = make_supervised_data_module(tokenizer=tokenizer,
                                               data_args=data_args)
