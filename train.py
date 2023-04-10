@@ -19,6 +19,7 @@ from typing import Optional, Dict, Sequence
 
 from peft import (
     LoraConfig,
+    prepare_model_for_int8_training,
     get_peft_model,
 )
 
@@ -228,6 +229,9 @@ def train():
     model = transformers.LlamaForCausalLM.from_pretrained(
         model_args.model_name_or_path,
         cache_dir=training_args.cache_dir,
+        load_in_8bit=True, 
+        torch_dtype=torch.float16, 
+        device_map={'':0}
     )
     lora_config = LoraConfig(
         r=lora_args.lora_r,
@@ -237,6 +241,7 @@ def train():
         bias="none",
         task_type="CAUSAL_LM",
     )
+    model = prepare_model_for_int8_training(model)
     model = get_peft_model(model, lora_config)
     model.print_trainable_parameters()
 

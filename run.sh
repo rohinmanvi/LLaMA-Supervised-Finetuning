@@ -27,4 +27,5 @@ python3 train.py \
     --warmup_ratio 0.03 \
     --lr_scheduler_type "cosine" \
     --logging_steps 1 \
+    --fp16 True \
     --model_max_length 2048
