@@ -245,7 +245,7 @@ def train():
     model = get_peft_model(model, lora_config)
     model.print_trainable_parameters()
 
-    tokenizer = transformers.AutoTokenizer.from_pretrained(
+    tokenizer = transformers.LlamaTokenizer.from_pretrained(
         model_args.model_name_or_path,
         cache_dir=training_args.cache_dir,
         model_max_length=training_args.model_max_length,
