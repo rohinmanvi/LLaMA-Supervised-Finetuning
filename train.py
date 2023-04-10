@@ -17,6 +17,11 @@ import logging
 from dataclasses import dataclass, field
 from typing import Optional, Dict, Sequence
 
+from peft import (
+    LoraConfig,
+    get_peft_model,
+)
+
 import torch
 import transformers
 from torch.utils.data import Dataset
@@ -61,6 +66,15 @@ class TrainingArguments(transformers.TrainingArguments):
         default=512,
         metadata={"help": "Maximum sequence length. Sequences will be right padded (and possibly truncated)."},
     )
+
+
+@dataclass
+class LoraArguments:
+    lora_r: int = 8,
+    lora_alpha: int = 16,
+    lora_dropout: float = 0.05,
+    lora_target_modules: typing.List[str] = ["q_proj", "v_proj"],
+    lora_weight_path: str = ""
 
 
 def safe_save_model_for_hf_trainer(trainer: transformers.Trainer, output_dir: str):
@@ -190,13 +204,25 @@ def make_supervised_data_module(tokenizer: transformers.PreTrainedTokenizer, dat
 
 
 def train():
-    parser = transformers.HfArgumentParser((ModelArguments, DataArguments, TrainingArguments))
-    model_args, data_args, training_args = parser.parse_args_into_dataclasses()
+    parser = transformers.HfArgumentParser(
+        (ModelArguments, DataArguments, TrainingArguments, LoraArguments))
+    (model_args, data_args, training_args,
+     lora_args) = parser.parse_args_into_dataclasses()
 
-    model = transformers.AutoModelForCausalLM.from_pretrained(
+    model = transformers.LlamaForCausalLM.from_pretrained(
         model_args.model_name_or_path,
         cache_dir=training_args.cache_dir,
     )
+    lora_config = LoraConfig(
+        r=lora_args.lora_r,
+        lora_alpha=lora_args.lora_alpha,
+        target_modules=["q_proj", "v_proj"],
+        lora_dropout=lora_args.lora_dropout,
+        bias="none",
+        task_type="CAUSAL_LM",
+    )
+    model = get_peft_model(model, lora_config)
+    model.print_trainable_parameters()
 
     tokenizer = transformers.AutoTokenizer.from_pretrained(
         model_args.model_name_or_path,
@@ -212,19 +238,27 @@ def train():
             model=model,
         )
     if "llama" in model_args.model_name_or_path:
-        tokenizer.add_special_tokens(
-            {
-                "eos_token": DEFAULT_EOS_TOKEN,
-                "bos_token": DEFAULT_BOS_TOKEN,
-                "unk_token": DEFAULT_UNK_TOKEN,
-            }
-        )
+        tokenizer.add_special_tokens({
+            "eos_token": DEFAULT_EOS_TOKEN,
+            "bos_token": DEFAULT_BOS_TOKEN,
+            "unk_token": DEFAULT_UNK_TOKEN,
+        })
 
-    data_module = make_supervised_data_module(tokenizer=tokenizer, data_args=data_args)
-    trainer = Trainer(model=model, tokenizer=tokenizer, args=training_args, **data_module)
-    trainer.train()
+    data_module = make_supervised_data_module(tokenizer=tokenizer,
+                                              data_args=data_args)
+    trainer = Trainer(model=model,
+                      tokenizer=tokenizer,
+                      args=training_args,
+                      **data_module)
+
+    model.config.use_cache = False
+
+    if list(pathlib.Path(training_args.output_dir).glob("checkpoint-*")):
+        trainer.train(resume_from_checkpoint=True)
+    else:
+        trainer.train()
     trainer.save_state()
-    safe_save_model_for_hf_trainer(trainer=trainer, output_dir=training_args.output_dir)
+    model.save_pretrained(training_args.output_dir)
 
 
 if __name__ == "__main__":
