@@ -18,7 +18,7 @@ python3 train.py \
     --lora_dropout 0.05 \
     --model_name_or_path decapoda-research/llama-7b-hf \
     --data_path ./test_data.json \
-    --output_dir ./alpaca \
+    --output_dir ./llama-instruction \
     --num_train_epochs 10 \
     --per_device_train_batch_size 1 \
     --gradient_accumulation_steps 1 \
