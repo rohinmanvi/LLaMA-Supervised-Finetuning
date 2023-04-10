@@ -51,7 +51,8 @@ class ModelHandler:
         tokenizer = transformers.LlamaTokenizer.from_pretrained(self.base_model_name)
 
         inputs = tokenizer(text, return_tensors="pt")
-        input_ids = inputs["input_ids"].to(self.model.device)
+        device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+        input_ids = inputs["input_ids"].to(device)
 
         generation_config = transformers.GenerationConfig(
             max_new_tokens=max_new_tokens,
