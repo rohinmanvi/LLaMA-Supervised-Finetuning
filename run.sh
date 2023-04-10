@@ -12,7 +12,7 @@ ml python/3.9.0
 ml cuda/12.0.0
 ml gcc/12.1.0
 
-python3 train_lora.py \
+python3 train.py \
     --lora_r 8 \
     --lora_alpha 16 \
     --lora_dropout 0.05 \
