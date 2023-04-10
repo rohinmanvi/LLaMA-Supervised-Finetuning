@@ -1,6 +1,6 @@
 from model_handler import ModelHandler
 
-model_handler = ModelHandler("chainyo/alpaca-lora-7b")
+model_handler = ModelHandler("chavinlo/alpaca-native")
 
 def generate_prompt(instruction: str, input_ctxt: str = None) -> str:
     if input_ctxt:

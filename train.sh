@@ -16,7 +16,7 @@ python3 train.py \
     --lora_r 8 \
     --lora_alpha 16 \
     --lora_dropout 0.05 \
-    --model_name_or_path chainyo/alpaca-lora-7b \
+    --model_name_or_path chavinlo/alpaca-native \
     --data_path ./test_data.json \
     --output_dir ./alpaca \
     --num_train_epochs 10 \
