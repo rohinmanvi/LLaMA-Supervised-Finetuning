@@ -29,6 +29,7 @@ from transformers import Trainer
 
 import io
 import json
+import typing
 
 IGNORE_INDEX = -100
 DEFAULT_PAD_TOKEN = "[PAD]"
