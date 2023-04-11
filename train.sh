@@ -26,4 +26,5 @@ python3 train.py \
     --lr_scheduler_type "cosine" \
     --logging_steps 100 \
     --fp16 True \
-    --model_max_length 2048
+    --model_max_length 2048 \
+    --report_to wandb
