@@ -18,7 +18,7 @@ python3 train.py \
     --lora_dropout 0.05 \
     --model_name_or_path chainyo/alpaca-lora-7b \
     --data_path ./test_data.json \
-    --output_dir ./alpaca-instruction \
+    --output_dir ./new \
     --num_train_epochs 10 \
     --per_device_train_batch_size 1 \
     --gradient_accumulation_steps 1 \
