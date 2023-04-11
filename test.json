@@ -1,0 +1,12 @@
+[
+  {
+    "instruction": "Say the number three",
+    "input": "",
+    "output": "three"
+  },
+  {
+    "instruction": "Say the number four",
+    "input": "",
+    "output": "four"
+  }
+]
