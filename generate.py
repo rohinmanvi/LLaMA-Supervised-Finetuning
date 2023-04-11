@@ -23,6 +23,28 @@ from driver_env import DriverEnv
 
 np.set_printoptions(suppress=True)
 
+
+def distance_string(distance):
+        return f"{distance:.1f} m"
+
+
+def speed_string(velocity):
+    return f"{velocity:.1f} m/s"
+
+
+def angle_string(angle):
+    degrees = abs(np.rad2deg(angle))
+    direction = "" if degrees == 0 else f" to the {'left' if angle > 0 else 'right'}"
+
+    return f"{degrees:.1f}°{direction}"
+
+
+def get_short_prompt(observation):
+    ego_velocity, steering, angle, distance, direction, agent_velocity = observation
+
+    return f""""Our vehicle is going {speed_string(ego_velocity)} with a steering angle of {angle_string(steering)}. The other vehicle is {distance_string(distance)} away and is {angle_string(angle)}. It is going {speed_string(agent_velocity)} with a direction of {angle_string(direction)}." ->"""
+
+
 env = DriverEnv()
 
 average_reward = 0
@@ -35,11 +57,6 @@ for i in range(episodes):
 
     while not done:
         # print(f"Observation: {np.round(observation, 3)}")
-
-        def get_short_prompt(observation):
-            ego_velocity, steering, angle, distance, direction, agent_velocity = observation
-
-            return f""""Our vehicle is going {speed_string(ego_velocity)} with a steering angle of {angle_string(steering)}. The other vehicle is {distance_string(distance)} away and is {angle_string(angle)}. It is going {speed_string(agent_velocity)} with a direction of {angle_string(direction)}." ->"""
 
         prompt = get_short_prompt(observation)
 
