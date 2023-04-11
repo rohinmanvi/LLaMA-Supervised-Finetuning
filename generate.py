@@ -36,9 +36,10 @@ for i in range(episodes):
     while not done:
         # print(f"Observation: {np.round(observation, 3)}")
 
-        def get_shortest_prompt(observation):
+        def get_short_prompt(observation):
             ego_velocity, steering, angle, distance, direction, agent_velocity = observation
-            return f"[{ego_velocity:.1f}, {np.rad2deg(steering):.1f}, {np.rad2deg(angle):.1f}, {distance:.1f}, {np.rad2deg(direction):.1f}, {agent_velocity:.1f}] ->"
+
+            return f""""Our vehicle is going {speed_string(ego_velocity)} with a steering angle of {angle_string(steering)}. The other vehicle is {distance_string(distance)} away and is {angle_string(angle)}. It is going {speed_string(agent_velocity)} with a direction of {angle_string(direction)}." ->"""
 
         prompt = get_shortest_prompt(observation)
 
