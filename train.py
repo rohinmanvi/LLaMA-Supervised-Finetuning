@@ -128,16 +128,11 @@ class SupervisedDataset(Dataset):
         sources = []
         targets = []
 
-        limit = 100
-
         with open(data_path, 'r') as f:
             for line in f:
-                limit -= 1
                 data = json.loads(line)
                 sources.append(data["prompt"])
                 targets.append(f"{data['completion']}{tokenizer.eos_token}")
-                if limit <= 0:
-                    break
 
         logging.warning("Tokenizing inputs... This may take some time...")
         data_dict = preprocess(sources, targets, tokenizer)
