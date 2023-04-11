@@ -16,7 +16,7 @@ python3 train.py \
     --lora_r 8 \
     --lora_alpha 16 \
     --lora_dropout 0.05 \
-    --model_name_or_path decapoda-research/llama-7b-hf \
+    --model_name_or_path chainyo/alpaca-lora-7b \
     --data_path ./test_data.json \
     --output_dir ./llama-instruction \
     --num_train_epochs 10 \
