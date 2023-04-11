@@ -39,18 +39,6 @@ DEFAULT_PAD_TOKEN = "[PAD]"
 DEFAULT_EOS_TOKEN = "</s>"
 DEFAULT_BOS_TOKEN = "</s>"
 DEFAULT_UNK_TOKEN = "</s>"
-PROMPT_DICT = {
-    "prompt_input": (
-        "Below is an instruction that describes a task, paired with an input that provides further context. "
-        "Write a response that appropriately completes the request.\n\n"
-        "### Instruction:\n{instruction}\n\n### Input:\n{input}\n\n### Response:"
-    ),
-    "prompt_no_input": (
-        "Below is an instruction that describes a task. "
-        "Write a response that appropriately completes the request.\n\n"
-        "### Instruction:\n{instruction}\n\n### Response:"
-    ),
-}
 
 
 @dataclass
@@ -130,35 +118,29 @@ def preprocess(
     return dict(input_ids=input_ids, labels=labels)
 
 
-def _make_r_io_base(f, mode: str):
-    if not isinstance(f, io.IOBase):
-        f = open(f, mode=mode)
-    return f
-
-
-def jload(f, mode="r"):
-    """Load a .json file into a dictionary."""
-    f = _make_r_io_base(f, mode)
-    jdict = json.load(f)
-    f.close()
-    return jdict
-
-
 class SupervisedDataset(Dataset):
     """Dataset for supervised fine-tuning."""
 
     def __init__(self, data_path: str, tokenizer: transformers.PreTrainedTokenizer):
         super(SupervisedDataset, self).__init__()
         logging.warning("Loading data...")
-        list_data_dict = jload(data_path)
 
-        logging.warning("Formatting inputs...")
-        prompt_input, prompt_no_input = PROMPT_DICT["prompt_input"], PROMPT_DICT["prompt_no_input"]
-        sources = [
-            prompt_input.format_map(example) if example.get("input", "") != "" else prompt_no_input.format_map(example)
-            for example in list_data_dict
-        ]
-        targets = [f"{example['output']}{tokenizer.eos_token}" for example in list_data_dict]
+        sources = []
+        targets = []
+
+        limit = 2
+
+        with open(data_path, 'r') as f:
+            for line in f:
+                limit -= 1
+                data = json.loads(line)
+                sources.append(data["prompt"])
+                targets.append(f"{data['completion']}{tokenizer.eos_token}")
+                if limit <= 0:
+                    break
+
+        print(sources)
+        print(targets)
 
         logging.warning("Tokenizing inputs... This may take some time...")
         data_dict = preprocess(sources, targets, tokenizer)
