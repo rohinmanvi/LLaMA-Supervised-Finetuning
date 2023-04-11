@@ -128,7 +128,7 @@ class SupervisedDataset(Dataset):
         sources = []
         targets = []
 
-        limit = 8
+        limit = 100
 
         with open(data_path, 'r') as f:
             for line in f:
