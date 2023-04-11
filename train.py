@@ -128,7 +128,7 @@ class SupervisedDataset(Dataset):
         sources = []
         targets = []
 
-        limit = 2
+        limit = 1000
 
         with open(data_path, 'r') as f:
             for line in f:
@@ -138,9 +138,6 @@ class SupervisedDataset(Dataset):
                 targets.append(f"{data['completion']}{tokenizer.eos_token}")
                 if limit <= 0:
                     break
-
-        print(sources)
-        print(targets)
 
         logging.warning("Tokenizing inputs... This may take some time...")
         data_dict = preprocess(sources, targets, tokenizer)

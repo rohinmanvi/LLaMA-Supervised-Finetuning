@@ -17,14 +17,14 @@ python3 train.py \
     --lora_alpha 16 \
     --lora_dropout 0.05 \
     --model_name_or_path decapoda-research/llama-7b-hf \
-    --data_path ./test_data.jsonl \
+    --data_path ./test.jsonl \
     --output_dir ./llama-driver \
     --num_train_epochs 5 \
     --per_device_train_batch_size 8 \
     --gradient_accumulation_steps 8 \
     --learning_rate 2e-3 \
     --lr_scheduler_type "cosine" \
-    --logging_steps 100 \
+    --logging_steps 1 \
     --fp16 True \
     --model_max_length 2048 \
     --report_to wandb
