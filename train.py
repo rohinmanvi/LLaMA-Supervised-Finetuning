@@ -132,7 +132,7 @@ class SupervisedDataset(Dataset):
             for line in f:
                 data = json.loads(line)
                 sources.append(data["prompt"])
-                sources.append(data["completion"])
+                targets.append(data["completion"])
 
         logging.warning("Tokenizing inputs... This may take some time...")
         data_dict = preprocess(sources, targets, tokenizer)
