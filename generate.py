@@ -41,7 +41,7 @@ for i in range(episodes):
 
             return f""""Our vehicle is going {speed_string(ego_velocity)} with a steering angle of {angle_string(steering)}. The other vehicle is {distance_string(distance)} away and is {angle_string(angle)}. It is going {speed_string(agent_velocity)} with a direction of {angle_string(direction)}." ->"""
 
-        prompt = get_shortest_prompt(observation)
+        prompt = get_short_prompt(observation)
 
         response = model_handler.generate_text(
             peft_model='llama-driver',
