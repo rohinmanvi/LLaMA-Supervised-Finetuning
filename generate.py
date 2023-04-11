@@ -77,7 +77,7 @@ for i in range(episodes):
 
         result = re.findall(r"[-+]?\d*\.\d+|\d+", response)
         acceleration = float(result[0])
-        steering_rate = np.deg2rad(float(result[2]))
+        steering_rate = np.deg2rad(float(result[-1]))
         action = (acceleration, steering_rate)
 
         observation, reward, done, _ = env.step(action)
