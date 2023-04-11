@@ -19,11 +19,11 @@ python3 train.py \
     --model_name_or_path decapoda-research/llama-7b-hf \
     --data_path ./test_data.jsonl \
     --output_dir ./llama-driver \
-    --num_train_epochs 10 \
-    --per_device_train_batch_size 1 \
-    --gradient_accumulation_steps 1 \
+    --num_train_epochs 5 \
+    --per_device_train_batch_size 8 \
+    --gradient_accumulation_steps 8 \
     --learning_rate 2e-3 \
     --lr_scheduler_type "cosine" \
-    --logging_steps 1 \
+    --logging_steps 100 \
     --fp16 True \
     --model_max_length 2048
