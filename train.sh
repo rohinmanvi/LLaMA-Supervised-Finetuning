@@ -3,6 +3,7 @@
 #SBATCH -p gpu
 #SBATCH -G 1
 #SBATCH -C GPU_MEM:32GB
+#SBATCH --time=20:00:00
 
 nvidia-smi
 
@@ -13,16 +14,16 @@ ml cuda/12.0.0
 ml gcc/12.1.0
 
 python3 train.py \
-    --lora_r 16 \
-    --lora_alpha 32 \
+    --lora_r 8 \
+    --lora_alpha 16 \
     --lora_dropout 0.05 \
     --model_name_or_path decapoda-research/llama-7b-hf \
-    --data_path ./test.jsonl \
-    --output_dir ./llama-driver2 \
-    --num_train_epochs 2 \
+    --data_path ./data.jsonl \
+    --output_dir ./llama-driver3 \
+    --num_train_epochs 5 \
     --per_device_train_batch_size 1 \
     --gradient_accumulation_steps 8 \
-    --learning_rate 2e-5 \
+    --learning_rate 3e-3 \
     --lr_scheduler_type "cosine" \
     --logging_steps 10 \
     --fp16 True \

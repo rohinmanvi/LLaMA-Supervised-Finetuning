@@ -5,7 +5,7 @@ model_handler = ModelHandler("decapoda-research/llama-7b-hf")
 # prompt = "\"Our vehicle is going 5.8 m/s with a steering angle of 7.9° to the left. The other vehicle is 14.9 m away and is 1.0° to the left. It is going 7.0 m/s with a direction of 34.4° to the left.\" ->"
 
 # response = model_handler.generate_text(
-#     peft_model='llama-driver2',
+#     peft_model='llama-driver3',
 #     text=prompt,
 #     temperature=0.1,
 #     top_p=0.75,
@@ -61,7 +61,7 @@ for i in range(episodes):
         prompt = get_short_prompt(observation)
 
         response = model_handler.generate_text(
-            peft_model='llama-driver2',
+            peft_model='llama-driver3',
             text=prompt,
             temperature=0.1,
             top_p=0.75,
