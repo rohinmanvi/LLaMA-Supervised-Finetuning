@@ -18,11 +18,11 @@ python3 train.py \
     --lora_dropout 0.05 \
     --model_name_or_path decapoda-research/llama-7b-hf \
     --data_path ./test.jsonl \
-    --output_dir ./llama-driver \
-    --num_train_epochs 10 \
+    --output_dir ./llama-driver2 \
+    --num_train_epochs 2 \
     --per_device_train_batch_size 1 \
     --gradient_accumulation_steps 8 \
-    --learning_rate 3e-4 \
+    --learning_rate 2e-5 \
     --lr_scheduler_type "cosine" \
     --logging_steps 10 \
     --fp16 True \
