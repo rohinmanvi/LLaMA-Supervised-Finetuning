@@ -1,6 +1,6 @@
 from model_handler import ModelHandler
 
-model_handler = ModelHandler("chainyo/alpaca-lora-7b")
+model_handler = ModelHandler("decapoda-research/llama-7b-hf")
 
 # def generate_prompt(instruction: str, input_ctxt: str = None) -> str:
 #     if input_ctxt:
@@ -27,7 +27,7 @@ model_handler = ModelHandler("chainyo/alpaca-lora-7b")
 # prompt = generate_prompt(instruction, input_ctxt)
 
 response = model_handler.generate_text(
-    peft_model='None',
+    peft_model='llama-driver',
     text=prompt,
     temperature=0.1,
     top_p=0.75,

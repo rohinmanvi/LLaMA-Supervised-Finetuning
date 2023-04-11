@@ -2,7 +2,7 @@
 #SBATCH -J LLaMA
 #SBATCH -p gpu
 #SBATCH -G 1
-#SBATCH -C GPU_MEM:32GB
+#SBATCH -C GPU_MEM:24GB
 
 nvidia-smi
 
