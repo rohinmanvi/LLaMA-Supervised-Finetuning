@@ -2,29 +2,29 @@ from model_handler import ModelHandler
 
 model_handler = ModelHandler("chainyo/alpaca-lora-7b")
 
-def generate_prompt(instruction: str, input_ctxt: str = None) -> str:
-    if input_ctxt:
-        return f"""Below is an instruction that describes a task, paired with an input that provides further context. Write a response that appropriately completes the request.
+# def generate_prompt(instruction: str, input_ctxt: str = None) -> str:
+#     if input_ctxt:
+#         return f"""Below is an instruction that describes a task, paired with an input that provides further context. Write a response that appropriately completes the request.
 
-### Instruction:
-{instruction}
+# ### Instruction:
+# {instruction}
 
-### Input:
-{input_ctxt}
+# ### Input:
+# {input_ctxt}
 
-### Response:"""
-    else:
-        return f"""Below is an instruction that describes a task. Write a response that appropriately completes the request.
+# ### Response:"""
+#     else:
+#         return f"""Below is an instruction that describes a task. Write a response that appropriately completes the request.
 
-### Instruction:
-{instruction}
+# ### Instruction:
+# {instruction}
 
-### Response:"""
+# ### Response:"""
 
-instruction = "What is the meaning of life?"
-input_ctxt = None
+# instruction = "What is the meaning of life?"
+# input_ctxt = None
 
-prompt = generate_prompt(instruction, input_ctxt)
+# prompt = generate_prompt(instruction, input_ctxt)
 
 response = model_handler.generate_text(
     peft_model='None',
