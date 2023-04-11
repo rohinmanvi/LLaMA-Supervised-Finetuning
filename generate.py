@@ -61,7 +61,7 @@ for i in range(episodes):
         prompt = get_short_prompt(observation)
 
         response = model_handler.generate_text(
-            peft_model='llama-driver',
+            peft_model='llama-driver2',
             text=prompt,
             temperature=0.1,
             top_p=0.75,
