@@ -15,6 +15,7 @@ class ModelHandler:
         self.base_model_name = base_model_name
         self.model = None
         self.current_peft_model = None
+        self.tokenizer = transformers.LlamaTokenizer.from_pretrained(self.base_model_name)
 
     def load_base_model(self):
         print('Loading base model...')
@@ -48,9 +49,7 @@ class ModelHandler:
         if self.model is None:
             self.load_base_model()
 
-        tokenizer = transformers.LlamaTokenizer.from_pretrained(self.base_model_name)
-
-        inputs = tokenizer(text, return_tensors="pt")
+        inputs = self.tokenizer(text, return_tensors="pt")
         device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
         input_ids = inputs["input_ids"].to(device)
 
@@ -70,6 +69,6 @@ class ModelHandler:
                 output_scores=True,
             )
 
-        response = tokenizer.decode(outputs.sequences[0], skip_special_tokens=True)
+        response = self.tokenizer.decode(outputs.sequences[0], skip_special_tokens=True)
 
         return response
