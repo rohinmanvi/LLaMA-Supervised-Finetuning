@@ -64,7 +64,7 @@ for i in range(episodes):
             peft_model='llama-driver3',
             text=prompt,
             temperature=0.1,
-            top_p=0.75,
+            top_p=0.95,
             top_k=50,
             max_new_tokens=32
         )
