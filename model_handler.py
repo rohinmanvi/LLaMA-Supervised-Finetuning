@@ -58,7 +58,7 @@ class ModelHandler:
             temperature=temperature,
             top_p=top_p,
             top_k=top_k,
-            num_beams=4,
+            num_beams=1,
         )
 
         with torch.no_grad():
