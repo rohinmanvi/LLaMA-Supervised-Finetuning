@@ -68,10 +68,10 @@ for i in range(episodes):
             text=prompt,
             max_new_tokens=32,
             do_sample=False,
-            # temperature=0.8,
-            # top_p=0.75,
-            # top_k=50,
-            # num_beams=1
+            temperature=0.1,
+            top_p=0.75,
+            top_k=50,
+            num_beams=1
         )
 
         response = response[len(prompt):]
