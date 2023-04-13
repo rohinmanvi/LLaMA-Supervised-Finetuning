@@ -1,34 +1,12 @@
-import numpy as np
 import math
-import re
 import time
 
 from driver_env import DriverEnv
+from prompting import get_short_prompt, extract_action
 from model_handler import ModelHandler
 
-np.set_printoptions(suppress=True)
-
-def distance_string(distance):
-        return f"{distance:.1f} m"
-
-
-def speed_string(velocity):
-    return f"{velocity:.1f} m/s"
-
-
-def angle_string(angle):
-    degrees = abs(np.rad2deg(angle))
-    direction = "" if degrees == 0 else f" to the {'left' if angle > 0 else 'right'}"
-
-    return f"{degrees:.1f}°{direction}"
-
-
-def get_short_prompt(observation):
-    ego_velocity, steering, angle, distance, direction, agent_velocity = observation
-
-    return f""""Our vehicle is going {speed_string(ego_velocity)} with a steering angle of {angle_string(steering)}. The other vehicle is {distance_string(distance)} away and is {angle_string(angle)}. It is going {speed_string(agent_velocity)} with a direction of {angle_string(direction)}." ->"""
-
 env = DriverEnv()
+
 model_handler = ModelHandler("decapoda-research/llama-7b-hf")
 
 start_time = time.time()
@@ -42,7 +20,6 @@ for i in range(episodes):
     done = False
 
     while not done:
-        # print(f"Observation: {np.round(observation, 3)}")
 
         prompt = get_short_prompt(observation)
 
@@ -63,10 +40,7 @@ for i in range(episodes):
         print(prompt + response)
         print("============================================================================")
 
-        result = re.findall(r"[-+]?\d*\.\d+|\d+", response)
-        acceleration = float(result[0])
-        steering_rate = np.deg2rad(float(result[-1]))
-        action = (acceleration, steering_rate)
+        action = extract_action(response)
 
         observation, reward, done, _ = env.step(action)
 
