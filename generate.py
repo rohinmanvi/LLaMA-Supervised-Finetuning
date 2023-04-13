@@ -63,10 +63,12 @@ for i in range(episodes):
         response = model_handler.generate_text(
             peft_model='llama-driver3',
             text=prompt,
+            max_new_tokens=32,
+            do_sample=True,
             temperature=0.8,
-            top_p=0.95,
+            top_p=0.75,
             top_k=50,
-            max_new_tokens=32
+            num_beams=4
         )
 
         response = response[len(prompt):]
