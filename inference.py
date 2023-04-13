@@ -23,6 +23,9 @@ from driver_env import DriverEnv
 
 np.set_printoptions(suppress=True)
 
+import time
+
+start_time = time.time()
 
 def distance_string(distance):
         return f"{distance:.1f} m"
@@ -65,10 +68,10 @@ for i in range(episodes):
             text=prompt,
             max_new_tokens=32,
             do_sample=True,
-            temperature=0.2,
+            temperature=0.8,
             top_p=0.75,
             top_k=50,
-            num_beams=4
+            num_beams=10
         )
 
         response = response[len(prompt):]
@@ -88,3 +91,7 @@ for i in range(episodes):
 
 average_reward /= episodes
 print(f"average reward: {average_reward}")
+
+end_time = time.time()
+total_time = end_time - start_time
+print(f"Total time taken: {total_time} seconds")
