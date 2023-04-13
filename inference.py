@@ -65,7 +65,7 @@ for i in range(episodes):
             text=prompt,
             max_new_tokens=32,
             do_sample=True,
-            temperature=0.8,
+            temperature=0.2,
             top_p=0.75,
             top_k=50,
             num_beams=4
