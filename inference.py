@@ -1,6 +1,8 @@
 import math
 import time
 
+from transformers import GenerationConfig
+
 from driver_env import DriverEnv
 from prompting import get_short_prompt, extract_action
 from model_handler import ModelHandler
@@ -23,7 +25,7 @@ for i in range(episodes):
 
         prompt = get_short_prompt(observation)
 
-        generation_config = transformers.GenerationConfig(
+        generation_config = GenerationConfig(
             max_new_tokens=32,
             do_sample=False
         )

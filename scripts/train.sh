@@ -5,13 +5,11 @@
 #SBATCH -C GPU_MEM:32GB
 #SBATCH --time=20:00:00
 
-nvidia-smi
-
-git pull
-
 ml python/3.9.0
 ml cuda/12.0.0
 ml gcc/12.1.0
+
+nvidia-smi
 
 python3 train.py \
     --lora_r 8 \
