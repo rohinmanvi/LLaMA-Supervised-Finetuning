@@ -67,11 +67,11 @@ for i in range(episodes):
             peft_model='llama-driver3',
             text=prompt,
             max_new_tokens=32,
-            do_sample=True,
-            temperature=0.8,
-            top_p=0.75,
-            top_k=50,
-            num_beams=10
+            do_sample=False,
+            # temperature=0.8,
+            # top_p=0.75,
+            # top_k=50,
+            # num_beams=1
         )
 
         response = response[len(prompt):]
