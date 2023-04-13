@@ -1,0 +1,14 @@
+torch
+transformers @ git+https://github.com/huggingface/transformers.git
+peft @ git+https://github.com/huggingface/peft.git
+datasets
+loralib
+sentencepiece
+accelerate
+bitsandbytes
+trl
+gym
+wandb
+stable-baselines3
+openai
+timm
