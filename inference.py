@@ -1,31 +1,12 @@
-from model_handler import ModelHandler
-
-model_handler = ModelHandler("decapoda-research/llama-7b-hf")
-
-# prompt = "\"Our vehicle is going 5.8 m/s with a steering angle of 7.9° to the left. The other vehicle is 14.9 m away and is 1.0° to the left. It is going 7.0 m/s with a direction of 34.4° to the left.\" ->"
-
-# response = model_handler.generate_text(
-#     peft_model='llama-driver3',
-#     text=prompt,
-#     temperature=0.1,
-#     top_p=0.75,
-#     top_k=50,
-#     max_new_tokens=32
-# )
-
-# print(response)
-
 import numpy as np
 import math
 import re
-
-from driver_env import DriverEnv
-
-np.set_printoptions(suppress=True)
-
 import time
 
-start_time = time.time()
+from driver_env import DriverEnv
+from model_handler import ModelHandler
+
+np.set_printoptions(suppress=True)
 
 def distance_string(distance):
         return f"{distance:.1f} m"
@@ -47,8 +28,10 @@ def get_short_prompt(observation):
 
     return f""""Our vehicle is going {speed_string(ego_velocity)} with a steering angle of {angle_string(steering)}. The other vehicle is {distance_string(distance)} away and is {angle_string(angle)}. It is going {speed_string(agent_velocity)} with a direction of {angle_string(direction)}." ->"""
 
-
 env = DriverEnv()
+model_handler = ModelHandler("decapoda-research/llama-7b-hf")
+
+start_time = time.time()
 
 average_reward = 0
 episodes = 1
@@ -63,15 +46,15 @@ for i in range(episodes):
 
         prompt = get_short_prompt(observation)
 
+        generation_config = transformers.GenerationConfig(
+            max_new_tokens=32,
+            do_sample=False
+        )
+
         response = model_handler.generate_text(
             peft_model='llama-driver3',
             text=prompt,
-            max_new_tokens=32,
-            do_sample=False,
-            temperature=0.1,
-            top_p=0.75,
-            top_k=50,
-            num_beams=1
+            generation_config=generation_config
         )
 
         response = response[len(prompt):]

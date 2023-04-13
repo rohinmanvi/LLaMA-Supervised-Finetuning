@@ -15,7 +15,10 @@ class ModelHandler:
         self.base_model_name = base_model_name
         self.model = None
         self.current_peft_model = None
+        
         self.tokenizer = transformers.LlamaTokenizer.from_pretrained(self.base_model_name)
+
+        self.load_base_model()
 
     def load_base_model(self):
         print('Loading base model...')
@@ -33,7 +36,7 @@ class ModelHandler:
         self.model = None
         self.current_peft_model = None
 
-    def generate_text(self, peft_model, text, max_new_tokens, do_sample, temperature, top_p, top_k, num_beams):
+    def generate_text(self, peft_model, text, generation_config):
         if peft_model == 'None':
             peft_model = None
 
@@ -52,15 +55,6 @@ class ModelHandler:
         inputs = self.tokenizer(text, return_tensors="pt")
         device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
         input_ids = inputs["input_ids"].to(device)
-
-        generation_config = transformers.GenerationConfig(
-            max_new_tokens=max_new_tokens,
-            do_sample=do_sample,
-            temperature=temperature,
-            top_p=top_p,
-            top_k=top_k,
-            num_beams=num_beams
-        )
 
         with torch.no_grad():
             outputs = self.model.generate(
