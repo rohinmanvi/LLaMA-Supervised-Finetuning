@@ -12,4 +12,4 @@ ml python/3.9.0
 ml cuda/12.0.0
 ml gcc/12.1.0
 
-python3 generate.py
+python3 inference.py

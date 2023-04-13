@@ -33,7 +33,7 @@ class ModelHandler:
         self.model = None
         self.current_peft_model = None
 
-    def generate_text(self, peft_model, text, temperature, top_p, top_k, max_new_tokens):
+    def generate_text(self, peft_model, text, max_new_tokens, do_sample, temperature, top_p, top_k, num_beams):
         if peft_model == 'None':
             peft_model = None
 
@@ -55,9 +55,11 @@ class ModelHandler:
 
         generation_config = transformers.GenerationConfig(
             max_new_tokens=max_new_tokens,
+            do_sample=do_sample,
             temperature=temperature,
             top_p=top_p,
             top_k=top_k,
+            num_beams=num_beams
         )
 
         with torch.no_grad():
