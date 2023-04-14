@@ -21,9 +21,7 @@ def angle_string(angle):
 def get_short_prompt(observation):
     ego_velocity, steering, angle, distance, direction, agent_velocity = observation
 
-    return f"""Observation: "Our vehicle is going {speed_string(ego_velocity)} with a steering angle of {angle_string(steering)}. The other vehicle is {distance_string(distance)} away and is {angle_string(angle)}. It is going {speed_string(agent_velocity)} with a direction of {angle_string(direction)}."
-Action Format: (<distance> m, <angle>°)
-Best Action:"""
+    return f""""Our vehicle is going {speed_string(ego_velocity)} with a steering angle of {angle_string(steering)}. The other vehicle is {distance_string(distance)} away and is {angle_string(angle)}. It is going {speed_string(agent_velocity)} with a direction of {angle_string(direction)}." ->"""
 
 
 def get_shortest_prompt(observation):
@@ -47,6 +45,13 @@ def extract_action(completion):
 
     return acceleration, steering_rate
 
+
+def get_waypoint_prompt(observation):
+    ego_velocity, steering, angle, distance, direction, agent_velocity = observation
+
+    return f"""Observation: "Our vehicle is going {speed_string(ego_velocity)} with a steering angle of {angle_string(steering)}. The other vehicle is {distance_string(distance)} away and is {angle_string(angle)}. It is going {speed_string(agent_velocity)} with a direction of {angle_string(direction)}."
+Action Format: (<distance> m, <angle>°)
+Best Action:"""
 
 def get_waypoint_completion(action):
     distance, angle = action
