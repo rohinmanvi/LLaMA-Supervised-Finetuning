@@ -1,5 +1,4 @@
 #!/bin/bash
-#SBATCH -J LLaMA
 #SBATCH -p gpu
 #SBATCH -G 1
 

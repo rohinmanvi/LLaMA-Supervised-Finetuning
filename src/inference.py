@@ -3,9 +3,9 @@ import time
 
 from transformers import GenerationConfig
 
-from src.driver_env import DriverEnv
-from src.prompting import get_short_prompt, extract_action
-from src.model_handler import ModelHandler
+from driver_env import DriverEnv
+from prompting import get_short_prompt, extract_action
+from model_handler import ModelHandler
 
 env = DriverEnv()
 
