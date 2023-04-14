@@ -9,7 +9,7 @@ np.set_printoptions(suppress=True)
 
 env = DriverEnv()
 
-model = PPO.load("models/PPO_Waypoint/best_model.zip")
+model = PPO.load("PPO_Waypoint/best_model.zip")
 
 def random_policy(observation):
     acceleration = np.random.uniform(low=-10.0, high=6.0)
