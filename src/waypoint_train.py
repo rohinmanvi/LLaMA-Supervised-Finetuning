@@ -2,6 +2,8 @@ import os
 
 from stable_baselines3 import PPO
 from stable_baselines3.common.callbacks import EvalCallback
+
+import wandb
 from wandb.integration.sb3 import WandbCallback
 
 from waypoint_driver_env import DriverEnv
