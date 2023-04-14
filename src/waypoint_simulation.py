@@ -25,9 +25,11 @@ for i in range(episodes):
     observation = env.reset()
     done = False
 
-    while not done:
-        print(f"Observation: {np.round(observation, 3)}")
+    print("Reset")
 
+    print(f"Observation: {np.round(observation, 3)}")
+
+    while not done:
         action, _ = model.predict(observation)
         # action = random_policy(observation)
         # action = np.array([2.0, 0.01])
@@ -35,6 +37,8 @@ for i in range(episodes):
         observation, reward, done, _ = env.step(action)
 
         average_reward += reward
+
+        print(f"Observation: {np.round(observation, 3)}")
 
 average_reward /= episodes
 print(f"average reward: {average_reward}")

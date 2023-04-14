@@ -148,17 +148,17 @@ class DriverEnv(gym.Env):
         return [ego_prime.v, ego_prime.phi, a.acceleration, a.steering_rate, angle_to_agent, distance, ego_prime.t]
 
     def _reset(self):
-        # ego_theta = np.random.uniform(-1.0, 1.0)
-        # ego_v = np.random.uniform(0.0, 15.6464)
-        # ego_phi = np.random.uniform(-0.437, 0.437)
+        ego_theta = np.random.uniform(-1.0, 1.0)
+        ego_v = np.random.uniform(0.0, 15.6464)
+        ego_phi = np.random.uniform(-0.437, 0.437)
 
-        # agent_x = np.random.uniform(0.0, 15.6464)
+        agent_x = np.random.uniform(0.0, 15.6464)
 
-        ego_theta = 0.0
-        ego_v = 7.0
-        ego_phi = 0.0
+        # ego_theta = 0.0
+        # ego_v = 7.0
+        # ego_phi = 0.0
 
-        agent_x = 7.0
+        # agent_x = 7.0
 
         ego = Vehicle(v=ego_v, theta=ego_theta, phi=ego_phi)
         agent = Vehicle(x=agent_x)
