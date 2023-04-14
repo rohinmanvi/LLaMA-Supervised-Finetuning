@@ -12,9 +12,9 @@ python3 src/train.py \
     --lora_alpha 16 \
     --lora_dropout 0.05 \
     --model_name_or_path decapoda-research/llama-7b-hf \
-    --data_path data/data.jsonl \
-    --output_dir models/llama-driver4 \
-    --num_train_epochs 5 \
+    --data_path data/waypoint_data.jsonl \
+    --output_dir models/llama-waypoint-driver \
+    --num_train_epochs 3 \
     --per_device_train_batch_size 1 \
     --gradient_accumulation_steps 8 \
     --learning_rate 3e-4 \
