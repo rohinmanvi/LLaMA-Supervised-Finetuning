@@ -26,7 +26,6 @@ for i in range(episodes):
     done = False
 
     print("Reset")
-
     print(f"Observation: {np.round(observation, 3)}")
 
     while not done:
