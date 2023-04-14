@@ -22,7 +22,7 @@ run = wandb.init(
     sync_tensorboard=True,
 )
 
-models_dir = "PPO_Waypoint"
+models_dir = "models/PPO_Waypoint"
 
 if not os.path.exists(models_dir):
     os.makedirs(models_dir)
