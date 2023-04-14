@@ -6,7 +6,7 @@ import json
 from stable_baselines3 import PPO
 
 from driver_env import DriverEnv
-from prompting import get_waypoint_prompt, get_waypoint_completion
+from prompting import get_short_prompt, get_waypoint_completion
 
 np.set_printoptions(suppress=True)
 
@@ -27,7 +27,7 @@ for i in range(episodes):
 
     step = 0
 
-    prompt = get_waypoint_prompt(observation)
+    prompt = get_short_prompt(observation)
 
     x = 0
     y = 0
@@ -62,7 +62,7 @@ for i in range(episodes):
 
             data.append({"prompt": prompt, "completion": completion})
 
-            prompt = get_waypoint_prompt(observation)
+            prompt = get_short_prompt(observation)
 
             x = x_prime
             y = y_prime

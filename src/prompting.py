@@ -46,12 +46,6 @@ def extract_action(completion):
     return acceleration, steering_rate
 
 
-def get_waypoint_prompt(observation):
-    ego_velocity, steering, angle, distance, direction, agent_velocity = observation
-
-    return f""""The other vehicle is {distance_string(distance)} away and is {angle_string(angle)}. It is going {speed_string(agent_velocity)} with a direction of {angle_string(direction)}." ->"""
-
-
 def get_waypoint_completion(action):
     distance, angle = action
 
