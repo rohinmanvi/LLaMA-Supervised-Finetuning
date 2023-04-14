@@ -3,9 +3,9 @@ import time
 
 from transformers import GenerationConfig
 
-from driver_env import DriverEnv
-from prompting import get_short_prompt, extract_action
-from model_handler import ModelHandler
+from src.driver_env import DriverEnv
+from src.prompting import get_short_prompt, extract_action
+from src.model_handler import ModelHandler
 
 env = DriverEnv()
 
@@ -31,7 +31,7 @@ for i in range(episodes):
         )
 
         response = model_handler.generate_text(
-            peft_model='llama-driver3',
+            peft_model='models/low-level-llama',
             text=prompt,
             generation_config=generation_config
         )
