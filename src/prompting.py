@@ -44,3 +44,17 @@ def extract_action(completion):
     steering_rate = np.deg2rad(float(result[-1]))
 
     return acceleration, steering_rate
+
+
+def get_waypoint_prompt(observation):
+    ego_velocity, steering, angle, distance, direction, agent_velocity = observation
+
+    return f""""The other vehicle is {distance_string(distance)} away and is {angle_string(angle)}. It is going {speed_string(agent_velocity)} with a direction of {angle_string(direction)}." ->"""
+
+
+def get_waypoint_completion(action):
+    distance, angle = action
+
+    angle = np.rad2deg(angle)
+
+    return f" ({acceleration:.1f} m, {angle:.1f}°)"

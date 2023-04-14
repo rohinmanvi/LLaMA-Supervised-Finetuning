@@ -11,12 +11,6 @@ env = DriverEnv()
 
 model = PPO.load("models/PPO_Waypoint/best_model")
 
-def random_policy(observation):
-    acceleration = np.random.uniform(low=-10.0, high=6.0)
-    steering_rate = np.random.uniform(low=-0.874, high=0.874)
-    
-    return np.array([acceleration, steering_rate])
-
 average_reward = 0
 episodes = 5
 
@@ -30,11 +24,7 @@ for i in range(episodes):
 
     while not done:
         action, _ = model.predict(observation)
-        # action = random_policy(observation)
-        # action = np.array([2.0, 0.01])
-
         observation, reward, done, _ = env.step(action)
-
         average_reward += reward
 
         print(f"Observation: {np.round(observation, 3)}")
