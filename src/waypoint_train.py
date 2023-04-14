@@ -38,11 +38,7 @@ model = PPO(config["policy_type"], env, verbose=1, tensorboard_log=f"runs/{run.i
 
 eval_callback = EvalCallback(env, best_model_save_path=models_dir, eval_freq=10000, deterministic=True, render=False)
 
-wandb_callback = WandbCallback(
-    gradient_save_freq=100,
-    model_save_path=f"models/{run.id}",
-    verbose=2,
-)
+wandb_callback = WandbCallback(verbose=2)
 
 print("Training ...")
 
