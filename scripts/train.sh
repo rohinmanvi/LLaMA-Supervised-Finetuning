@@ -1,6 +1,5 @@
 #!/bin/bash
 #SBATCH -J LLaMA
-#SBATCH --output=./output/inference-%Y-%m-%d_%H-%M-%S.out
 #SBATCH -p gpu
 #SBATCH -G 1
 #SBATCH -C GPU_MEM:32GB
@@ -9,7 +8,8 @@
 ml python/3.9.0 cuda/12.0.0 gcc/12.1.0
 nvidia-smi
 
-cd ../src
+cd $SCRATCH/LLaMA-Supervised-Finetuning/src
+
 python3 train.py \
     --lora_r 8 \
     --lora_alpha 16 \
