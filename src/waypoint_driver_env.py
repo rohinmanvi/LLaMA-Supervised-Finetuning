@@ -158,7 +158,7 @@ class DriverEnv(gym.Env):
         ego_v = 7.0
         ego_phi = 0.0
 
-        agent_x = 7.0
+        agent_x = 7.0 + np.random.uniform(-3.0, 3.0)
 
         ego = Vehicle(v=ego_v, theta=ego_theta, phi=ego_phi)
         agent = Vehicle(x=agent_x)
