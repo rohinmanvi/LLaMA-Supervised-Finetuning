@@ -18,7 +18,7 @@ def random_policy(observation):
     return np.array([acceleration, steering_rate])
 
 average_reward = 0
-episodes = 3
+episodes = 5
 
 for i in range(episodes):
 
