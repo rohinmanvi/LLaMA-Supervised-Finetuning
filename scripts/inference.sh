@@ -1,6 +1,6 @@
 #!/bin/bash
 #SBATCH -J LLaMA
-#SBATCH -o ./output/inference-$(date +%Y-%m-%d_%H-%M-%S).out
+#SBATCH --output=./output/inference-%Y-%m-%d_%H-%M-%S.out
 #SBATCH -p gpu
 #SBATCH -G 1
 
