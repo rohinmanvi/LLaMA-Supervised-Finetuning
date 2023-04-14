@@ -14,7 +14,7 @@ env = DriverEnv()
 
 model = PPO.load("models/PPO/best_model")
 
-episodes = 5
+episodes = 1000
 
 data = []
 
