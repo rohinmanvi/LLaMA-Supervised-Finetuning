@@ -9,6 +9,7 @@ bitsandbytes
 trl
 gym
 wandb
+tensorboard
 stable-baselines3
 openai
 timm
