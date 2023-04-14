@@ -1,31 +1,53 @@
 import os
-
+import gym
 from stable_baselines3 import PPO
 from stable_baselines3.common.callbacks import EvalCallback
+from stable_baselines3.common.monitor import Monitor
+from stable_baselines3.common.vec_env import DummyVecEnv
 
 import wandb
 from wandb.integration.sb3 import WandbCallback
 
 from waypoint_driver_env import DriverEnv
 
-wandb.init(project="PPO_Waypoint")
+config = {
+    "policy_type": "MlpPolicy",
+    "total_timesteps": 100000000,
+    "env_name": "WaypointDriverEnv",
+}
+
+run = wandb.init(
+    project="PPO_Waypoint",
+    config=config,
+    sync_tensorboard=True,
+)
 
 models_dir = "PPO_Waypoint"
 
 if not os.path.exists(models_dir):
     os.makedirs(models_dir)
 
-env = DriverEnv()
+def make_env():
+    env = DriverEnv()
+    env = Monitor(env)
+    return env
 
-model = PPO("MlpPolicy", env, verbose=1)
+env = DummyVecEnv([make_env])
 
-eval_callback = EvalCallback(env, best_model_save_path=models_dir, eval_freq=10000,
-                             deterministic=True, render=False)
+model = PPO(config["policy_type"], env, verbose=1, tensorboard_log=f"runs/{run.id}")
 
-wandb_callback = WandbCallback()
+eval_callback = EvalCallback(env, best_model_save_path=models_dir, eval_freq=10000, deterministic=True, render=False)
+
+wandb_callback = WandbCallback(
+    gradient_save_freq=100,
+    model_save_path=f"models/{run.id}",
+    verbose=2,
+)
 
 print("Training ...")
 
-model.learn(total_timesteps=10000000, callback=[eval_callback, wandb_callback])
+model.learn(total_timesteps=config["total_timesteps"], callback=[eval_callback, wandb_callback])
 
 print("Done Training")
+
+run.finish()
