@@ -39,7 +39,7 @@ def get_completion(action):
 
 
 def extract_action(completion):
-    result = re.findall(r"[-+]?\d*\.\d+|\d+", response)
+    result = re.findall(r"[-+]?\d*\.\d+|\d+", completion)
     acceleration = float(result[0])
     steering_rate = np.deg2rad(float(result[-1]))
 
