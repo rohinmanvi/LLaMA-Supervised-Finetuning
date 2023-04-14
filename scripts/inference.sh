@@ -7,5 +7,5 @@
 ml python/3.9.0 cuda/12.0.0 gcc/12.1.0
 nvidia-smi
 
-cd ../src
-python3 inference.py
+cd ..
+python3 src/inference.py
