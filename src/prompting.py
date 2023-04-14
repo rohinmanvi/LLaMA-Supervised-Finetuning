@@ -57,4 +57,4 @@ def get_waypoint_completion(action):
 
     angle = np.rad2deg(angle)
 
-    return f" ({acceleration:.1f} m, {angle:.1f}°)"
+    return f" ({distance:.1f} m, {angle:.1f}°)"
