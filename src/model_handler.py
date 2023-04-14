@@ -18,8 +18,6 @@ class ModelHandler:
         
         self.tokenizer = transformers.LlamaTokenizer.from_pretrained(self.base_model_name)
 
-        self.load_base_model()
-
     def load_base_model(self):
         print('Loading base model...')
         self.model = transformers.LlamaForCausalLM.from_pretrained(self.base_model_name, load_in_8bit=True, torch_dtype=torch.float16, device_map={'':0})
