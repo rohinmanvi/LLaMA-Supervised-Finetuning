@@ -44,7 +44,7 @@ class DriverEnv(gym.Env):
         self.observation_space = spaces.Box(
             low = np.array([0.0, -max_phi, min_a, -max_steering_rate, -max_angle, -max_d, 0.0]), 
             high = np.array([max_v, max_phi, max_a, max_steering_rate, max_angle, max_d, max_time]), 
-            shape = (6,),
+            shape = (7,),
             dtype = np.float32
         )
 
