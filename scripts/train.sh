@@ -9,14 +9,14 @@
 ml python/3.9.0 cuda/12.0.0 gcc/12.1.0
 nvidia-smi
 
-cd ..
+cd ../src
 python3 train.py \
     --lora_r 8 \
     --lora_alpha 16 \
     --lora_dropout 0.05 \
     --model_name_or_path decapoda-research/llama-7b-hf \
-    --data_path ./data/data.jsonl \
-    --output_dir ./llama-driver3 \
+    --data_path ../data/data.jsonl \
+    --output_dir ../models/llama-driver3 \
     --num_train_epochs 5 \
     --per_device_train_batch_size 1 \
     --gradient_accumulation_steps 8 \
