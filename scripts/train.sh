@@ -1,5 +1,6 @@
 #!/bin/bash
 #SBATCH -J LLaMA
+#SBATCH -o ./output/train-$(date +%Y-%m-%d_%H-%M-%S).out
 #SBATCH -p gpu
 #SBATCH -G 1
 #SBATCH -C GPU_MEM:32GB
