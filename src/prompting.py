@@ -40,10 +40,8 @@ def get_completion(action):
 
 def extract_action(completion):
     result = re.findall(r"[-+]?\d*\.\d+|\d+", completion)
-    acceleration = float(result[0])
-    steering_rate = np.deg2rad(float(result[-1]))
 
-    return acceleration, steering_rate
+    return float(result[0]), np.deg2rad(float(result[-1]))
 
 
 def get_waypoint_prompt(observation):
