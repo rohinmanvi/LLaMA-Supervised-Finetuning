@@ -60,6 +60,8 @@ for i in range(episodes):
 
         waypoint_observation = np.array([velocity, steering, prev_acceleration, prev_steering_rate, angle, distance, waypoint_time])
 
+        print(f"waypoint_observation: {np.round(waypoint_observation, 3)}")
+
         action, _ = model.predict(waypoint_observation)
         observation, reward, done, _ = env.step(action)
         # average_reward += reward
