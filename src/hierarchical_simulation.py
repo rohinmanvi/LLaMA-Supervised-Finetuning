@@ -28,7 +28,7 @@ for i in range(episodes):
     print("Reset")
     print(f"Observation: {np.round(observation, 3)}")
 
-    time = 0.0
+    steps = 0
 
     prev_acceleration = 0.0
     prev_steering_rate = 0.0
@@ -42,7 +42,7 @@ for i in range(episodes):
 
         print((x, y, theta))
 
-        if abs(time % 1.0) < 1e-3:
+        if steps % 10 == 0:
             prompt = get_waypoint_prompt(observation)
 
             generation_config = GenerationConfig(
@@ -85,7 +85,7 @@ for i in range(episodes):
 
         distance = np.sqrt(x_diff ** 2 + y_diff ** 2)
 
-        waypoint_time = time % 1.0
+        waypoint_time = (steps % 10) * 0.1
 
         waypoint_observation = np.array([velocity, steering, prev_acceleration, prev_steering_rate, angle, distance, waypoint_time])
 
@@ -97,7 +97,7 @@ for i in range(episodes):
 
         prev_acceleration, prev_steering_rate = action
 
-        time += 0.1
+        steps += 1
 
         print(f"Observation: {np.round(observation, 3)}")
 
