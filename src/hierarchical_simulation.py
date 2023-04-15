@@ -3,6 +3,8 @@ import math
 
 from stable_baselines3 import PPO
 
+from transformers import GenerationConfig
+
 from driver_env import DriverEnv
 from prompting import get_waypoint_prompt, extract_action
 from model_handler import ModelHandler
