@@ -53,6 +53,7 @@ def get_waypoint_prompt(observation):
 Action Format: (<distance> m, <angle>°)
 Best Action:"""
 
+
 def get_waypoint_completion(action):
     distance, angle = action
 

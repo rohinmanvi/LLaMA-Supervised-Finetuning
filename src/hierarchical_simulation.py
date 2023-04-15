@@ -43,6 +43,9 @@ for i in range(episodes):
             waypoint_x = x + delta_x
             waypoint_y = y + delta_y
 
+            print((x, y))
+            print((waypoint_x, waypoint_y))
+
         velocity, steering, _, _, _, _ = observation
 
         x_diff = waypoint_x - x
