@@ -42,7 +42,7 @@ for i in range(episodes):
 
         print((x, y, theta))
 
-        if time % 1.0 == 0.0:
+        if abs(time % 1.0) < 1e-3:
             prompt = get_waypoint_prompt(observation)
 
             generation_config = GenerationConfig(
