@@ -13,7 +13,7 @@ np.set_printoptions(suppress=True)
 
 env = DriverEnv()
 
-model = PPO.load("models/PPO_Waypoint/best_model")
+model = PPO.load("models/PPO_Waypoint3/best_model")
 
 model_handler = ModelHandler("decapoda-research/llama-7b-hf")
 
@@ -29,12 +29,6 @@ for i in range(episodes):
     print(f"Observation: {np.round(observation, 3)}")
 
     steps = 0
-
-    prev_acceleration = 0.0
-    prev_steering_rate = 0.0
-
-    # waypoint_x = 0.0
-    # waypoint_y = 0.0
 
     while not done:
 
@@ -89,15 +83,13 @@ for i in range(episodes):
 
         waypoint_time = (steps % 10) * 0.1
 
-        waypoint_observation = np.array([velocity, steering, prev_acceleration, prev_steering_rate, angle, distance, waypoint_time])
+        waypoint_observation = np.array([velocity, steering, angle, distance, waypoint_time])
 
         print(f"Waypoint Observation: {np.round(waypoint_observation, 3)}")
 
         action, _ = model.predict(waypoint_observation)
         observation, reward, done, _ = env.step(action)
         average_reward += reward
-
-        prev_acceleration, prev_steering_rate = action
 
         steps += 1
 
