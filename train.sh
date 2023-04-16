@@ -2,7 +2,7 @@
 #SBATCH -p gpu
 #SBATCH -G 1
 #SBATCH -C GPU_MEM:32GB
-#SBATCH --time=60:00:00
+#SBATCH --time=50:00:00
 
 ml python/3.9.0 cuda/12.0.0 gcc/12.1.0
 nvidia-smi
@@ -14,7 +14,7 @@ python3 src/train.py \
     --model_name_or_path decapoda-research/llama-7b-hf \
     --data_path data/waypoint_data.jsonl \
     --output_dir models/llama-waypoint-driver3 \
-    --num_train_epochs 20 \
+    --num_train_epochs 15 \
     --per_device_train_batch_size 1 \
     --gradient_accumulation_steps 8 \
     --learning_rate 1e-4 \
