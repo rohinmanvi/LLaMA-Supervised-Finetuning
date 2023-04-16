@@ -35,7 +35,7 @@ def make_env():
 env = DummyVecEnv([make_env])
 
 # model = PPO(config["policy_type"], env, verbose=1, tensorboard_log=f"runs/{run.id}")
-model = PPO.load("models/PPO_Waypoint2", env=env, tensorboard_log=f"runs/{run.id}")
+model = PPO.load("models/PPO_Waypoint2/best_model.zip", env=env, tensorboard_log=f"runs/{run.id}")
 
 eval_callback = EvalCallback(env, best_model_save_path=models_dir, eval_freq=10000, deterministic=True, render=False)
 
