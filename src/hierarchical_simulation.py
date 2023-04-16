@@ -15,7 +15,7 @@ env = DriverEnv()
 
 model = PPO.load("models/PPO_Waypoint/best_model")
 
-# model_handler = ModelHandler("decapoda-research/llama-7b-hf")
+model_handler = ModelHandler("decapoda-research/llama-7b-hf")
 
 average_reward = 0
 episodes = 1
