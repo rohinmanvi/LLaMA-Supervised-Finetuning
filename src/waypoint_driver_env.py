@@ -3,6 +3,9 @@ import gym
 from gym import spaces
 from collections import namedtuple
 import math
+import json
+import random
+import re
 
 Action = namedtuple('Action', ['acceleration', 'steering_rate'])
 
@@ -20,6 +23,13 @@ class DriverEnv(gym.Env):
 
     def __init__(self):
         super().__init__()
+
+        self.examples = []
+
+        with open('data/waypoint_data.jsonl', 'r') as f:
+            for line in f:
+                data = json.loads(line)
+                self.examples.append(data)
 
         self.max_steps = 10
 
@@ -42,9 +52,9 @@ class DriverEnv(gym.Env):
         )
 
         self.observation_space = spaces.Box(
-            low = np.array([0.0, -max_phi, min_a, -max_steering_rate, -max_angle, -max_d, 0.0]), 
-            high = np.array([max_v, max_phi, max_a, max_steering_rate, max_angle, max_d, max_time]), 
-            shape = (7,),
+            low = np.array([0.0, -max_phi, -max_angle, -max_d, 0.0]), 
+            high = np.array([max_v, max_phi, max_angle, max_d, max_time]), 
+            shape = (5,),
             dtype = np.float32
         )
 
@@ -145,29 +155,31 @@ class DriverEnv(gym.Env):
 
         distance = self._get_distance(ego_prime, agent_prime)
 
-        return [ego_prime.v, ego_prime.phi, a.acceleration, a.steering_rate, angle_to_agent, distance, ego_prime.t]
+        return [ego_prime.v, ego_prime.phi, angle_to_agent, distance, ego_prime.t]
 
     def _reset(self):
-        ego_theta = np.random.uniform(-0.2, 0.2)
-        ego_v = np.random.uniform(0.0, 15.6464)
-        ego_phi = np.random.uniform(-0.437, 0.437)
+        example = random.choice(self.examples)
+        prompt = example['prompt']
+        completion = example['completion']
 
-        agent_x = np.random.uniform(0.0, 15.6464)
+        reg = r"[-+]?\d*\.\d+|\d+"
 
-        # ego_theta = 0.0 + np.random.uniform(-1.0, 1.0)
-        # ego_v = 7.0
-        # ego_phi = 0.0
+        result = re.findall(reg, completion)
+        distance = float(result[0])
+        angle = np.deg2rad(float(result[-1]))
 
-        # agent_x = 7.0
+        agent_x = distance * np.cos(angle)
+        agent_y = distance * np.sin(angle)
 
-        ego = Vehicle(v=ego_v, theta=ego_theta, phi=ego_phi)
-        agent = Vehicle(x=agent_x)
+        result = re.findall(reg, prompt)
+        ego_v = float(result[0])
+        ego_phi = np.deg2rad(float(result[1]))
 
-        acceleration = np.random.uniform(-10.0, 6.0)
-        steering_rate = np.random.uniform(-0.874, 0.874)
+        ego = Vehicle(v=ego_v, phi=ego_phi)
+        agent = Vehicle(x=agent_x, y=agent_y)
 
         s = [ego, agent]
-        o = self._observation(Action(acceleration=acceleration, steering_rate=steering_rate), s)
+        o = self._observation(Action(acceleration=0.0, steering_rate=0.0), s)
 
         return s, o
 
