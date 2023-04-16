@@ -34,8 +34,6 @@ import json
 import typing
 import pathlib
 
-from model_handler import ModelHandler
-
 IGNORE_INDEX = -100
 DEFAULT_PAD_TOKEN = "[PAD]"
 DEFAULT_EOS_TOKEN = "</s>"
@@ -172,18 +170,13 @@ def train():
     (model_args, data_args, training_args,
      lora_args) = parser.parse_args_into_dataclasses()
 
-    model_handler = ModelHandler("decapoda-research/llama-7b-hf")
-    model_handler.reset_model()
-    model_handler.load_base_model()
-    model = model_handler.model
-
-    # model = transformers.LlamaForCausalLM.from_pretrained(
-    #     model_args.model_name_or_path,
-    #     cache_dir=training_args.cache_dir,
-    #     load_in_8bit=True, 
-    #     torch_dtype=torch.float16, 
-    #     device_map={'':0}
-    # )
+    model = transformers.LlamaForCausalLM.from_pretrained(
+        model_args.model_name_or_path,
+        cache_dir=training_args.cache_dir,
+        load_in_8bit=True, 
+        torch_dtype=torch.float16, 
+        device_map={'':0}
+    )
     lora_config = LoraConfig(
         r=lora_args.lora_r,
         lora_alpha=lora_args.lora_alpha,
