@@ -75,10 +75,6 @@ for i in range(episodes):
             waypoint_x = x + delta_x
             waypoint_y = y + delta_y
 
-            # waypoint_x += 10.0
-            # waypoint_y += 0.0
-
-            print((x, y))
             print((waypoint_x, waypoint_y))
 
         velocity, steering, _, _, _, _ = observation
