@@ -33,8 +33,8 @@ for i in range(episodes):
     prev_acceleration = 0.0
     prev_steering_rate = 0.0
 
-    waypoint_x = 0.0
-    waypoint_y = 0.0
+    # waypoint_x = 0.0
+    # waypoint_y = 0.0
 
     while not done:
 
@@ -46,37 +46,37 @@ for i in range(episodes):
         print((x, y, theta))
 
         if steps % 10 == 0:
-            # prompt = get_waypoint_prompt(observation)
+            prompt = get_waypoint_prompt(observation)
 
-            # generation_config = GenerationConfig(
-            #     max_new_tokens=32,
-            #     do_sample=False
-            # )
+            generation_config = GenerationConfig(
+                max_new_tokens=32,
+                do_sample=False
+            )
 
-            # response = model_handler.generate_text(
-            #     peft_model='models/llama-waypoint-driver2',
-            #     text=prompt,
-            #     generation_config=generation_config
-            # )
+            response = model_handler.generate_text(
+                peft_model='models/llama-waypoint-driver2',
+                text=prompt,
+                generation_config=generation_config
+            )
 
-            # response = response[len(prompt):]
+            response = response[len(prompt):]
 
-            # print("============================================================================")
-            # print(prompt + response)
-            # print("============================================================================")
+            print("============================================================================")
+            print(prompt + response)
+            print("============================================================================")
 
-            # distance, angle = extract_action(response)
+            distance, angle = extract_action(response)
 
-            # true_angle = angle + theta
+            true_angle = angle + theta
 
-            # delta_x = distance * np.cos(true_angle)
-            # delta_y = distance * np.sin(true_angle)
+            delta_x = distance * np.cos(true_angle)
+            delta_y = distance * np.sin(true_angle)
 
-            # waypoint_x = x + delta_x
-            # waypoint_y = y + delta_y
+            waypoint_x = x + delta_x
+            waypoint_y = y + delta_y
 
-            waypoint_x += 10.0
-            waypoint_y += 0.0
+            # waypoint_x += 10.0
+            # waypoint_y += 0.0
 
             print((x, y))
             print((waypoint_x, waypoint_y))
