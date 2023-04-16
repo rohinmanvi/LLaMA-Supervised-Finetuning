@@ -9,7 +9,7 @@ np.set_printoptions(suppress=True)
 
 env = DriverEnv()
 
-# model = PPO.load("models/PPO_Waypoint/best_model")
+model = PPO.load("models/PPO_Waypoint2/best_model")
 
 average_reward = 0
 episodes = 5
@@ -23,8 +23,8 @@ for i in range(episodes):
     print(f"Observation: {np.round(observation, 3)}")
 
     while not done:
-        # action, _ = model.predict(observation)
-        action = np.array([6.0, 0.0])
+        action, _ = model.predict(observation)
+        # action = np.array([6.0, 0.0])
 
         observation, reward, done, _ = env.step(action)
         average_reward += reward
