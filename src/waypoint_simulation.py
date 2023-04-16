@@ -26,6 +26,8 @@ for i in range(episodes):
         action, _ = model.predict(observation)
         # action = np.array([6.0, 0.0])
 
+        print(f"Action: {np.round(action, 3)}")
+
         observation, reward, done, _ = env.step(action)
         average_reward += reward
 
