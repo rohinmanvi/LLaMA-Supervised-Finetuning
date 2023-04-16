@@ -17,7 +17,7 @@ python3 src/train.py \
     --num_train_epochs 20 \
     --per_device_train_batch_size 1 \
     --gradient_accumulation_steps 8 \
-    --learning_rate 2e-5 \
+    --learning_rate 3e-4 \
     --lr_scheduler_type "cosine" \
     --logging_steps 10 \
     --fp16 True \
