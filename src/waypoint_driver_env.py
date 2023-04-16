@@ -141,7 +141,15 @@ class DriverEnv(gym.Env):
         r_delta_distance = ((distance - distance_prime) / delta_t) / 15.6464
         r_delta_distance *= 1 if r_delta_distance > 0 else 2
 
-        return r_delta_distance
+        r_a_smooth = -abs(a.acceleration) / 6
+        r_a_smooth *= 0.2
+
+        r_s_smooth = -abs(a.steering_rate) / 0.874
+        r_s_smooth *= 0.1
+
+        print((r_delta_distance, r_a_smooth, r_s_smooth))
+
+        return r_delta_distance + r_a_smooth + r_s_smooth
 
     def _observation(self, a, sp):
         ego_prime = sp[0]
