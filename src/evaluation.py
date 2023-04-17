@@ -13,7 +13,7 @@ with open('data/waypoint_data.jsonl', 'r') as f:
         data = json.loads(line)
         examples.append(data)
 
-model_handler = ModelHandler()
+model_handler = ModelHandler("decapoda-research/llama-7b-hf")
 
 generation_config = GenerationConfig(
     max_new_tokens=32,
