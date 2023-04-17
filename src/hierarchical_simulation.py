@@ -25,7 +25,6 @@ def run_episodes(env, model, model_handler, generation_config, episodes):
         observation = env.reset()
         done = False
         print("Reset")
-        print(f"Observation: {np.round(observation, 3)}")
 
         steps = 0
         waypoint_x = 0
