@@ -17,6 +17,11 @@ model = PPO.load("models/PPO_Waypoint3/best_model")
 
 model_handler = ModelHandler("decapoda-research/llama-7b-hf")
 
+generation_config = GenerationConfig(
+    max_new_tokens=32,
+    do_sample=False
+)
+
 average_reward = 0
 episodes = 1
 
@@ -30,6 +35,9 @@ for i in range(episodes):
 
     steps = 0
 
+    waypoint_x = 0
+    waypoint_y = 0
+
     while not done:
 
         ego_state = env.state[0]
@@ -37,15 +45,15 @@ for i in range(episodes):
         y = ego_state.y
         theta = ego_state.theta
 
-        print((x, y, theta))
-
         if steps % 10 == 0:
-            prompt = get_waypoint_prompt(observation)
+            x_diff = waypoint_x - x
+            y_diff = waypoint_y - y
 
-            generation_config = GenerationConfig(
-                max_new_tokens=32,
-                do_sample=False
-            )
+            distance_to_previous_waypoint = np.sqrt(x_diff ** 2 + y_diff ** 2)
+
+            print(f"Distance to previous waypoint: {distance_to_previous_waypoint}")
+
+            prompt = get_waypoint_prompt(observation)
 
             response = model_handler.generate_text(
                 peft_model='models/llama-waypoint-driver2',
@@ -69,8 +77,6 @@ for i in range(episodes):
             waypoint_x = x + delta_x
             waypoint_y = y + delta_y
 
-            print((waypoint_x, waypoint_y))
-
         velocity, steering, _, _, _, _ = observation
 
         x_diff = waypoint_x - x
@@ -85,7 +91,7 @@ for i in range(episodes):
 
         waypoint_observation = np.array([velocity, steering, angle, distance, waypoint_time])
 
-        print(f"Waypoint Observation: {np.round(waypoint_observation, 3)}")
+        print(f"Observation: {np.round(waypoint_observation, 3)}")
 
         action, _ = model.predict(waypoint_observation)
         observation, reward, done, _ = env.step(action)
@@ -93,7 +99,7 @@ for i in range(episodes):
 
         steps += 1
 
-        print(f"Observation: {np.round(observation, 3)}")
+        print(f"Action: {np.round(action, 3)}")
 
 average_reward /= episodes
 print(f"average reward: {average_reward}")
