@@ -1,7 +1,7 @@
 #!/bin/bash
 #SBATCH -p gpu
 #SBATCH -G 1
-#SBATCH -C GPU_SKU:V100S_PCIE
+#SBATCH -C GPU_SKU:V100_PCIE
 #SBATCH --time=48:00:00
 
 ml python/3.9.0 cuda/12.0.0 gcc/12.1.0
