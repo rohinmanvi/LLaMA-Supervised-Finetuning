@@ -53,7 +53,7 @@ def update_waypoints(env, steps, waypoint_x, waypoint_y, model_handler, generati
 
         prompt = get_waypoint_prompt(observation)
         response = model_handler.generate_text(
-            peft_model='models/llama-waypoint-driver2',
+            peft_model='models/llama-waypoint-driver3',
             text=prompt,
             generation_config=generation_config
         )
