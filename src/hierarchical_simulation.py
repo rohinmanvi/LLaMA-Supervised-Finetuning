@@ -14,7 +14,7 @@ def main():
     model_handler = ModelHandler("decapoda-research/llama-7b-hf")
     generation_config = GenerationConfig(max_new_tokens=32, do_sample=False)
 
-    episodes = 1
+    episodes = 3
     average_reward = run_episodes(env, model, model_handler, generation_config, episodes)
     print(f"Average reward: {average_reward}")
 
@@ -24,7 +24,7 @@ def run_episodes(env, model, model_handler, generation_config, episodes):
     for i in range(episodes):
         observation = env.reset()
         done = False
-        print("Reset")
+        print("\n\nReset")
 
         steps = 0
         waypoint_x = 0
@@ -36,10 +36,11 @@ def run_episodes(env, model, model_handler, generation_config, episodes):
             print(f"Observation: {np.round(waypoint_observation, 3)}")
 
             action, _ = model.predict(waypoint_observation)
+            print(f"Action: {np.round(action, 3)}")
+
             observation, reward, done, _ = env.step(action)
             total_reward += reward
             steps += 1
-            print(f"Action: {np.round(action, 3)}")
 
     return total_reward / episodes
 
