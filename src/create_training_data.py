@@ -14,7 +14,7 @@ env = DriverEnv()
 
 model = PPO.load("models/PPO/best_model")
 
-episodes = 1000
+episodes = 10000
 
 data = []
 
@@ -70,7 +70,7 @@ for i in range(episodes):
 
 random.shuffle(data)
 
-with open("data/waypoint_data.jsonl", "w") as f:
+with open("data/waypoint_data_large.jsonl", "w") as f:
     for datum in data:
         json.dump(datum, f)
         f.write("\n")
