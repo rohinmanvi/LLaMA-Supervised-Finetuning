@@ -48,7 +48,7 @@ for example in examples:
     print(f"\nAnswer:\n{sequence}")
     print("============================================================================")
 
-    for i in range(1, 9, 3):
+    for i in range(1, 10, 3):
         prompt = find_nth_occurrence_and_get_substring_before(sequence, "Action:", i)
 
         response = model_handler.generate_text(
