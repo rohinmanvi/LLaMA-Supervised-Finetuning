@@ -23,7 +23,7 @@ with open('data/waypoint_sequence_data.jsonl', 'r') as f:
 model_handler = ModelHandler("decapoda-research/llama-7b-hf")
 
 generation_config = GenerationConfig(
-    max_new_tokens=96,
+    max_new_tokens=100,
     do_sample=False,
     repetition_penalty=1.5,
 )
