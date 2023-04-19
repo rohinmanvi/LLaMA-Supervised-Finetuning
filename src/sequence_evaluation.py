@@ -23,7 +23,7 @@ with open('data/waypoint_sequence_data.jsonl', 'r') as f:
 model_handler = ModelHandler("decapoda-research/llama-7b-hf")
 
 generation_config = GenerationConfig(
-    max_new_tokens=200,
+    max_new_tokens=100,
     do_sample=False
 )
 
@@ -42,19 +42,20 @@ def find_nth_occurrence_and_get_substring_before(main_string, substring, n):
 
 for example in examples:
 
-    sequence = example['text']
+    for i in range(1, 6):
+        sequence = example['text']
 
-    prompt = find_nth_occurrence_and_get_substring_before(sequence, "Action:", 5)
+        prompt = find_nth_occurrence_and_get_substring_before(sequence, "Action:", i)
 
-    response = model_handler.generate_text(
-        peft_model='models/finetune-llama-waypoint-driver',
-        text=prompt,
-        generation_config=generation_config
-    )
+        response = model_handler.generate_text(
+            peft_model='models/finetune-llama-waypoint-driver',
+            text=prompt,
+            generation_config=generation_config
+        )
 
-    response = response[len(prompt):]
+        response = response[len(prompt):]
 
-    print("============================================================================")
-    print(prompt + "\n" +response)
-    print(f"\n\n\nAnswer:\n{sequence}")
-    print("============================================================================")
+        print("============================================================================")
+        print(prompt + "|" +response)
+        print(f"\n\n\nAnswer:\n{sequence}")
+        print("============================================================================")
