@@ -42,9 +42,13 @@ def find_nth_occurrence_and_get_substring_before(main_string, substring, n):
 
 for example in examples:
 
-    for i in range(1, 6):
-        sequence = example['text']
+    sequence = example['text']
 
+    print("============================================================================")
+    print(f"\nAnswer:\n{sequence}")
+    print("============================================================================")
+
+    for i in range(1, 9, 3):
         prompt = find_nth_occurrence_and_get_substring_before(sequence, "Action:", i)
 
         response = model_handler.generate_text(
@@ -56,6 +60,5 @@ for example in examples:
         response = response[len(prompt):]
 
         print("============================================================================")
-        print(prompt + "|" +response)
-        print(f"\nAnswer:\n{sequence}")
+        print(prompt + "|" + response)
         print("============================================================================")
