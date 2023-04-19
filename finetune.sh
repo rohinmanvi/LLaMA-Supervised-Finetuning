@@ -17,7 +17,7 @@ python3 src/finetune.py \
     --num_train_epochs 2 \
     --per_device_train_batch_size 1 \
     --gradient_accumulation_steps 8 \
-    --learning_rate 1e-3 \
+    --learning_rate 3e-4 \
     --lr_scheduler_type "cosine" \
     --logging_steps 10 \
     --fp16 True \
