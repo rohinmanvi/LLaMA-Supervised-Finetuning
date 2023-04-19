@@ -57,5 +57,5 @@ for example in examples:
 
         print("============================================================================")
         print(prompt + "|" +response)
-        print(f"\n\n\nAnswer:\n{sequence}")
+        print(f"\nAnswer:\n{sequence}")
         print("============================================================================")
