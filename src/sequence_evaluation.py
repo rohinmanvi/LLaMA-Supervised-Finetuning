@@ -10,7 +10,7 @@ examples = []
 
 limit = 3
 
-with open('data/waypoint_sequence_data.jsonl', 'r') as f:
+with open('data/waypoint_sequence_data_large.jsonl', 'r') as f:
     for line in f:
         data = json.loads(line)
         examples.append(data['text'])
