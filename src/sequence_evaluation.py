@@ -24,8 +24,9 @@ model_handler = ModelHandler("decapoda-research/llama-7b-hf")
 
 generation_config = GenerationConfig(
     max_new_tokens=100,
-    do_sample=False,
-    repetition_penalty=1.5,
+    do_sample=True,
+    temperature=0.1,
+    num_beams=5,
 )
 
 def find_nth_occurrence_and_get_substring_before(main_string, substring, n):
