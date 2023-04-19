@@ -6,7 +6,7 @@ import json
 from stable_baselines3 import PPO
 
 from driver_env import DriverEnv
-from prompting import get_waypoint_sequence
+from prompting import get_waypoint_sequence_prompt, get_waypoint_completion
 
 np.set_printoptions(suppress=True)
 
@@ -56,7 +56,7 @@ for i in range(episodes):
 
             action = (distance, angle)
 
-            sequence += get_waypoint_sequence(observation_for_prompt, action) + "\n"
+            sequence += get_waypoint_sequence_prompt(observation_for_prompt) + get_waypoint_completion(action) + "\n"
 
             observation_for_prompt = observation.copy()
 
