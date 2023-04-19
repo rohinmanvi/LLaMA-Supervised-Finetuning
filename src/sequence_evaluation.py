@@ -38,7 +38,7 @@ def find_nth_occurrence_and_get_substring_before(main_string, substring, n):
         count += 1
         index += len(substring)
 
-    return main_string[:index]
+    return main_string[:index + 1]
 
 for example in examples:
 
