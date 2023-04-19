@@ -10,7 +10,7 @@ examples = []
 
 limit = 1
 
-with open('data/waypoint_data.jsonl', 'r') as f:
+with open('data/waypoint_sequence_data.jsonl', 'r') as f:
     for line in f:
         data = json.loads(line)
         examples.append(data)
@@ -23,17 +23,18 @@ with open('data/waypoint_data.jsonl', 'r') as f:
 model_handler = ModelHandler("decapoda-research/llama-7b-hf")
 
 generation_config = GenerationConfig(
-    max_new_tokens=32,
+    max_new_tokens=200,
     do_sample=False
 )
 
 for example in examples:
 
-    prompt = example['prompt']
-    completion = example['completion']
+    sequence = example['text']
+
+    prompt = sequence[:1000]
 
     response = model_handler.generate_text(
-        peft_model='models/llama-waypoint-driver5',
+        peft_model='models/finetune-llama-waypoint-driver',
         text=prompt,
         generation_config=generation_config
     )
@@ -42,5 +43,5 @@ for example in examples:
 
     print("============================================================================")
     print(prompt + response)
-    print(f"Answer: {completion}")
+    print(f"\n\n\nAnswer:\n{sequence}")
     print("============================================================================")
