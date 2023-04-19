@@ -13,7 +13,7 @@ limit = 1
 with open('data/waypoint_sequence_data.jsonl', 'r') as f:
     for line in f:
         data = json.loads(line)
-        examples.append(data)
+        examples.append(data['text'])
 
         limit -= 1
 
@@ -42,7 +42,7 @@ def find_nth_occurrence_and_get_substring_before(main_string, substring, n):
 
 for example in examples:
 
-    sequence = example['text']
+    sequence = example
 
     print("============================================================================")
     print(f"\nAnswer:\n{sequence}")
