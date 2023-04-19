@@ -63,11 +63,12 @@ def update_waypoints(env, steps, waypoint_x, waypoint_y, model_handler, generati
         )
 
         response = response[len(prompt_so_far):response.rfind(")") + 1]
-        prompt_so_far += response + "\n"
 
         print("============================================================================")
-        print(prompt_so_far)
+        print(prompt_so_far + "|" + response)
         print("============================================================================")
+
+        prompt_so_far += response + "\n"
 
         distance, angle = extract_action(response)
         true_angle = angle + theta
