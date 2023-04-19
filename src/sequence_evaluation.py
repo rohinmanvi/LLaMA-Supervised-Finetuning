@@ -8,7 +8,7 @@ from model_handler import ModelHandler
 
 examples = []
 
-limit = 1
+limit = 3
 
 with open('data/waypoint_sequence_data.jsonl', 'r') as f:
     for line in f:
