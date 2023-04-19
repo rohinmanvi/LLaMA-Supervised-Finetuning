@@ -55,6 +55,6 @@ for example in examples:
     response = response[len(prompt):]
 
     print("============================================================================")
-    print(prompt + response)
+    print(prompt + "\n" +response)
     print(f"\n\n\nAnswer:\n{sequence}")
     print("============================================================================")
