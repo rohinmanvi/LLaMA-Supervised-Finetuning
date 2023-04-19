@@ -101,7 +101,7 @@ def train():
             text.append(data)
 
     data = datasets.Dataset.from_list(text)
-    data = data.shuffle().map(lambda x: tokenizer(x['text'], padding='max_length', max_length=model_args.model_max_length, truncation=True))
+    data = data.shuffle().map(lambda x: tokenizer(x['text'], padding='max_length', max_length=training_args.model_max_length, truncation=True))
 
     trainer = transformers.Trainer(
         model=model,
