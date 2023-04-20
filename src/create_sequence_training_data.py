@@ -78,7 +78,7 @@ for i in range(episodes):
 
             completion = get_waypoint_completion(action)
 
-            individual_data.append({"prompt": prompt, "completion": ""})
+            individual_data.append({"prompt": prompt})
 
             sequence += prompt
 
@@ -106,7 +106,7 @@ with open("data/new_waypoint_sequence_data.jsonl", "w") as f:
 
 with open("data/new_waypoint_data.jsonl", "w") as f:
     for datum in individual_data:
-        if datum["completion"] == "":
+        if "completion" not in datum:
             continue
         json.dump(datum, f)
         f.write("\n")
