@@ -72,7 +72,7 @@ for i in range(episodes):
             x_prime = ego_state.x
             y_prime = ego_state.y
 
-            if step > 1:
+            if step > 10:
                 action = get_action(env, x_prime, y_prime, prev_x, prev_y, prev_theta)
 
                 individual_data[-1]["completion"] += get_waypoint_completion(action)
