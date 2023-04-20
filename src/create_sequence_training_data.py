@@ -43,7 +43,8 @@ for i in range(episodes):
 
     prompt = get_waypoint_sequence_prompt(observation)
 
-    completion = ""
+    print(env.state[1])
+    print(prompt)
 
     x = 0
     y = 0
@@ -75,17 +76,18 @@ for i in range(episodes):
 
                 print(individual_data[-1]["completion"])
                 
-                sequence += get_waypoint_completion(action) + "\n"
+                sequence += individual_data[-1]["completion"] + "\n"
 
             action = get_action(env, x_prime, y_prime, x, y, theta)
 
-            completion = get_waypoint_completion(action)
+            individual_data.append({"prompt": prompt, "completion": get_waypoint_completion(action)})
 
-            individual_data.append({"prompt": prompt, "completion": completion})
-
-            sequence += prompt + completion
+            sequence += prompt
 
             prompt = get_waypoint_sequence_prompt(observation)
+
+            print(env.state[1])
+            print(prompt)
 
             prev_x = x
             prev_y = y
