@@ -43,7 +43,7 @@ for i in range(episodes):
 
     prompt = get_waypoint_sequence_prompt(observation)
 
-    print(env.state[1])
+    print((env.state[1].x, env.state[1].y))
     print(prompt)
 
     x = 0
@@ -86,7 +86,7 @@ for i in range(episodes):
 
             prompt = get_waypoint_sequence_prompt(observation)
 
-            print(env.state[1])
+            print((env.state[1].x, env.state[1].y))
             print(prompt)
 
             prev_x = x
