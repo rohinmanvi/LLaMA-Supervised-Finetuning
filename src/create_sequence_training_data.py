@@ -53,9 +53,7 @@ for i in range(episodes):
     prev_theta = 0
 
     while not done:
-        print(f"Observation: {np.round(observation, 3)}")
         action, _ = model.predict(observation)
-        print(f"Action: {np.round(action, 3)}")
         observation, reward, done, _ = env.step(action)
 
         step += 1
@@ -68,13 +66,7 @@ for i in range(episodes):
             if step > 10:
                 action = get_action(env, x_prime, y_prime, prev_x, prev_y, prev_theta)
 
-                print((prev_x, prev_y, prev_theta))
-                print((x, y, theta))
-                print((x_prime, y_prime))
-
                 individual_data[-1]["completion"] += get_waypoint_completion(action)
-
-                print(individual_data[-1]["completion"])
                 
                 sequence += individual_data[-1]["completion"] + "\n"
 
