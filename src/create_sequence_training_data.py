@@ -43,9 +43,10 @@ for i in range(episodes):
 
     prompt = get_waypoint_sequence_prompt(observation)
 
-    x = 0
-    y = 0
-    theta = 0
+    ego_state = env.state[0]
+    x = ego_state.x
+    y = ego_state.y
+    theta = ego_state.theta
 
     prev_x = 0
     prev_y = 0
