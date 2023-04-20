@@ -43,9 +43,6 @@ for i in range(episodes):
 
     prompt = get_waypoint_sequence_prompt(observation)
 
-    print((env.state[1].x, env.state[1].y))
-    print(prompt)
-
     x = 0
     y = 0
     theta = 0
@@ -55,7 +52,9 @@ for i in range(episodes):
     prev_theta = 0
 
     while not done:
+        print(f"Observation: {np.round(observation, 3)}")
         action, _ = model.predict(observation)
+        print(f"Action: {np.round(action, 3)}")
         observation, reward, done, _ = env.step(action)
 
         step += 1
@@ -85,9 +84,6 @@ for i in range(episodes):
             sequence += prompt
 
             prompt = get_waypoint_sequence_prompt(observation)
-
-            print((env.state[1].x, env.state[1].y))
-            print(prompt)
 
             prev_x = x
             prev_y = y
