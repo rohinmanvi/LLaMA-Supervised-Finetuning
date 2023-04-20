@@ -56,6 +56,15 @@ def update_waypoints(env, steps, waypoint_x, waypoint_y, model_handler, generati
 
         prompt_so_far += get_waypoint_sequence_prompt(observation)
 
+        if x == 0 and y == 0:
+            def swap_left_right(s):
+                temp_string = s.replace("left", "TEMP_PLACEHOLDER")
+                temp_string = temp_string.replace("right", "left")
+                final_string = temp_string.replace("TEMP_PLACEHOLDER", "right")
+                return final_string
+            
+            prompt_so_far = swap_left_right(prompt_so_far)
+
         response = model_handler.generate_text(
             peft_model='models/finetune-llama-waypoint-driver',
             text=prompt_so_far,
