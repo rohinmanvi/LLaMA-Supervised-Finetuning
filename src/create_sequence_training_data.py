@@ -43,6 +43,8 @@ for i in range(episodes):
 
     prompt = get_waypoint_sequence_prompt(observation)
 
+    completion = ""
+
     ego_state = env.state[0]
     x = ego_state.x
     y = ego_state.y
@@ -66,13 +68,17 @@ for i in range(episodes):
             if step > 10:
                 action = get_action(env, x_prime, y_prime, prev_x, prev_y, prev_theta)
 
-                individual_data[-1]["completion"] += get_waypoint_completion(action)
+                completion += get_waypoint_completion(action)
+
+                individual_data[-1]["completion"] = completion
                 
-                sequence += individual_data[-1]["completion"] + "\n"
+                sequence += completion + "\n"
 
             action = get_action(env, x_prime, y_prime, x, y, theta)
 
-            individual_data.append({"prompt": prompt, "completion": get_waypoint_completion(action)})
+            completion = get_waypoint_completion(action)
+
+            individual_data.append({"prompt": prompt, "completion": ""})
 
             sequence += prompt
 
@@ -100,5 +106,7 @@ with open("data/new_waypoint_sequence_data.jsonl", "w") as f:
 
 with open("data/new_waypoint_data.jsonl", "w") as f:
     for datum in individual_data:
+        if datum["completion"] == "":
+            continue
         json.dump(datum, f)
         f.write("\n")
