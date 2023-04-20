@@ -33,7 +33,7 @@ for example in examples:
     completion = example['completion']
 
     response = model_handler.generate_text(
-        peft_model='models/llama-waypoint-driver5',
+        peft_model='models/llama-waypoint-driver3',
         text=prompt,
         generation_config=generation_config
     )
