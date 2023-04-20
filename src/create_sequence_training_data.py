@@ -14,12 +14,6 @@ env = DriverEnv()
 
 model = PPO.load("models/PPO/best_model")
 
-def swap_left_right(s):
-    temp_string = s.replace("left", "TEMP_PLACEHOLDER")
-    temp_string = temp_string.replace("right", "left")
-    final_string = temp_string.replace("TEMP_PLACEHOLDER", "right")
-    return final_string
-
 def get_action(env, x_prime, y_prime, x, y, theta):
     x_diff = x_prime - x
     y_diff = y_prime - y
@@ -31,7 +25,7 @@ def get_action(env, x_prime, y_prime, x, y, theta):
 
     return distance, angle
 
-episodes = 100
+episodes = 10
 
 data = []
 individual_data = []
@@ -48,8 +42,6 @@ for i in range(episodes):
     step = 0
 
     prompt = get_waypoint_sequence_prompt(observation)
-    # hacky fix
-    prompt = swap_left_right(prompt)
 
     completion = ""
 
@@ -75,7 +67,13 @@ for i in range(episodes):
             if step > 10:
                 action = get_action(env, x_prime, y_prime, prev_x, prev_y, prev_theta)
 
+                print((prev_x, prev_y, prev_theta))
+                print((x, y, theta))
+                print((x_prime, y_prime))
+
                 individual_data[-1]["completion"] += get_waypoint_completion(action)
+
+                print(individual_data[-1]["completion"])
                 
                 sequence += get_waypoint_completion(action) + "\n"
 
