@@ -14,7 +14,7 @@ def main():
     model_handler = ModelHandler("decapoda-research/llama-7b-hf")
     generation_config = GenerationConfig(max_new_tokens=40, do_sample=False)
 
-    episodes = 3
+    episodes = 1
     average_reward = run_episodes(env, model, model_handler, generation_config, episodes)
     print(f"Average reward: {average_reward}")
 
