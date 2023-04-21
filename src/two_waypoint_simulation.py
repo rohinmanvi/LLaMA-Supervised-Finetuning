@@ -9,7 +9,7 @@ np.set_printoptions(suppress=True)
 
 env = DriverEnv()
 
-model = PPO.load("models/PPO_Two_Waypoint/best_model")
+model = PPO.load("models/PPO_Two_Waypoint_2/best_model")
 
 average_reward = 0
 episodes = 5
