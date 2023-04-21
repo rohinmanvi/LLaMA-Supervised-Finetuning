@@ -156,7 +156,7 @@ class DriverEnv(gym.Env):
 
         print((r_delta_distance, r_a_smooth, r_s_smooth, r_distance))
 
-        return r_delta_distance + r_a_smooth + r_s_smooth + r_distance
+        return r_delta_distance + r_a_smooth + r_s_smooth
 
     def _observation(self, a, sp):
         ego_prime = sp[0]
