@@ -132,7 +132,7 @@ class DriverEnv(gym.Env):
         agent_prime = sp[1]
         new_agent_prime = sp[2]
 
-        if ego.t > 1.0:
+        if ego_prime.t > 1.0:
             agent_prime = new_agent_prime
 
         delta_t = 0.1
