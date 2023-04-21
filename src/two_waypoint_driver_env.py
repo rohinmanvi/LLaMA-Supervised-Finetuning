@@ -150,7 +150,7 @@ class DriverEnv(gym.Env):
         r_s_smooth *= 0.1
 
         r_distance = 0.0
-        if ego_prime.t == 1.0 or ego_prime.t == 2.0:
+        if round(ego_prime.t, 2) == 1.0 or round(ego_prime.t, 2) == 2.0:
             print("waypoint reached")
             r_distance = -distance_prime
 
