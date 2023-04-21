@@ -151,8 +151,9 @@ class DriverEnv(gym.Env):
 
         r_distance = 0.0
         if round(ego_prime.t, 2) == 1.0 or round(ego_prime.t, 2) == 2.0:
-            print("waypoint reached")
+            # print("waypoint reached")
             r_distance = -distance_prime
+            r_distance *= 5
 
         # print((r_delta_distance, r_a_smooth, r_s_smooth, r_distance))
 
