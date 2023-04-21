@@ -56,3 +56,8 @@ def get_waypoint_sequence_prompt(observation):
 
     return f"""Observation: "Our vehicle is going {speed_string(ego_velocity)} with a steering angle of {angle_string(steering)}. The other vehicle is {distance_string(distance)} away and is {angle_string(angle)}. It is going {speed_string(agent_velocity)} with a direction of {angle_string(direction)}."
 Action:"""
+
+def extract_two_action(completion):
+    result = re.findall(r"[-+]?\d*\.\d+|\d+", completion)
+
+    return float(result[0]), np.deg2rad(float(result[1])), float(result[2]), np.deg2rad(float(result[3]))
