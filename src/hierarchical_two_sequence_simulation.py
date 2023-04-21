@@ -35,7 +35,7 @@ def run_episodes(env, model, model_handler, generation_config, episodes):
         new_waypoint_y = 0
 
         while not done:
-            waypoint_x, waypoint_y, new_waypoint_x, new_waypoint_y, prompt_so_far = update_waypoints(env, steps, waypoint_x, waypoint_y, model_handler, generation_config, observation, prompt_so_far)
+            waypoint_x, waypoint_y, new_waypoint_x, new_waypoint_y, prompt_so_far = update_waypoints(env, steps, waypoint_x, waypoint_y, new_waypoint_x, new_waypoint_y, model_handler, generation_config, observation, prompt_so_far)
             waypoint_observation = create_waypoint_observation(env, observation, waypoint_x, waypoint_y, new_waypoint_x, new_waypoint_y, steps)
             print(f"Observation: {np.round(waypoint_observation, 3)}")
 
@@ -48,7 +48,7 @@ def run_episodes(env, model, model_handler, generation_config, episodes):
 
     return total_reward / episodes
 
-def update_waypoints(env, steps, waypoint_x, waypoint_y, model_handler, generation_config, observation, prompt_so_far):
+def update_waypoints(env, steps, waypoint_x, waypoint_y, new_waypoint_x, new_waypoint_y, model_handler, generation_config, observation, prompt_so_far):
     if steps % 10 == 0:
         ego_state = env.state[0]
         x, y, theta = ego_state.x, ego_state.y, ego_state.theta
