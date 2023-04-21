@@ -24,7 +24,7 @@ run = wandb.init(
 )
 
 # models_dir = "models/PPO_Waypoint3"
-models_dir = "models/PPO_Two_Waypoint"
+models_dir = "models/PPO_Two_Waypoint_2"
 
 if not os.path.exists(models_dir):
     os.makedirs(models_dir)
@@ -36,8 +36,8 @@ def make_env():
 
 env = DummyVecEnv([make_env])
 
-model = PPO(config["policy_type"], env, verbose=1, tensorboard_log=f"runs/{run.id}")
-# model = PPO.load("models/PPO_Waypoint2/best_model.zip", env=env, tensorboard_log=f"runs/{run.id}")
+# model = PPO(config["policy_type"], env, verbose=1, tensorboard_log=f"runs/{run.id}")
+model = PPO.load("models/PPO_Two_Waypoint/best_model.zip", env=env, tensorboard_log=f"runs/{run.id}")
 
 eval_callback = EvalCallback(env, best_model_save_path=models_dir, eval_freq=10000, deterministic=True, render=False)
 
