@@ -10,7 +10,7 @@ np.set_printoptions(suppress=True)
 
 def main():
     env = DriverEnv()
-    model = PPO.load("models/PPO_Two_Waypoint_3/best_model")
+    model = PPO.load("models/Two_Waypoint_PPO/best_model")
     model_handler = ModelHandler("decapoda-research/llama-7b-hf")
     generation_config = GenerationConfig(max_new_tokens=40, do_sample=False)
 
