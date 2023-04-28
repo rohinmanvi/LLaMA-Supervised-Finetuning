@@ -28,7 +28,7 @@ run = wandb.init(
 
 # models_dir = "models/PPO_Waypoint3"
 # models_dir = "models/Two_Waypoint_PPO"
-models_dir = "models/PPO_Speed"
+models_dir = "models/PPO_Robust"
 
 if not os.path.exists(models_dir):
     os.makedirs(models_dir)
