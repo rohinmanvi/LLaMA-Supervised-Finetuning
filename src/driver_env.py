@@ -165,8 +165,8 @@ class DriverEnv(gym.Env):
         self.episode_r_distance += r_distance
         self.episode_r_angle += r_angle
 
-        # return r_delta_distance + r_delta_angle_to_agent
-        return r_distance + r_angle
+        return r_delta_distance + r_delta_angle_to_agent
+        # return r_distance + r_angle
 
     def _observation(self, a, sp):
         ego_prime = sp[0]
