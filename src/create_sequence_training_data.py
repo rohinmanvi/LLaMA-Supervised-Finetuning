@@ -12,7 +12,7 @@ np.set_printoptions(suppress=True)
 
 env = DriverEnv()
 
-model = PPO.load("models/PPO/best_model")
+model = PPO.load("models/PPO_Robust_Final/best_model")
 
 def get_action(env, x_prime, y_prime, x, y, theta):
     x_diff = x_prime - x
@@ -99,12 +99,12 @@ for i in range(episodes):
 random.shuffle(data)
 random.shuffle(individual_data)
 
-with open("data/new_waypoint_sequence_short_data.jsonl", "w") as f:
+with open("data/test.jsonl", "w") as f:
     for datum in data:
         json.dump(datum, f)
         f.write("\n")
 
-with open("data/new_waypoint_short_data.jsonl", "w") as f:
+with open("data/test_individual.jsonl", "w") as f:
     for datum in individual_data:
         if "completion" not in datum:
             continue
