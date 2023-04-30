@@ -12,7 +12,7 @@ np.set_printoptions(suppress=True)
 
 env = DriverEnv()
 
-model = PPO.load("models/PPO_Robust_Final_2/best_model")
+model = PPO.load("models/PPO/best_model")
 
 def get_action(env, x_prime, y_prime, x, y, theta):
     x_diff = x_prime - x
