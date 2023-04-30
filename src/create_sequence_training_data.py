@@ -25,7 +25,7 @@ def get_action(env, x_prime, y_prime, x, y, theta):
 
     return distance, angle
 
-episodes = 10000
+episodes = 10
 
 data = []
 individual_data = []
