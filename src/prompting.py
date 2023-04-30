@@ -57,6 +57,24 @@ def get_waypoint_sequence_prompt(observation):
     return f"""Observation: "Our vehicle is going {speed_string(ego_velocity)} with a steering angle of {angle_string(steering)}. The other vehicle is {distance_string(distance)} away and is {angle_string(angle)}. It is going {speed_string(agent_velocity)} with a direction of {angle_string(direction)}."
 Action:"""
 
+def get_waypoint_sequence_short_prompt(observation):
+    ego_velocity, steering, angle, distance, direction, agent_velocity = observation
+
+    return f"""Observation: "Our vehicle is going {speed_string(ego_velocity)} with a steering angle of {angle_string(steering)}. The other vehicle is {distance_string(distance)} away and is {angle_string(angle)}. It is going {angle_string(direction)}."
+Action:"""
+
+def get_waypoint_sequence_shorter_prompt(observation):
+    ego_velocity, steering, angle, distance, direction, agent_velocity = observation
+
+    return f"""Observation: "The vehicle is {distance_string(distance)} away and is {angle_string(angle)}. It is going {angle_string(direction)}."
+Action:"""
+
+def get_waypoint_sequence_shortest_prompt(observation):
+    ego_velocity, steering, angle, distance, direction, agent_velocity = observation
+
+    return f"""Observation: "The vehicle is {distance_string(distance)} away and is {angle_string(angle)}."
+Action:"""
+
 def extract_two_action(completion):
     result = re.findall(r"[-+]?\d*\.\d+|\d+", completion)
 

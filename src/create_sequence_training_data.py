@@ -6,7 +6,7 @@ import json
 from stable_baselines3 import PPO
 
 from driver_env import DriverEnv
-from prompting import get_waypoint_sequence_prompt, get_waypoint_completion
+from prompting import get_waypoint_sequence_short_prompt, get_waypoint_completion
 
 np.set_printoptions(suppress=True)
 
@@ -41,7 +41,7 @@ for i in range(episodes):
 
     step = 0
 
-    prompt = get_waypoint_sequence_prompt(observation)
+    prompt = get_waypoint_sequence_short_prompt(observation)
 
     completion = ""
 
@@ -82,7 +82,7 @@ for i in range(episodes):
 
             sequence += prompt
 
-            prompt = get_waypoint_sequence_prompt(observation)
+            prompt = get_waypoint_sequence_short_prompt(observation)
 
             prev_x = x
             prev_y = y
@@ -99,12 +99,12 @@ for i in range(episodes):
 random.shuffle(data)
 random.shuffle(individual_data)
 
-with open("data/new_waypoint_sequence_data.jsonl", "w") as f:
+with open("data/new_waypoint_sequence_short_data.jsonl", "w") as f:
     for datum in data:
         json.dump(datum, f)
         f.write("\n")
 
-with open("data/new_waypoint_data.jsonl", "w") as f:
+with open("data/new_waypoint_short_data.jsonl", "w") as f:
     for datum in individual_data:
         if "completion" not in datum:
             continue
