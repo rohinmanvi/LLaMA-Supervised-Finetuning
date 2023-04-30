@@ -104,9 +104,9 @@ with open("data/test.jsonl", "w") as f:
         json.dump(datum, f)
         f.write("\n")
 
-with open("data/test_individual.jsonl", "w") as f:
-    for datum in individual_data:
-        if "completion" not in datum:
-            continue
-        json.dump(datum, f)
-        f.write("\n")
+# with open("data/test_individual.jsonl", "w") as f:
+#     for datum in individual_data:
+#         if "completion" not in datum:
+#             continue
+#         json.dump(datum, f)
+#         f.write("\n")
