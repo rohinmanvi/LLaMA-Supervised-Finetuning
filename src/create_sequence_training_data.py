@@ -99,7 +99,7 @@ for i in range(episodes):
 random.shuffle(data)
 random.shuffle(individual_data)
 
-with open("data/test_short.jsonl", "w") as f:
+with open("data/test_short_2.jsonl", "w") as f:
     for datum in data:
         json.dump(datum, f)
         f.write("\n")
