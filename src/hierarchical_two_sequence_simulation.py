@@ -3,7 +3,7 @@ from stable_baselines3 import PPO
 from transformers import GenerationConfig
 
 from driver_env import DriverEnv
-from prompting import get_waypoint_sequence_short_prompter, extract_two_action
+from prompting import get_waypoint_sequence_shorter_prompt, extract_two_action
 from model_handler import ModelHandler
 
 np.set_printoptions(suppress=True)
