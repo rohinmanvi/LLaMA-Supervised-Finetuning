@@ -3,7 +3,7 @@ from stable_baselines3 import PPO
 from transformers import GenerationConfig
 
 from driver_env import DriverEnv
-from prompting import get_waypoint_sequence_shorter_prompt, extract_two_action
+from prompting import get_waypoint_sequence_shortest_prompt, extract_two_action
 from model_handler import ModelHandler
 
 np.set_printoptions(suppress=True)
@@ -14,7 +14,7 @@ def main():
     model_handler = ModelHandler("decapoda-research/llama-7b-hf")
     generation_config = GenerationConfig(max_new_tokens=40, do_sample=False)
 
-    episodes = 3
+    episodes = 1
     average_reward = run_episodes(env, model, model_handler, generation_config, episodes)
     print(f"Average reward: {average_reward}")
 
@@ -56,10 +56,10 @@ def update_waypoints(env, steps, waypoint_x, waypoint_y, new_waypoint_x, new_way
         distance_to_previous_waypoint = np.sqrt(x_diff ** 2 + y_diff ** 2)
         print(f"Distance to previous waypoint: {distance_to_previous_waypoint}")
 
-        prompt_so_far += get_waypoint_sequence_shorter_prompt(observation)
+        prompt_so_far += get_waypoint_sequence_shortest_prompt(observation)
 
         response = model_handler.generate_text(
-            peft_model='models/sequence-driver-shorter',
+            peft_model='models/sequence-driver-shortest',
             text=prompt_so_far,
             generation_config=generation_config
         )
