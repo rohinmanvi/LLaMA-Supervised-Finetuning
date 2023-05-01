@@ -12,8 +12,8 @@ python3 src/finetune.py \
     --lora_alpha 16 \
     --lora_dropout 0.05 \
     --model_name_or_path decapoda-research/llama-7b-hf \
-    --data_path data/test_short_2.jsonl \
-    --output_dir models/sequence-driver-short-2 \
+    --data_path data/test_shorter_2.jsonl \
+    --output_dir models/sequence-driver-shorter-2 \
     --num_train_epochs 3 \
     --per_device_train_batch_size 1 \
     --gradient_accumulation_steps 8 \
