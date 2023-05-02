@@ -59,7 +59,7 @@ def update_waypoints(env, steps, waypoint_x, waypoint_y, new_waypoint_x, new_way
         prompt_so_far += get_waypoint_sequence_short_prompt(observation)
 
         response = model_handler.generate_text(
-            peft_model='models/sequence-driver-short',
+            peft_model='models/sequence-driver-short-2',
             text=prompt_so_far,
             generation_config=generation_config
         )
