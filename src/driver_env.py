@@ -74,6 +74,12 @@ class DriverEnv(gym.Env):
             plt.plot(agent_x, agent_y, 'r-', label='Agent Vehicle')
             plt.xlabel('X-axis')
             plt.ylabel('Y-axis')
+
+            # Add dots every 10 steps (1 second)
+            for i in range(0, len(self.ego_positions), 10):
+                plt.plot(self.ego_positions[i][0], self.ego_positions[i][1], 'bo')
+                plt.plot(self.agent_positions[i][0], self.agent_positions[i][1], 'ro')
+
             plt.legend()
             plt.savefig('positions_plot.png')
             plt.close()
