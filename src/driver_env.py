@@ -70,15 +70,17 @@ class DriverEnv(gym.Env):
             ego_x, ego_y = zip(*self.ego_positions)
             agent_x, agent_y = zip(*self.agent_positions)
 
-            plt.plot(ego_x, ego_y, 'b-', label='Ego Vehicle')
-            plt.plot(agent_x, agent_y, 'r-', label='Agent Vehicle')
-            plt.xlabel('X-axis')
-            plt.ylabel('Y-axis')
+            # Plot ego vehicle positions with smaller dots and no connecting line
+            plt.scatter(ego_x, ego_y, s=20, c='b', marker='o', label='Ego Vehicle')
+            # Plot agent vehicle positions with smaller dots and no connecting line
+            plt.scatter(agent_x, agent_y, s=20, c='r', marker='o', label='Agent Vehicle')
+            plt.xlabel('X-axis (meters)')
+            plt.ylabel('Y-axis (meters)')
 
-            # Add dots every 10 steps (1 second)
+            # Add larger dots every 10 steps (1 second)
             for i in range(0, len(self.ego_positions), 10):
-                plt.plot(self.ego_positions[i][0], self.ego_positions[i][1], 'bo')
-                plt.plot(self.agent_positions[i][0], self.agent_positions[i][1], 'ro')
+                plt.scatter(self.ego_positions[i][0], self.ego_positions[i][1], s=50, c='b', marker='o')
+                plt.scatter(self.agent_positions[i][0], self.agent_positions[i][1], s=50, c='r', marker='o')
 
             plt.legend()
             plt.savefig('positions_plot.png')
