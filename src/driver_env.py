@@ -3,6 +3,7 @@ import gym
 from gym import spaces
 from collections import namedtuple
 import math
+import matplotlib.pyplot as plt
 
 Action = namedtuple('Action', ['acceleration', 'steering_rate'])
 
@@ -50,15 +51,32 @@ class DriverEnv(gym.Env):
             dtype = np.float32
         )
 
+        self.ego_positions = []
+        self.agent_positions = []
+
     def step(self, action):
         action = self._map_action_index_to_obj(action)
         self.state, observation, reward = self._generate(self.state, action)
+
+        self.ego_positions.append((self.state[0].x, self.state[0].y))
+        self.agent_positions.append((self.state[1].x, self.state[1].y))
 
         self.steps += 1
         done = self.steps >= self.max_steps
 
         if done:
             print(f"angle_r: {round(self.episode_r_angle)}, distance_r: {round(self.episode_r_distance)}")
+
+            ego_x, ego_y = zip(*self.ego_positions)
+            agent_x, agent_y = zip(*self.agent_positions)
+
+            plt.plot(ego_x, ego_y, 'b-', label='Ego Vehicle')
+            plt.plot(agent_x, agent_y, 'r-', label='Agent Vehicle')
+            plt.xlabel('X-axis')
+            plt.ylabel('Y-axis')
+            plt.legend()
+            plt.savefig('positions_plot.png')
+            plt.close()
 
         return np.array(observation), float(reward), done, dict()
 
@@ -154,12 +172,6 @@ class DriverEnv(gym.Env):
         r_angle = -abs(angle_to_agent_prime)
         r_angle *= 50
 
-        r_a_smooth = -abs(a.acceleration) / 6
-        r_a_smooth *= 10
-
-        r_s_smooth = -abs(a.steering_rate) / 0.874
-        r_s_smooth *= 5
-
         # print(f"r_angle: {round(r_angle)}, r_distance: {round(r_distance)}, r_delta_distance: {round(r_delta_distance)}, r_delta_angle_to_agent: {round(r_delta_angle_to_agent)}, r_a_smooth: {round(r_a_smooth)}, r_s_smooth: {round(r_s_smooth)} ")
 
         self.episode_r_distance += r_distance
@@ -167,7 +179,6 @@ class DriverEnv(gym.Env):
 
         # return r_delta_distance + r_delta_angle_to_agent
         return r_distance + r_angle
-        # return r_distance + r_angle + r_delta_distance + r_delta_angle_to_agent
 
     def _observation(self, a, sp):
         ego_prime = sp[0]
@@ -202,6 +213,9 @@ class DriverEnv(gym.Env):
 
         self.episode_r_angle = 0
         self.episode_r_distance = 0
+
+        self.ego_positions.clear()
+        self.agent_positions.clear()
 
         return s, o
 
