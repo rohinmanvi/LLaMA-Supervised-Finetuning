@@ -82,11 +82,25 @@ class DriverEnv(gym.Env):
                 plt.scatter(self.ego_positions[i][0], self.ego_positions[i][1], s=20, c='b', marker='o')
                 plt.scatter(self.agent_positions[i][0], self.agent_positions[i][1], s=20, c='r', marker='o')
 
+            # Calculate the necessary x and y limits to achieve a 3:2 aspect ratio
+            min_x, max_x = plt.xlim()
+            min_y, max_y = plt.ylim()
+            width = max_x - min_x
+            height = max_y - min_y
+            desired_aspect_ratio = 3 / 2
+
+            if width / height > desired_aspect_ratio:
+                new_height = width / desired_aspect_ratio
+                plt.ylim(min_y - (new_height - height) / 2, max_y + (new_height - height) / 2)
+            else:
+                new_width = height * desired_aspect_ratio
+                plt.xlim(min_x - (new_width - width) / 2, max_x + (new_width - width) / 2)
+
             # Set the aspect ratio to be equal for both axes
             plt.gca().set_aspect('equal', adjustable='box')
 
             plt.legend()
-            plt.savefig('positions_plot.png')
+            plt.savefig('positions_plot.png', dpi=300)  # Increase the resolution by setting the DPI
             plt.close()
 
         return np.array(observation), float(reward), done, dict()
