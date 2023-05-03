@@ -79,8 +79,8 @@ class DriverEnv(gym.Env):
 
             # Add larger dots every 10 steps (1 second)
             for i in range(0, len(self.ego_positions), 10):
-                plt.scatter(self.ego_positions[i][0], self.ego_positions[i][1], s=50, c='b', marker='o')
-                plt.scatter(self.agent_positions[i][0], self.agent_positions[i][1], s=50, c='r', marker='o')
+                plt.scatter(self.ego_positions[i][0], self.ego_positions[i][1], s=20, c='b', marker='o')
+                plt.scatter(self.agent_positions[i][0], self.agent_positions[i][1], s=20, c='r', marker='o')
 
             plt.legend()
             plt.savefig('positions_plot.png')
