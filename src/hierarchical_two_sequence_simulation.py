@@ -3,7 +3,7 @@ from stable_baselines3 import PPO
 from transformers import GenerationConfig
 
 from driver_env import DriverEnv
-from prompting import get_waypoint_sequence_shorter_prompt, extract_two_action
+from prompting import get_waypoint_sequence_short_prompt, extract_two_action
 from model_handler import ModelHandler
 
 np.set_printoptions(suppress=True)
@@ -56,10 +56,10 @@ def update_waypoints(env, steps, waypoint_x, waypoint_y, new_waypoint_x, new_way
         distance_to_previous_waypoint = np.sqrt(x_diff ** 2 + y_diff ** 2)
         print(f"Distance to previous waypoint: {distance_to_previous_waypoint}")
 
-        prompt_so_far += get_waypoint_sequence_shorter_prompt(observation)
+        prompt_so_far += get_waypoint_sequence_short_prompt(observation)
 
         response = model_handler.generate_text(
-            peft_model='models/sequence-driver-shorter-2',
+            peft_model='models/sequence-driver-short-2',
             text=prompt_so_far,
             generation_config=generation_config
         )
