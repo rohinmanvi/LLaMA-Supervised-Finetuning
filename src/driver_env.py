@@ -71,9 +71,9 @@ class DriverEnv(gym.Env):
             agent_x, agent_y = zip(*self.agent_positions)
 
             # Plot ego vehicle positions with smaller dots and no connecting line
-            plt.scatter(ego_x, ego_y, s=5, c='b', marker='o', label='Ego Vehicle')
+            plt.scatter(ego_x, ego_y, s=2, c='b', marker='o', label='Ego Vehicle')
             # Plot agent vehicle positions with smaller dots and no connecting line
-            plt.scatter(agent_x, agent_y, s=5, c='r', marker='o', label='Agent Vehicle')
+            plt.scatter(agent_x, agent_y, s=2, c='r', marker='o', label='Agent Vehicle')
             plt.xlabel('X-axis (meters)')
             plt.ylabel('Y-axis (meters)')
 
