@@ -27,6 +27,9 @@ class DriverEnv(gym.Env):
         self.episode_r_angle = 0
         self.episode_r_distance = 0
 
+        self.ego_positions = []
+        self.agent_positions = []
+
         self.reset()
 
         max_v = 15.6464
@@ -50,9 +53,6 @@ class DriverEnv(gym.Env):
             shape = (6,),
             dtype = np.float32
         )
-
-        self.ego_positions = []
-        self.agent_positions = []
 
     def step(self, action):
         action = self._map_action_index_to_obj(action)
