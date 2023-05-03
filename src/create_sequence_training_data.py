@@ -25,7 +25,7 @@ def get_action(env, x_prime, y_prime, x, y, theta):
 
     return distance, angle
 
-episodes = 10000
+episodes = 1
 
 data = []
 individual_data = []
@@ -99,10 +99,10 @@ for i in range(episodes):
 random.shuffle(data)
 random.shuffle(individual_data)
 
-with open("data/test_shortest_2.jsonl", "w") as f:
-    for datum in data:
-        json.dump(datum, f)
-        f.write("\n")
+# with open("data/test_shortest_2.jsonl", "w") as f:
+#     for datum in data:
+#         json.dump(datum, f)
+#         f.write("\n")
 
 # with open("data/test_individual.jsonl", "w") as f:
 #     for datum in individual_data:
