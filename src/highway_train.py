@@ -5,8 +5,8 @@ from stable_baselines3.common.callbacks import EvalCallback
 from stable_baselines3.common.monitor import Monitor
 from stable_baselines3.common.vec_env import DummyVecEnv
 
-import wandb
-from wandb.integration.sb3 import WandbCallback
+# import wandb
+# from wandb.integration.sb3 import WandbCallback
 
 import highway_env
 
@@ -16,13 +16,13 @@ config = {
     "env_name": "HighwayEnv",
 }
 
-run = wandb.init(
-    # project="PPO_Waypoint",
-    # project="PPO",
-    project="HighwayEnv",
-    config=config,
-    sync_tensorboard=True,
-)
+# run = wandb.init(
+#     # project="PPO_Waypoint",
+#     # project="PPO",
+#     project="HighwayEnv",
+#     config=config,
+#     sync_tensorboard=True,
+# )
 
 models_dir = "models/PPO_Highway"
 
