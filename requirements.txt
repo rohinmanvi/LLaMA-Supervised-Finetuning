@@ -13,3 +13,4 @@ tensorboard
 stable-baselines3
 openai
 timm
+highway-env
