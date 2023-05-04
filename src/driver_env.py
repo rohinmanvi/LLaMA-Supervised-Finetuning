@@ -220,13 +220,13 @@ class DriverEnv(gym.Env):
         return [ego_prime.v, ego_prime.phi, angle_to_agent, distance, agent_theta, agent_prime.v]
 
     def _reset(self):
-        ego_theta = np.random.uniform(-0.75, 0.75)
+        ego_theta = self.np_random.uniform(-0.75, 0.75)
         ego_v = 7.0
 
-        agent_x = np.random.uniform(10.0, 50.0)
-        agent_theta = np.random.uniform(-0.75, 0.75)
+        agent_x = self.np_random.uniform(10.0, 50.0)
+        agent_theta = self.np_random.uniform(-0.75, 0.75)
         agent_v = 7.0
-        agent_phi = np.random.uniform(-0.1, 0.1)
+        agent_phi = self.np_random.uniform(-0.1, 0.1)
 
         ego = Vehicle(theta=ego_theta, v=ego_v)
         agent = Vehicle(x=agent_x, theta=agent_theta, v=agent_v, phi=agent_phi)
@@ -242,7 +242,13 @@ class DriverEnv(gym.Env):
         self.ego_positions.clear()
         self.agent_positions.clear()
 
+        self.seed()
+
         return s, o
+
+    def seed(self, seed=None):
+        self.np_random, seed = gym.utils.seeding.np_random(seed)
+        return [seed]
 
     def _map_action_index_to_obj(self, action_index):
         return Action(acceleration=action_index[0], steering_rate=action_index[1])

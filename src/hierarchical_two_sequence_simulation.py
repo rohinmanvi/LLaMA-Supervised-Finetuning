@@ -26,6 +26,8 @@ def run_episodes(env, model, model_handler, generation_config, episodes):
         done = False
         print("\n\nReset")
 
+        env.seed(0)
+
         prompt_so_far = ""
 
         steps = 0
