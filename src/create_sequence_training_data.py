@@ -37,6 +37,8 @@ for i in range(episodes):
 
     print("Reset")
 
+    env.seed(0)
+
     sequence = ""
 
     step = 0
