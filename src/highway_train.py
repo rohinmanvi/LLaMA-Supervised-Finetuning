@@ -1,5 +1,5 @@
 import os
-import gym
+import gymnasium as gym
 from stable_baselines3 import PPO
 from stable_baselines3.common.callbacks import EvalCallback
 from stable_baselines3.common.monitor import Monitor
@@ -47,11 +47,11 @@ model = PPO(config["policy_type"],
 
 eval_callback = EvalCallback(env, best_model_save_path=models_dir, eval_freq=10000, n_eval_episodes=100, deterministic=True, render=False)
 
-wandb_callback = WandbCallback(verbose=2)
+# wandb_callback = WandbCallback(verbose=2)
 
 print("Training ...")
 
-model.learn(total_timesteps=config["total_timesteps"], callback=[eval_callback, wandb_callback])
+model.learn(total_timesteps=config["total_timesteps"], callback=[eval_callback])
 
 print("Done Training")
 
