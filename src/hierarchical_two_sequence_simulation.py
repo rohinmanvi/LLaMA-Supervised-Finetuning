@@ -22,11 +22,9 @@ def run_episodes(env, model, model_handler, generation_config, episodes):
     total_reward = 0
 
     for i in range(episodes):
-        observation = env.reset()
+        observation = env.reset(0)
         done = False
         print("\n\nReset")
-
-        env.seed(0)
 
         prompt_so_far = ""
 

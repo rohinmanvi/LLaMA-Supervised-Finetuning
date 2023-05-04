@@ -32,12 +32,10 @@ individual_data = []
 
 for i in range(episodes):
 
-    observation = env.reset()
+    observation = env.reset(0)
     done = False
 
     print("Reset")
-
-    env.seed(0)
 
     sequence = ""
 
