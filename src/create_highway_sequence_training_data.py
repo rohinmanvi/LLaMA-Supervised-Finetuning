@@ -19,6 +19,8 @@ env = gym.make("highway-fast-v0")
 data = []
 
 for _ in range(10000):
+    print(i)
+
     obs, info = env.reset()
     done = truncated = False
 
