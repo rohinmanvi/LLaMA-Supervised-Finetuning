@@ -20,6 +20,7 @@ for _ in range(1):
     done = truncated = False
     while not (done or truncated):
         action, _ = model.predict(obs)
-        print(f"Action: {np.round(action, 3)}")
+        str(action)
+        print(f"Action: {str(action)}")
         obs, reward, done, truncated, info = env.step(action)
-        print(f"Observation:\n{np.round(obs, 3)}")
+        print(f"Observation:\n{str(obs)}")
