@@ -18,16 +18,17 @@ from wandb.integration.sb3 import WandbCallback
 config = {
     "policy_type": "MlpPolicy",
     "total_timesteps": 1000000,
-    "env_name": "highway-fast-v0",
+    "env_name": "roundabout-v0",
 }
 
 run = wandb.init(
-    project="PPO_Highway",
+    # project="PPO_Highway",
+    project="PPO_Roundabout",
     config=config,
     sync_tensorboard=True,
 )
 
-models_dir = "models/highway_ppo"
+models_dir = "models/roundabout_ppo"
 
 if not os.path.exists(models_dir):
     os.makedirs(models_dir)
@@ -47,7 +48,7 @@ if __name__ == "__main__":
                     learning_rate=5e-4,
                     gamma=0.8,
                     verbose=2,
-                    tensorboard_log=f"models/highway_ppo/{run.id}")
+                    tensorboard_log=f"{models_dir}/{run.id}")
 
         eval_callback = EvalCallback(env, best_model_save_path=models_dir, eval_freq=500, n_eval_episodes=100, deterministic=True, render=False)
         wandb_callback = WandbCallback(verbose=2)
