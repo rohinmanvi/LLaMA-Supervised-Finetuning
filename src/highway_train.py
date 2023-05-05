@@ -1,4 +1,3 @@
-import os
 import gymnasium as gym
 import torch as th
 from stable_baselines3 import PPO
@@ -10,7 +9,6 @@ from torch.nn import functional as F
 from stable_baselines3.common.env_util import make_vec_env
 from stable_baselines3.common.torch_layers import BaseFeaturesExtractor
 from stable_baselines3.common.vec_env import SubprocVecEnv
-from stable_baselines3.common.callbacks import EvalCallback
 import highway_env
 
 n_cpu = 6
@@ -25,13 +23,8 @@ model = PPO("MlpPolicy",
             learning_rate=5e-4,
             gamma=0.8,
             verbose=2,
-            tensorboard_log="highway_ppo/")
+            tensorboard_log="models/highway_ppo/")
 
-models_dir = "models/highway_ppo"
+model.learn(total_timesteps=int(2e4))
 
-if not os.path.exists(models_dir):
-    os.makedirs(models_dir)
-
-eval_callback = EvalCallback(env, best_model_save_path=models_dir, eval_freq=4000, n_eval_episodes=100, deterministic=True, render=False)
-
-model.learn(total_timesteps=int(2e4), callback=[eval_callback])
+model.save("models/highway_ppo/model")
