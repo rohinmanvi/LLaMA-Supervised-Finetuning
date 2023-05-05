@@ -22,4 +22,4 @@ for _ in range(1):
         action, _ = model.predict(obs)
         print(f"Action: {np.round(action, 3)}")
         obs, reward, done, truncated, info = env.step(action)
-        print(f"Observation: {np.round(obs, 3)}")
+        print(f"Observation:\n{np.round(obs, 3)}")
