@@ -49,7 +49,7 @@ if __name__ == "__main__":
                     verbose=2,
                     tensorboard_log=f"models/highway_ppo/{run.id}")
 
-        eval_callback = EvalCallback(env, best_model_save_path=models_dir, eval_freq=500, n_eval_episodes=100, deterministic=True, render=False)
+        eval_callback = EvalCallback(env, best_model_save_path=models_dir, eval_freq=500, n_eval_episodes=20, deterministic=True, render=False)
         wandb_callback = WandbCallback(verbose=2)
 
         print("Training ...")
