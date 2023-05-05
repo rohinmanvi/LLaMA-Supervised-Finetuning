@@ -1,55 +1,3 @@
-import os
-import gymnasium as gym
-from stable_baselines3 import PPO
-from stable_baselines3.common.callbacks import EvalCallback
-from stable_baselines3.common.monitor import Monitor
-from stable_baselines3.common.vec_env import DummyVecEnv
-
-# import wandb
-# from wandb.integration.sb3 import WandbCallback
-
-import highway_env
-
-config = {
-    "policy_type": "MlpPolicy",
-    "total_timesteps": 1000000,
-    "env_name": "HighwayEnv",
-}
-
-# run = wandb.init(
-#     # project="PPO_Waypoint",
-#     # project="PPO",
-#     project="HighwayEnv",
-#     config=config,
-#     sync_tensorboard=True,
-# )
-
-models_dir = "models/PPO_Highway"
-
-if not os.path.exists(models_dir):
-    os.makedirs(models_dir)
-
-def make_env():
-    env = gym.make('highway-fast-v0')
-    env = Monitor(env)
-    return env
-
-env = DummyVecEnv([make_env])
-
-model = PPO(config["policy_type"], env, verbose=1)
-
-eval_callback = EvalCallback(env, best_model_save_path=models_dir, eval_freq=10000, n_eval_episodes=100, deterministic=True, render=False)
-
-# wandb_callback = WandbCallback(verbose=2)
-
-print("Training ...")
-
-model.learn(total_timesteps=config["total_timesteps"], callback=[eval_callback])
-
-print("Done Training")
-
-run.finish()
-
 import gymnasium as gym
 import torch as th
 from stable_baselines3 import PPO
@@ -83,18 +31,8 @@ if __name__ == "__main__":
                     learning_rate=5e-4,
                     gamma=0.8,
                     verbose=2,
-                    tensorboard_log="highway_ppo/")
+                    tensorboard_log="models/highway_ppo/")
         # Train the agent
         model.learn(total_timesteps=int(2e4))
         # Save the agent
-        model.save("highway_ppo/model")
-
-    model = PPO.load("highway_ppo/model")
-    env = gym.make("highway-fast-v0")
-    for _ in range(5):
-        obs, info = env.reset()
-        done = truncated = False
-        while not (done or truncated):
-            action, _ = model.predict(obs)
-            obs, reward, done, truncated, info = env.step(action)
-            env.render()
+        model.save("models/highway_ppo/model")
