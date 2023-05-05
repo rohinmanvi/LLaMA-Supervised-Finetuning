@@ -17,7 +17,7 @@ from wandb.integration.sb3 import WandbCallback
 
 config = {
     "policy_type": "MlpPolicy",
-    "total_timesteps": 20000,
+    "total_timesteps": 50000,
     "env_name": "highway-fast-v0",
 }
 
@@ -49,7 +49,7 @@ if __name__ == "__main__":
                     verbose=2,
                     tensorboard_log=f"models/highway_ppo/{run.id}")
 
-        eval_callback = EvalCallback(env, best_model_save_path=models_dir, eval_freq=4000, n_eval_episodes=100, deterministic=True, render=False)
+        eval_callback = EvalCallback(env, best_model_save_path=models_dir, eval_freq=10, n_eval_episodes=100, deterministic=True, render=False)
         wandb_callback = WandbCallback(verbose=2)
 
         print("Training ...")
