@@ -16,23 +16,21 @@ import highway_env
 #        Main script
 # ==================================
 
-if __name__ == "__main__":
-    train = True
-    if train:
-        n_cpu = 6
-        batch_size = 64
-        env = make_vec_env("highway-fast-v0", n_envs=n_cpu, vec_env_cls=SubprocVecEnv)
-        model = PPO("MlpPolicy",
-                    env,
-                    policy_kwargs=dict(net_arch=[dict(pi=[256, 256], vf=[256, 256])]),
-                    n_steps=batch_size * 12 // n_cpu,
-                    batch_size=batch_size,
-                    n_epochs=10,
-                    learning_rate=5e-4,
-                    gamma=0.8,
-                    verbose=2,
-                    tensorboard_log="models/highway_ppo/")
-        # Train the agent
-        model.learn(total_timesteps=int(2e4))
-        # Save the agent
-        model.save("models/highway_ppo/model")
+
+n_cpu = 6
+batch_size = 64
+env = make_vec_env("highway-fast-v0", n_envs=n_cpu, vec_env_cls=SubprocVecEnv)
+model = PPO("MlpPolicy",
+            env,
+            policy_kwargs=dict(net_arch=[dict(pi=[256, 256], vf=[256, 256])]),
+            n_steps=batch_size * 12 // n_cpu,
+            batch_size=batch_size,
+            n_epochs=10,
+            learning_rate=5e-4,
+            gamma=0.8,
+            verbose=2,
+            tensorboard_log="models/highway_ppo/")
+# Train the agent
+model.learn(total_timesteps=int(2e4))
+# Save the agent
+model.save("models/highway_ppo/model")
