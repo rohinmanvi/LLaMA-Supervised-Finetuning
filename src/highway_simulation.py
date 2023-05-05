@@ -15,12 +15,31 @@ np.set_printoptions(suppress=True)
 
 model = PPO.load("highway_ppo/model")
 env = gym.make("highway-fast-v0")
+
+data = []
+
 for _ in range(1):
     obs, info = env.reset()
     done = truncated = False
+
+    sequence = ""
+
     while not (done or truncated):
+        observation_string = f"Observation:\n{str(np.round(obs, 3))}"
+        sequence += observation_string + "\n"
+
         action, _ = model.predict(obs)
-        str(action)
-        print(f"Action: {str(action)}")
+        
+        action_string = f"Action: {str(action)}"
+        sequence += action_string + "\n"
+
         obs, reward, done, truncated, info = env.step(action)
-        print(f"Observation:\n{str(np.round(obs, 3))}")
+
+    data.append({"text": sequence})
+
+print(data[0]["text"])
+
+# with open("data/highway_sequence_data.jsonl", "w") as f:
+#     for datum in data:
+#         json.dump(datum, f)
+#         f.write("\n")
