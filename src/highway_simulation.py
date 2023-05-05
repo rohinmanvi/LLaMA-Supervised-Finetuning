@@ -18,7 +18,7 @@ env = gym.make("highway-fast-v0")
 
 data = []
 
-for _ in range(1):
+for _ in range(10000):
     obs, info = env.reset()
     done = truncated = False
 
@@ -37,9 +37,7 @@ for _ in range(1):
 
     data.append({"text": sequence})
 
-print(data[0]["text"])
-
-# with open("data/highway_sequence_data.jsonl", "w") as f:
-#     for datum in data:
-#         json.dump(datum, f)
-#         f.write("\n")
+with open("data/highway_sequence_data.jsonl", "w") as f:
+    for datum in data:
+        json.dump(datum, f)
+        f.write("\n")
