@@ -23,4 +23,4 @@ for _ in range(1):
         str(action)
         print(f"Action: {str(action)}")
         obs, reward, done, truncated, info = env.step(action)
-        print(f"Observation:\n{str(obs)}")
+        print(f"Observation:\n{str(np.round(obs, 3))}")
