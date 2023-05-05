@@ -41,3 +41,4 @@ with open("data/highway_sequence_data_incremental.jsonl", "a") as f:
         # Write the data to the file
         json.dump({"text": sequence}, f)
         f.write("\n")
+        f.flush()
