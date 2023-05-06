@@ -6,24 +6,24 @@ from rl_agents.agents.common.factory import agent_factory
 import json
 from gym import Wrapper
 
-# class RewardNormalizationWrapper(Wrapper):
-#     def __init__(self, env, min_reward, max_reward):
-#         super().__init__(env)
-#         self.min_reward = min_reward
-#         self.max_reward = max_reward
+class RewardNormalizationWrapper(Wrapper):
+    def __init__(self, env, min_reward, max_reward):
+        super().__init__(env)
+        self.min_reward = min_reward
+        self.max_reward = max_reward
 
-#     def step(self, action):
-#         obs, reward, done, truncated, info = env.step(action)
-#         reward = (reward - self.min_reward) / (self.max_reward - self.min_reward)
-#         return obs, reward, done, truncated, info
+    def step(self, action):
+        obs, reward, done, truncated, info = env.step(action)
+        reward = (reward - self.min_reward) / (self.max_reward - self.min_reward)
+        return obs, reward, done, truncated, info
 
 np.set_printoptions(suppress=True)
 
-env = gym.make('intersection-v0')
+env = gym.make('roundabout-v0')
 
-# min_reward = 0  # Set the minimum possible reward for your environment
-# max_reward = 1  # Set the maximum possible reward for your environment
-# env = RewardNormalizationWrapper(env, min_reward, max_reward)
+min_reward = -100  # Set the minimum possible reward for your environment
+max_reward = 100  # Set the maximum possible reward for your environment
+env = RewardNormalizationWrapper(env, min_reward, max_reward)
 
 agent_config = {
     "__class__": "<class 'rl_agents.agents.tree_search.deterministic.DeterministicPlannerAgent'>",
@@ -33,7 +33,7 @@ agent_config = {
 }
 agent = agent_factory(env, agent_config)
 
-with open("data/intersection_planner_sequence_data_incremental.jsonl", "a") as f:
+with open("data/roundabout_planner_sequence_data_incremental.jsonl", "a") as f:
     for i in range(10000):
         print(i)
 
