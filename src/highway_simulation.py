@@ -30,8 +30,11 @@ env = record_videos(env)
 for _ in range(5):
     obs, info = env.reset()
     done = truncated = False
+    total_reward = 0
     while not (done or truncated):
         action, _ = model.predict(obs)
         obs, reward, done, truncated, info = env.step(action)
+        total_reward += reward
+    print(total_reward)
 
 env.close()
