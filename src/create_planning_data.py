@@ -15,15 +15,14 @@ class RewardNormalizationWrapper(Wrapper):
     def step(self, action):
         obs, reward, done, truncated, info = env.step(action)
         reward = (reward - self.min_reward) / (self.max_reward - self.min_reward)
-        print(reward)
         return obs, reward, done, truncated, info
 
 np.set_printoptions(suppress=True)
 
 env = gym.make('roundabout-v0', render_mode='rgb_array')
 
-min_reward = -10  # Set the minimum possible reward for your environment
-max_reward = 10  # Set the maximum possible reward for your environment
+min_reward = 0  # Set the minimum possible reward for your environment
+max_reward = 1  # Set the maximum possible reward for your environment
 env = RewardNormalizationWrapper(env, min_reward, max_reward)
 
 agent_config = {
