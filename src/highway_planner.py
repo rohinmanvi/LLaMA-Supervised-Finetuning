@@ -34,6 +34,5 @@ for _ in range(1):
         action = agent.act(obs)
         print(f"Action: {str(action)}")
         obs, reward, done, truncated, info = env.step(action)
-        total_reward += reward
 
 env.close()
