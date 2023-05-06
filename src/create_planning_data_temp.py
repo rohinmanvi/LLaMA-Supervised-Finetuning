@@ -7,7 +7,7 @@ import json
 
 np.set_printoptions(suppress=True)
 
-env = gym.make("intersection-v0", render_mode='rgb_array')
+env = gym.make('highway-fast-v0', render_mode='rgb_array')
 
 agent_config = {
     "__class__": "<class 'rl_agents.agents.tree_search.deterministic.DeterministicPlannerAgent'>",
@@ -17,7 +17,7 @@ agent_config = {
 }
 agent = agent_factory(env, agent_config)
 
-with open("data/intersection_planner_sequence_data_incremental.jsonl", "a") as f:
+with open("data/highway_planner_sequence_data_incremental.jsonl", "a") as f:
     for i in range(10000):
         print(i)
 
