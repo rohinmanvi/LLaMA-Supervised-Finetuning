@@ -14,8 +14,8 @@ import json
 
 np.set_printoptions(suppress=True)
 
-model = PPO.load("highway_ppo/model")
-env = gym.make("highway-fast-v0")
+model = PPO.load("roundabout_ppo/model")
+env = gym.make("roundabout-v0")
 
 # Open the file in append mode
 with open("data/highway_sequence_data_incremental.jsonl", "a") as f:
