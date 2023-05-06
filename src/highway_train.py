@@ -39,7 +39,9 @@ if not os.path.exists(models_dir):
 if __name__ == "__main__":
     train = True
     if train:
-        env = DummyVecEnv([Monitor(gym.make(config["env_name"]))])
+        env = gym.make(config["env_name"])
+        env = Monitor(env)
+        env = DummyVecEnv(env)
         model = PPO(config["policy_type"], env, verbose=1, tensorboard_log=f"{models_dir}/{run.id}")
 
         eval_callback = EvalCallback(env, best_model_save_path=models_dir, eval_freq=10000, n_eval_episodes=100, deterministic=True, render=False)
