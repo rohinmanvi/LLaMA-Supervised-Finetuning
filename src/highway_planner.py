@@ -1,10 +1,10 @@
+import numpy as np
 import gymnasium as gym
 import highway_env
 from gymnasium.wrappers import RecordVideo
 from rl_agents.agents.common.factory import agent_factory
 
 np.set_printoptions(suppress=True)
-
 
 env = gym.make("highway-fast-v0", render_mode='rgb_array')
 
