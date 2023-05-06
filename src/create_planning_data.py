@@ -15,6 +15,7 @@ class RewardNormalizationWrapper(Wrapper):
     def step(self, action):
         obs, reward, done, truncated, info = env.step(action)
         reward = (reward - self.min_reward) / (self.max_reward - self.min_reward)
+        print(reward)
         return obs, reward, done, truncated, info
 
 np.set_printoptions(suppress=True)
