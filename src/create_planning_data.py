@@ -17,7 +17,7 @@ from gym import Wrapper
 #         reward = (reward - self.min_reward) / (self.max_reward - self.min_reward)
 #         return obs, reward, done, truncated, info
 
-# np.set_printoptions(suppress=True)
+np.set_printoptions(suppress=True)
 
 env = gym.make('intersection-v0')
 
