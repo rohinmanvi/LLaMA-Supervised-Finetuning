@@ -26,16 +26,14 @@ def record_videos(env, video_folder="videos"):
 
 env = record_videos(env)
 
-for _ in range(5):
+for _ in range(1):
     obs, info = env.reset()
     done = truncated = False
-    total_reward = 0
     while not (done or truncated):
         print(f"Observation:\n{str(np.round(obs, 3))}")
         action = agent.act(obs)
         print(f"Action: {str(action)}")
         obs, reward, done, truncated, info = env.step(action)
         total_reward += reward
-    print(total_reward)
 
 env.close()
