@@ -19,7 +19,7 @@ from gym import Wrapper
 
 # np.set_printoptions(suppress=True)
 
-env = gym.make('roundabout-v0', render_mode='rgb_array')
+env = gym.make('roundabout-v0')
 
 # min_reward = 0  # Set the minimum possible reward for your environment
 # max_reward = 1  # Set the maximum possible reward for your environment
