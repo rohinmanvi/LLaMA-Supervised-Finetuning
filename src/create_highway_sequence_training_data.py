@@ -18,7 +18,7 @@ model = PPO.load("roundabout_ppo/model")
 env = gym.make("roundabout-v0")
 
 # Open the file in append mode
-with open("data/highway_sequence_data_incremental.jsonl", "a") as f:
+with open("data/roundabout_sequence_data_incremental.jsonl", "a") as f:
     for i in range(10000):
         print(i)
 
