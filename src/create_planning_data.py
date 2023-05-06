@@ -54,6 +54,10 @@ with open("data/intersection_planner_sequence_data_incremental.jsonl", "a") as f
 
             obs, reward, done, truncated, info = env.step(action)
 
+            print(reward)
+
+            reward = (reward - min_reward) / (max_reward - min_reward)
+
         # Write the data to the file
         json.dump({"text": sequence}, f)
         f.write("\n")
