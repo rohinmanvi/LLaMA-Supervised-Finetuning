@@ -29,7 +29,7 @@ run = wandb.init(
     sync_tensorboard=True,
 )
 
-models_dir = "models/intersection_ppo"
+models_dir = "models/intersection_ppo_2"
 
 if not os.path.exists(models_dir):
     os.makedirs(models_dir)
@@ -37,19 +37,8 @@ if not os.path.exists(models_dir):
 if __name__ == "__main__":
     train = True
     if train:
-        n_cpu = 6
-        batch_size = 64
-        env = make_vec_env(config["env_name"], n_envs=n_cpu, vec_env_cls=SubprocVecEnv)
-        model = PPO(config["policy_type"],
-                    env,
-                    policy_kwargs=dict(net_arch=[dict(pi=[256, 256], vf=[256, 256])]),
-                    n_steps=batch_size * 12 // n_cpu,
-                    batch_size=batch_size,
-                    n_epochs=10,
-                    learning_rate=5e-4,
-                    gamma=0.8,
-                    verbose=2,
-                    tensorboard_log=f"{models_dir}/{run.id}")
+        env = gym.make(config["env_name"])
+        model = PPO(config["policy_type"], env, verbose=1, tensorboard_log=f"{models_dir}/{run.id}")
 
         eval_callback = EvalCallback(env, best_model_save_path=models_dir, eval_freq=500, n_eval_episodes=100, deterministic=True, render=False)
         wandb_callback = WandbCallback(verbose=2)
