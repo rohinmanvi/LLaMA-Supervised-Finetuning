@@ -11,8 +11,6 @@ from stable_baselines3.common.env_util import make_vec_env
 from stable_baselines3.common.torch_layers import BaseFeaturesExtractor
 from stable_baselines3.common.vec_env import SubprocVecEnv
 from stable_baselines3.common.callbacks import EvalCallback
-from stable_baselines3.common.monitor import Monitor
-from stable_baselines3.common.vec_env import DummyVecEnv
 import highway_env
 import wandb
 from wandb.integration.sb3 import WandbCallback
@@ -40,8 +38,6 @@ if __name__ == "__main__":
     train = True
     if train:
         env = gym.make(config["env_name"])
-        env = Monitor(env)
-        env = DummyVecEnv(env)
         model = PPO(config["policy_type"], env, verbose=1, tensorboard_log=f"{models_dir}/{run.id}")
 
         eval_callback = EvalCallback(env, best_model_save_path=models_dir, eval_freq=10000, n_eval_episodes=100, deterministic=True, render=False)
