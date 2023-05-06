@@ -32,7 +32,9 @@ for _ in range(5):
     done = truncated = False
     total_reward = 0
     while not (done or truncated):
+        print(f"Observation:\n{str(np.round(obs, 3))}")
         action, _ = model.predict(obs)
+        print(f"Action: {str(action)}")
         obs, reward, done, truncated, info = env.step(action)
         total_reward += reward
     print(total_reward)
