@@ -13,7 +13,7 @@ class RewardNormalizationWrapper(Wrapper):
         self.max_reward = max_reward
 
     def step(self, action):
-        obs, reward, done, info = self.env.step(action)
+        obs, reward, done, truncated, info = env.step(action)
         reward = (reward - self.min_reward) / (self.max_reward - self.min_reward)
         return obs, reward, done, info
 
