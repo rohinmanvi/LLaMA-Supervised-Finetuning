@@ -14,11 +14,11 @@ import json
 
 np.set_printoptions(suppress=True)
 
-model = PPO.load("models/highway_ppo/best_model")
-env = gym.make("highway-v0")
+model = PPO.load("models/roundabout_ppo/best_model")
+env = gym.make("roundabout-v0")
 
 # Open the file in append mode
-with open("data/highway_sequence_data_incremental_2.jsonl", "a") as f:
+with open("data/roundabout_sequence_data_incremental.jsonl", "a") as f:
     for i in range(10000):
         print(i)
 
