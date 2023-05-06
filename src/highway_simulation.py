@@ -14,8 +14,8 @@ from gymnasium.wrappers import RecordVideo
 
 np.set_printoptions(suppress=True)
 
-model = PPO.load("models/highway_ppo/best_model")
-env = gym.make("highway-v0", render_mode='rgb_array')
+model = PPO.load("models/intersection_ppo/best_model")
+env = gym.make("intersection-v0", render_mode='rgb_array')
 
 def record_videos(env, video_folder="videos"):
     wrapped = RecordVideo(env, video_folder=video_folder, episode_trigger=lambda e: True)
@@ -27,7 +27,7 @@ def record_videos(env, video_folder="videos"):
 
 env = record_videos(env)
 
-for _ in range(1):
+for _ in range(5):
     obs, info = env.reset()
     done = truncated = False
     while not (done or truncated):
