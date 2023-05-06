@@ -20,7 +20,7 @@ class RewardNormalizationWrapper(Wrapper):
 
 np.set_printoptions(suppress=True)
 
-env = gym.make('intersection-v0', render_mode='rgb_array')
+env = gym.make('roundabout-v0', render_mode='rgb_array')
 
 min_reward = -100  # Set the minimum possible reward for your environment
 max_reward = 100  # Set the maximum possible reward for your environment
@@ -34,7 +34,7 @@ agent_config = {
 }
 agent = agent_factory(env, agent_config)
 
-with open("data/intersection_planner_sequence_data_incremental.jsonl", "a") as f:
+with open("data/roundabout_planner_sequence_data_incremental.jsonl", "a") as f:
     for i in range(10000):
         print(i)
 
