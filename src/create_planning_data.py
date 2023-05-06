@@ -4,6 +4,7 @@ import highway_env
 from gymnasium.wrappers import RecordVideo
 from rl_agents.agents.common.factory import agent_factory
 import json
+import os
 
 np.set_printoptions(suppress=True)
 
@@ -17,7 +18,24 @@ agent_config = {
 }
 agent = agent_factory(env, agent_config)
 
-with open("data/highway_planner_sequence_data_incremental.jsonl", "a") as f:
+# Function to find the next available file number
+def get_next_available_file_number(base_filename):
+    counter = 0
+    while True:
+        filename = f"{base_filename}_{counter}.jsonl"
+        if not os.path.exists(filename):
+            return counter
+        counter += 1
+
+# Use the function to get the next available file number
+base_filename = "data/highway_planner_sequence_data_incremental"
+next_file_number = get_next_available_file_number(base_filename)
+
+# Create the full filename with the next available number
+filename = f"{base_filename}_{next_file_number}.jsonl"
+
+# Use the new filename in your code
+with open(filename, "a") as f:
     for i in range(10000):
         print(i)
 
