@@ -40,7 +40,7 @@ if __name__ == "__main__":
         env = gym.make(config["env_name"])
         model = PPO(config["policy_type"], env, verbose=1, tensorboard_log=f"{models_dir}/{run.id}")
 
-        eval_callback = EvalCallback(env, best_model_save_path=models_dir, eval_freq=500, n_eval_episodes=100, deterministic=True, render=False)
+        eval_callback = EvalCallback(env, best_model_save_path=models_dir, eval_freq=10000, n_eval_episodes=100, deterministic=True, render=False)
         wandb_callback = WandbCallback(verbose=2)
 
         print("Training ...")
