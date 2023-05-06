@@ -17,16 +17,6 @@ agent_config = {
 }
 agent = agent_factory(env, agent_config)
 
-def record_videos(env, video_folder="videos_planning"):
-    wrapped = RecordVideo(env, video_folder=video_folder, episode_trigger=lambda e: True)
-
-    # Capture intermediate frames
-    env.unwrapped.set_record_video_wrapper(wrapped)
-
-    return wrapped
-
-env = record_videos(env)
-
 with open("data/roundabout_planner_sequence_data_incremental.jsonl", "a") as f:
     for i in range(10000):
         print(i)
