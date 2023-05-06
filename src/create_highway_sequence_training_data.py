@@ -14,7 +14,7 @@ import json
 
 np.set_printoptions(suppress=True)
 
-model = PPO.load("roundabout_ppo/model")
+model = PPO.load("models/roundabout_ppo/best_model")
 env = gym.make("roundabout-v0")
 
 # Open the file in append mode
