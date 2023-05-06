@@ -22,8 +22,8 @@ np.set_printoptions(suppress=True)
 
 env = gym.make('intersection-v0', render_mode='rgb_array')
 
-min_reward = 0  # Set the minimum possible reward for your environment
-max_reward = 1  # Set the maximum possible reward for your environment
+min_reward = -100  # Set the minimum possible reward for your environment
+max_reward = 100  # Set the maximum possible reward for your environment
 env = RewardNormalizationWrapper(env, min_reward, max_reward)
 
 agent_config = {
@@ -53,10 +53,6 @@ with open("data/intersection_planner_sequence_data_incremental.jsonl", "a") as f
             sequence += action_string + "\n"
 
             obs, reward, done, truncated, info = env.step(action)
-
-            print(reward)
-
-            reward = (reward - min_reward) / (max_reward - min_reward)
 
         # Write the data to the file
         json.dump({"text": sequence}, f)
