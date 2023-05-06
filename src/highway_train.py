@@ -18,17 +18,18 @@ from wandb.integration.sb3 import WandbCallback
 config = {
     "policy_type": "MlpPolicy",
     "total_timesteps": 1000000,
-    "env_name": "roundabout-v0",
+    "env_name": "intersection-v0",
 }
 
 run = wandb.init(
     # project="PPO_Highway",
-    project="PPO_Roundabout",
+    # project="PPO_Roundabout",
+    project="PPO_Intersection",
     config=config,
     sync_tensorboard=True,
 )
 
-models_dir = "models/roundabout_ppo"
+models_dir = "models/intersection_ppo"
 
 if not os.path.exists(models_dir):
     os.makedirs(models_dir)
