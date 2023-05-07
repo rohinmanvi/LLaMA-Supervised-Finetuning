@@ -51,6 +51,10 @@ for _ in range(1):
         response = response[len(prompt_so_far):]
         action = int(response.strip())
 
+        print("============================================================================")
+        print(prompt_so_far + "|" + response)
+        print("============================================================================")
+
         prompt_so_far += response + "\n"
 
         obs, reward, done, truncated, info = env.step(action)
