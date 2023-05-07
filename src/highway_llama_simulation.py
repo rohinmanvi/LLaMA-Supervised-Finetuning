@@ -30,7 +30,7 @@ def record_videos(env, video_folder="videos_planning"):
 env = record_videos(env)
 
 model_handler = ModelHandler("decapoda-research/llama-7b-hf")
-generation_config = GenerationConfig(max_new_tokens=1, do_sample=False)
+generation_config = GenerationConfig(max_new_tokens=2, do_sample=False)
 
 for _ in range(1):
     obs, info = env.reset()
