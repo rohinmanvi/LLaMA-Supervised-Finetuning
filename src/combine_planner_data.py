@@ -2,7 +2,7 @@ import os
 import json
 
 input_directory = "data/"
-output_file = "data/highway_planner_sequence_data_incremental_total.jsonl"
+output_file = "data/highway_planner_sequence_data_incremental_total_2.jsonl"
 
 # Check if the output file exists and remove it
 if os.path.exists(output_file):
