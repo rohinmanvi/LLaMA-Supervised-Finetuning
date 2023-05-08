@@ -12,7 +12,7 @@ np.set_printoptions(suppress=True)
 
 env = gym.make("highway-fast-v0", render_mode='rgb_array')
 
-def record_videos(env, video_folder="videos_llama_final_half"):
+def record_videos(env, video_folder="videos_llama_final"):
     wrapped = RecordVideo(env, video_folder=video_folder, episode_trigger=lambda e: True)
 
     # Capture intermediate frames
