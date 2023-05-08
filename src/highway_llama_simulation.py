@@ -30,7 +30,7 @@ def record_videos(env, video_folder="videos_llama"):
 env = record_videos(env)
 
 model_handler = ModelHandler("decapoda-research/llama-7b-hf")
-generation_config = GenerationConfig(max_new_tokens=2, do_sample=False)
+generation_config = GenerationConfig(max_new_tokens=1, do_sample=False)
 
 for _ in range(5):
     obs, info = env.reset()
@@ -40,7 +40,7 @@ for _ in range(5):
 
     while not (done or truncated):
 
-        prompt_so_far += f"Observation:\n{str(np.round(obs, 3))}\nAction:"
+        prompt_so_far += f"Observation:\n{str(np.round(obs, 3))}\nAction: "
 
         response = model_handler.generate_text(
             peft_model='models/highway-driver-final',
