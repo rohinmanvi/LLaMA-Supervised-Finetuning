@@ -6,18 +6,11 @@ from rl_agents.agents.common.factory import agent_factory
 
 from transformers import GenerationConfig
 from model_handler import ModelHandler
+import time  # Import time module
 
 np.set_printoptions(suppress=True)
 
 env = gym.make("highway-fast-v0", render_mode='rgb_array')
-
-agent_config = {
-    "__class__": "<class 'rl_agents.agents.tree_search.deterministic.DeterministicPlannerAgent'>",
-    "env_preprocessors": [{"method":"simplify"}],
-    "budget": 50,
-    "gamma": 0.7,
-}
-agent = agent_factory(env, agent_config)
 
 def record_videos(env, video_folder="videos_llama_2"):
     wrapped = RecordVideo(env, video_folder=video_folder, episode_trigger=lambda e: True)
@@ -32,15 +25,17 @@ env = record_videos(env)
 model_handler = ModelHandler("decapoda-research/llama-7b-hf")
 generation_config = GenerationConfig(max_new_tokens=1, do_sample=False)
 
-for _ in range(5):
+for episode in range(5):
     obs, info = env.reset()
     done = truncated = False
 
     prompt_so_far = ""
+    inference_times = []  # List to store inference times
 
     while not (done or truncated):
+        start_time = time.time()  # Start timer
 
-        prompt_so_far += f"Observation:\n{str(np.round(obs, 3))}\nAction: "
+        prompt_so_far += f"Observation:\n{np.round(obs, 3)}\nAction: "
 
         response = model_handler.generate_text(
             peft_model='models/highway-driver-final',
@@ -51,12 +46,21 @@ for _ in range(5):
         response = response[len(prompt_so_far):]
         action = int(response.strip())
 
-        print("============================================================================")
-        print(prompt_so_far + "|" + response)
-        print("============================================================================")
+        obs, reward, done, truncated, info = env.step(action)
 
         prompt_so_far += response + "\n"
 
-        obs, reward, done, truncated, info = env.step(action)
+        end_time = time.time()  # End timer
+        inference_time = end_time - start_time  # Calculate inference time
+        inference_times.append(inference_time)  # Store inference time
+
+    print(f"============================================================================")
+    print(f"Episode {episode + 1}")
+    print(prompt_so_far)
+    print("Inference times:")
+    for i, t in enumerate(inference_times):
+        print(f"Step {i + 1}: {t:.6f} seconds")
+    print(f"Total inference time: {sum(inference_times):.6f} seconds")
+    print(f"============================================================================")
 
 env.close()
