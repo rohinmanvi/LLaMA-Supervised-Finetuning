@@ -12,7 +12,7 @@ np.set_printoptions(suppress=True)
 
 env = gym.make("highway-fast-v0", render_mode='rgb_array')
 
-def record_videos(env, video_folder="videos_llama_2"):
+def record_videos(env, video_folder="videos_llama_1"):
     wrapped = RecordVideo(env, video_folder=video_folder, episode_trigger=lambda e: True)
 
     # Capture intermediate frames
@@ -37,9 +37,11 @@ for episode in range(5):
 
         prompt_so_far += f"Observation:\n{np.round(obs, 3)}\nAction: "
 
+        prompt = f"Observation:\n{np.round(obs, 3)}\nAction: "
+
         response = model_handler.generate_text(
             peft_model='models/highway-driver-final',
-            text=prompt_so_far,
+            text=prompt,
             generation_config=generation_config
         )
 
