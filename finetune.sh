@@ -13,13 +13,13 @@ python3 src/finetune.py \
     --lora_dropout 0.05 \
     --model_name_or_path decapoda-research/llama-7b-hf \
     --data_path data/highway_planner_sequence_data_incremental_final.jsonl \
-    --output_dir models/highway-driver-test-2 \
+    --output_dir models/highway-driver-test-3 \
     --num_train_epochs 2 \
     --per_device_train_batch_size 1 \
-    --gradient_accumulation_steps 1 \
+    --gradient_accumulation_steps 8 \
     --learning_rate 1e-3 \
     --lr_scheduler_type "cosine" \
     --logging_steps 10 \
     --fp16 True \
-    --model_max_length 8192 \
+    --model_max_length 6000 \
     --report_to wandb
