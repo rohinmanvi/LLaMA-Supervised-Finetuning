@@ -43,7 +43,7 @@ for _ in range(1):
         prompt_so_far += f"Observation:\n{str(np.round(obs, 3))}\nAction:"
 
         response = model_handler.generate_text(
-            peft_model='models/highway-driver',
+            peft_model='models/highway-driver-final',
             text=prompt_so_far,
             generation_config=generation_config
         )
