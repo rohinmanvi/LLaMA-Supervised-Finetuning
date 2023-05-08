@@ -37,15 +37,13 @@ for episode in range(5):
 
         prompt_so_far += f"Observation:\n{np.round(obs, 3)}\nAction: "
 
-        prompt = f"Observation:\n{np.round(obs, 3)}\nAction: "
-
         response = model_handler.generate_text(
             peft_model='models/highway-driver-final',
-            text=prompt,
+            text=prompt_so_far,
             generation_config=generation_config
         )
 
-        response = response[len(prompt):]
+        response = response[len(prompt_so_far):]
         action = int(response.strip())
 
         obs, reward, done, truncated, info = env.step(action)
