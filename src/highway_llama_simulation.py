@@ -19,7 +19,7 @@ agent_config = {
 }
 agent = agent_factory(env, agent_config)
 
-def record_videos(env, video_folder="videos_llama"):
+def record_videos(env, video_folder="videos_llama_2"):
     wrapped = RecordVideo(env, video_folder=video_folder, episode_trigger=lambda e: True)
 
     # Capture intermediate frames
