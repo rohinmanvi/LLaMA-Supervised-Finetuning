@@ -12,7 +12,7 @@ np.set_printoptions(suppress=True)
 
 env = gym.make("highway-fast-v0", render_mode='rgb_array')
 
-def record_videos(env, video_folder="videos_llama_1"):
+def record_videos(env, video_folder="videos_llama_final_half"):
     wrapped = RecordVideo(env, video_folder=video_folder, episode_trigger=lambda e: True)
 
     # Capture intermediate frames
@@ -25,7 +25,7 @@ env = record_videos(env)
 model_handler = ModelHandler("decapoda-research/llama-7b-hf")
 generation_config = GenerationConfig(max_new_tokens=1, do_sample=False)
 
-for episode in range(5):
+for episode in range(25):
     obs, info = env.reset()
     done = truncated = False
 
