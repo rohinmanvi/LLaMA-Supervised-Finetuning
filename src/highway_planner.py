@@ -16,7 +16,7 @@ agent_config = {
 }
 agent = agent_factory(env, agent_config)
 
-def record_videos(env, video_folder="videos_planning"):
+def record_videos(env, video_folder="videos_expert"):
     wrapped = RecordVideo(env, video_folder=video_folder, episode_trigger=lambda e: True)
 
     # Capture intermediate frames
@@ -26,7 +26,7 @@ def record_videos(env, video_folder="videos_planning"):
 
 env = record_videos(env)
 
-for _ in range(1):
+for _ in range(5):
     obs, info = env.reset()
     done = truncated = False
     while not (done or truncated):
