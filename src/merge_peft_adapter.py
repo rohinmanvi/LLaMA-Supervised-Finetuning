@@ -9,7 +9,7 @@ import transformers
 base_model_name = "decapoda-research/llama-7b-hf"
 model_name = "models/highway-driver-final-2"
 
-model = transformers.LlamaForCausalLM.from_pretrained(base_model_name, return_dict=True, torch_dtype=torch.bfloat16)
+model = transformers.LlamaForCausalLM.from_pretrained(base_model_name, return_dict=True, load_in_8bit=True, torch_dtype=torch.float16, device_map={'':0})
 model = peft.PeftModel.from_pretrained(model, model_name, torch_dtype=torch.float16)
 tokenizer = transformers.LlamaTokenizer.from_pretrained(base_model_name)
 
