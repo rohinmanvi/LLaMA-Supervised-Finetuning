@@ -75,8 +75,7 @@ def train():
         model_args.model_name_or_path,
         cache_dir=training_args.cache_dir,
         load_in_8bit=True, 
-        torch_dtype=torch.float16, 
-        device_map="auto"
+        torch_dtype=torch.float16,
     )
     lora_config = LoraConfig(
         r=lora_args.lora_r,
