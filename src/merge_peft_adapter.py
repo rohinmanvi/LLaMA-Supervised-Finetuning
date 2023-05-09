@@ -4,7 +4,7 @@ from typing import Optional
 import peft
 import torch
 from peft import PeftConfig, PeftModel
-import transformer
+import transformers
 
 base_model_name = "decapoda-research/llama-7b-hf"
 model_name = "models/highway-driver-final-2"
