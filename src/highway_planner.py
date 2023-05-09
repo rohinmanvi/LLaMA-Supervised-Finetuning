@@ -6,7 +6,7 @@ from rl_agents.agents.common.factory import agent_factory
 
 np.set_printoptions(suppress=True)
 
-env = gym.make("roundabout-v0", render_mode='rgb_array')
+env = gym.make("highway-fast-v0", render_mode='rgb_array')
 
 agent_config = {
     "__class__": "<class 'rl_agents.agents.tree_search.deterministic.DeterministicPlannerAgent'>",
