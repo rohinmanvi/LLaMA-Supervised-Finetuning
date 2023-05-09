@@ -20,7 +20,7 @@ class ModelHandler:
 
     def load_base_model(self):
         print('Loading base model...')
-        self.model = transformers.LlamaForCausalLM.from_pretrained(self.base_model_name, load_in_8bit=True, torch_dtype=torch.float16, device_map={'':0})
+        self.model = transformers.LlamaForCausalLM.from_pretrained(self.base_model_name, load_in_8bit=True, torch_dtype=torch.float16, device_map="auto")
 
     def load_peft_model(self, model_name):
         print('Loading peft model ' + model_name + '...')
