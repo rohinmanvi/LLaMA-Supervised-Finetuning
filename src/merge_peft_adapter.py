@@ -23,5 +23,4 @@ for key in key_list:
 
 model = model.base_model.model
 
-model.save_pretrained(f"{script_args.output_name}")
-model.push_to_hub(f"{script_args.output_name}", use_temp_dir=False)
+model.save_pretrained("models/merged-highway-driver-final-2")
