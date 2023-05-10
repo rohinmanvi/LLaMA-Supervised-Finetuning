@@ -13,9 +13,9 @@ class RewardClampingWrapper(gym.Wrapper):
         super().__init__(env)
 
     def step(self, action):
-        obs, reward, done, info = self.env.step(action)
+        obs, reward, done, truncated, info = env.step(action)
         clamped_reward = np.clip(reward, 0, 1)
-        return obs, clamped_reward, done, info
+        return obs, reward, done, truncated, info
 
 agent_config = {
     "__class__": "<class 'rl_agents.agents.tree_search.deterministic.DeterministicPlannerAgent'>",
