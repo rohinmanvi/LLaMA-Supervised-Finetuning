@@ -13,7 +13,7 @@ python3 src/finetune.py \
     --lora_dropout 0.05 \
     --model_name_or_path decapoda-research/llama-7b-hf \
     --data_path data/roundabout_planner_sequence_data_incremental_final.jsonl \
-    --output_dir models/roundabout-driver-final-3 \
+    --output_dir models/roundabout-driver-final \
     --num_train_epochs 5 \
     --per_device_train_batch_size 1 \
     --gradient_accumulation_steps 8 \
