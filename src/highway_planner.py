@@ -6,7 +6,7 @@ from rl_agents.agents.common.factory import agent_factory
 
 np.set_printoptions(suppress=True)
 
-env = gym.make("roundabout-v0", render_mode='rgb_array')
+env = gym.make("intersection-v0", render_mode='rgb_array')
 
 class RewardClampingWrapper(gym.Wrapper):
     def __init__(self, env):
@@ -26,7 +26,7 @@ agent_config = {
 }
 agent = agent_factory(env, agent_config)
 
-def record_videos(env, video_folder="videos_roundabout_expert"):
+def record_videos(env, video_folder="videos_intersection_expert"):
     wrapped = RecordVideo(env, video_folder=video_folder, episode_trigger=lambda e: True)
 
     # Capture intermediate frames
