@@ -8,16 +8,6 @@ np.set_printoptions(suppress=True)
 
 env = gym.make("intersection-v0", render_mode='rgb_array')
 
-class RewardClampingWrapper(gym.Wrapper):
-    def __init__(self, env):
-        super().__init__(env)
-
-    def step(self, action):
-        obs, reward, done, truncated, info = env.step(action)
-        print(reward)
-        clamped_reward = np.clip(reward, 0, 1)
-        return obs, clamped_reward, done, truncated, info
-
 agent_config = {
     "__class__": "<class 'rl_agents.agents.tree_search.deterministic.DeterministicPlannerAgent'>",
     "env_preprocessors": [{"method":"simplify"}],
@@ -33,8 +23,6 @@ def record_videos(env, video_folder="videos_intersection_expert"):
     env.unwrapped.set_record_video_wrapper(wrapped)
 
     return wrapped
-
-# env = RewardClampingWrapper(env)
 
 # env = record_videos(env)
 
