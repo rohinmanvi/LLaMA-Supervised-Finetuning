@@ -45,12 +45,12 @@ with open(filename, "a") as f:
         sequence = ""
 
         while not (done or truncated):
-            observation_string = f"Observation:\n{str(np.round(obs, 3))}"
+            observation_string = f"Observation:\n{np.round(obs, 3)}"
             sequence += observation_string + "\n"
 
             action = agent.act(obs)
 
-            action_string = f"Action: {str(action)}"
+            action_string = f"Action: {action}"
             sequence += action_string + "\n"
 
             obs, reward, done, truncated, info = env.step(action)
