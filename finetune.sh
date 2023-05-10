@@ -7,8 +7,7 @@
 ml python/3.9.0 cuda/12.0.0 gcc/12.1.0
 nvidia-smi
 
-deepspeed src/finetune.py \
-    --deepspeed ds_config.json \
+python3 src/finetune.py \
     --lora_r 8 \
     --lora_alpha 16 \
     --lora_dropout 0.05 \
