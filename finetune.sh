@@ -1,6 +1,6 @@
 #!/bin/bash
 #SBATCH -p gpu
-#SBATCH -G 2
+#SBATCH -G 1
 #SBATCH -C GPU_MEM:32GB
 #SBATCH --time=48:00:00
 
