@@ -6,9 +6,8 @@ from rl_agents.agents.common.factory import agent_factory
 
 np.set_printoptions(suppress=True)
 
-env = gym.make("roundabout-v0", render_mode='rgb_array')
+env = gym.make("highway-fast-v0", render_mode='rgb_array')
 
-# Add this class to define the reward clamping wrapper
 class RewardClampingWrapper(gym.Wrapper):
     def __init__(self, env):
         super().__init__(env)
@@ -36,13 +35,15 @@ def record_videos(env, video_folder="videos_roundabout_expert"):
 
 env = record_videos(env)
 
+env = RewardClampingWrapper(env)
+
 for _ in range(5):
     obs, info = env.reset()
     done = truncated = False
     while not (done or truncated):
-        print(f"Observation:\n{np.round(obs, 3)}")
+        print(f"Observation:\n{str(np.round(obs, 3))}")
         action = agent.act(obs)
-        print(f"Action: {action}")
+        print(f"Action: {str(action)}")
         obs, reward, done, truncated, info = env.step(action)
 
 env.close()
