@@ -35,7 +35,7 @@ def record_videos(env, video_folder="videos_roundabout_expert"):
 
 env = RewardClampingWrapper(env)
 
-env = record_videos(env)
+# env = record_videos(env)
 
 for _ in range(5):
     obs, info = env.reset()
