@@ -2,7 +2,7 @@
 #SBATCH -p gpu
 #SBATCH -G 2
 #SBATCH -C GPU_MEM:32GB
-#SBATCH --time=00:30:00
+#SBATCH --time=48:00:00
 
 ml python/3.9.0 cuda/12.0.0 gcc/12.1.0
 nvidia-smi
@@ -13,9 +13,9 @@ deepspeed src/finetune.py \
     --lora_alpha 16 \
     --lora_dropout 0.05 \
     --model_name_or_path decapoda-research/llama-7b-hf \
-    --data_path data/highway_planner_sequence_data_incremental_final.jsonl \
+    --data_path data/highway_planner_sequence_data_incremental_final_small.jsonl \
     --output_dir models/highway-driver-final-3 \
-    --num_train_epochs 4 \
+    --num_train_epochs 5 \
     --per_device_train_batch_size 1 \
     --gradient_accumulation_steps 8 \
     --learning_rate 1e-3 \
