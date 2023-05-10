@@ -34,7 +34,7 @@ def record_videos(env, video_folder="videos_intersection_expert"):
 
     return wrapped
 
-env = RewardClampingWrapper(env)
+# env = RewardClampingWrapper(env)
 
 # env = record_videos(env)
 
