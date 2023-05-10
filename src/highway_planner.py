@@ -14,6 +14,7 @@ class RewardClampingWrapper(gym.Wrapper):
 
     def step(self, action):
         obs, reward, done, truncated, info = env.step(action)
+        print(reward)
         clamped_reward = np.clip(reward, 0, 1)
         return obs, clamped_reward, done, truncated, info
 
