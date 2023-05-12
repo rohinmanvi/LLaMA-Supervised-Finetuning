@@ -48,11 +48,14 @@ for episode in range(5):
     total_rewards.append(total_reward)  # Store total reward for this episode
     episode_lengths.append(steps)  # Store episode length
 
-    if truncated:
-        truncated_episodes += 1  # Increment counter if episode was truncated
+max_episode_length = max(episode_lengths)  # Get the maximum episode length
 
-    print(f"Total reward: {total_reward}")
-    print(f"Episode length: {steps} steps")
+for length in episode_lengths:
+    if length < max_episode_length:
+        truncated_episodes += 1  # Increment counter if episode was less than max length
+
+print(f"Total reward: {total_reward}")
+print(f"Episode length: {steps} steps")
 
 average_reward = np.mean(total_rewards)
 average_length = np.mean(episode_lengths)
