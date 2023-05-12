@@ -29,9 +29,6 @@ total_rewards = []  # List to store total rewards per episode
 episode_lengths = []  # List to store episode lengths
 
 for episode in range(25):
-    np.random.seed(episode)  # optional, for numpy random number generator
-    env.seed(episode)  # set the seed for the environment
-
     obs, info = env.reset()
     done = truncated = False
 

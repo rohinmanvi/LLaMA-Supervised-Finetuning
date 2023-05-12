@@ -30,12 +30,11 @@ total_rewards = []  # List to store total rewards per episode
 episode_lengths = []  # List to store episode lengths
 truncated_episodes = 0  # Counter for truncated episodes
 
-for episode in range(25):
-    env.seed(episode)  # set the seed for the environment
-
+for episode in range(5):
     obs, info = env.reset()
     done = truncated = False
     total_reward = 0  # Reset total reward for the new episode
+    steps = 0  # Reset steps counter for the new episode
 
     while not (done or truncated):
         print(f"Observation:\n{np.round(obs, 3)}")
@@ -44,15 +43,16 @@ for episode in range(25):
 
         obs, reward, done, truncated, info = env.step(action)
         total_reward += reward  # Add the reward to the total reward
+        steps += 1  # Increment steps counter
 
     total_rewards.append(total_reward)  # Store total reward for this episode
-    episode_lengths.append(info['steps'])  # Store episode length
+    episode_lengths.append(steps)  # Store episode length
 
     if truncated:
         truncated_episodes += 1  # Increment counter if episode was truncated
 
     print(f"Total reward: {total_reward}")
-    print(f"Episode length: {info['steps']} steps")
+    print(f"Episode length: {steps} steps")
 
 average_reward = np.mean(total_rewards)
 average_length = np.mean(episode_lengths)
