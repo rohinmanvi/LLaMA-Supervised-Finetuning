@@ -65,7 +65,7 @@ class DriverEnv(gym.Env):
         done = self.steps >= self.max_steps
 
         if done:
-            print(f"angle_r: {round(self.episode_r_angle)}, distance_r: {round(self.episode_r_distance)}")
+            print(f"angle_r: {self.episode_r_angle / 100}, distance_r: {self.episode_r_distance / 100}")
 
             ego_x, ego_y = zip(*self.ego_positions)
             agent_x, agent_y = zip(*self.agent_positions)
@@ -199,8 +199,8 @@ class DriverEnv(gym.Env):
 
         # print(f"r_angle: {round(r_angle)}, r_distance: {round(r_distance)}, r_delta_distance: {round(r_delta_distance)}, r_delta_angle_to_agent: {round(r_delta_angle_to_agent)}, r_a_smooth: {round(r_a_smooth)}, r_s_smooth: {round(r_s_smooth)} ")
 
-        self.episode_r_distance += r_distance
-        self.episode_r_angle += r_angle
+        self.episode_r_distance += -abs(distance_prime - desired_distance)
+        self.episode_r_angle += -abs(angle_to_agent_prime)
 
         # return r_delta_distance + r_delta_angle_to_agent
         return r_distance + r_angle
