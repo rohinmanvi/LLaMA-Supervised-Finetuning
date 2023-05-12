@@ -10,9 +10,9 @@ import time  # Import time module
 
 np.set_printoptions(suppress=True)
 
-env = gym.make("highway-fast-v0", render_mode='rgb_array')
+env = gym.make("roundabout-v0", render_mode='rgb_array')
 
-def record_videos(env, video_folder="videos_llama_final"):
+def record_videos(env, video_folder="videos_llama_roundabout"):
     wrapped = RecordVideo(env, video_folder=video_folder, episode_trigger=lambda e: True)
 
     # Capture intermediate frames
@@ -25,7 +25,7 @@ env = record_videos(env)
 model_handler = ModelHandler("decapoda-research/llama-7b-hf")
 generation_config = GenerationConfig(max_new_tokens=1, do_sample=False)
 
-for episode in range(25):
+for episode in range(3):
     obs, info = env.reset()
     done = truncated = False
 
@@ -38,7 +38,7 @@ for episode in range(25):
         prompt_so_far += f"Observation:\n{np.round(obs, 3)}\nAction: "
 
         response = model_handler.generate_text(
-            peft_model='models/highway-driver-final-2',
+            peft_model='models/roundabout-driver-final',
             text=prompt_so_far,
             generation_config=generation_config
         )
