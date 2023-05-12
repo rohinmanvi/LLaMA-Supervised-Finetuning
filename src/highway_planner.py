@@ -30,7 +30,7 @@ total_rewards = []  # List to store total rewards per episode
 episode_lengths = []  # List to store episode lengths
 truncated_episodes = 0  # Counter for truncated episodes
 
-for episode in range(5):
+for episode in range(100):
     obs, info = env.reset()
     done = truncated = False
     total_reward = 0  # Reset total reward for the new episode
