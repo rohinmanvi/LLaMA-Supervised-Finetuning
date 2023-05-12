@@ -10,7 +10,7 @@ import time  # Import time module
 
 np.set_printoptions(suppress=True)
 
-env = gym.make("highway-fast-v0", render_mode='rgb_array')
+env = gym.make("roundabout-v0", render_mode='rgb_array')
 
 def record_videos(env, video_folder="videos_llama_roundabout_2"):
     wrapped = RecordVideo(env, video_folder=video_folder, episode_trigger=lambda e: True)
