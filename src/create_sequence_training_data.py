@@ -102,6 +102,8 @@ for i in range(episodes):
 
 total_reward /= episodes
 print("Average reward:", total_reward)
+print("Total angle error:", env.total_angle_error)
+print("Total distance error:", env.total_distance_error)
 
 random.shuffle(data)
 random.shuffle(individual_data)

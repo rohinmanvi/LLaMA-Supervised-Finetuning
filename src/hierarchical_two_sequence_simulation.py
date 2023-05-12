@@ -17,6 +17,8 @@ def main():
     episodes = 10
     average_reward = run_episodes(env, model, model_handler, generation_config, episodes)
     print(f"Average reward: {average_reward}")
+    print("Total angle error:", env.total_angle_error)
+    print("Total distance error:", env.total_distance_error)
 
 def run_episodes(env, model, model_handler, generation_config, episodes):
     total_reward = 0

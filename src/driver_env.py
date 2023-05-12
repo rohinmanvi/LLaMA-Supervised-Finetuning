@@ -24,6 +24,9 @@ class DriverEnv(gym.Env):
 
         self.max_steps = 100
 
+        self.total_angle_error = 0
+        self.total_distance_error = 0
+
         self.episode_r_angle = 0
         self.episode_r_distance = 0
 
@@ -199,8 +202,11 @@ class DriverEnv(gym.Env):
 
         # print(f"r_angle: {round(r_angle)}, r_distance: {round(r_distance)}, r_delta_distance: {round(r_delta_distance)}, r_delta_angle_to_agent: {round(r_delta_angle_to_agent)}, r_a_smooth: {round(r_a_smooth)}, r_s_smooth: {round(r_s_smooth)} ")
 
-        self.episode_r_distance += -abs(distance_prime - desired_distance)
-        self.episode_r_angle += -abs(angle_to_agent_prime)
+        self.total_angle_error += -abs(angle_to_agent_prime)
+        self.total_distance_error += -abs(distance_prime - desired_distance)
+
+        self.episode_r_distance += r_distance
+        self.episode_r_angle += r_angle
 
         # return r_delta_distance + r_delta_angle_to_agent
         return r_distance + r_angle
