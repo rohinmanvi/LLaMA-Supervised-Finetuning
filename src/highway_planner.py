@@ -6,7 +6,7 @@ from rl_agents.agents.common.factory import agent_factory
 
 np.set_printoptions(suppress=True)
 
-env = gym.make("intersection-v0", render_mode='rgb_array')
+env = gym.make("highway-fast-v0", render_mode='rgb_array')
 
 agent_config = {
     "__class__": "<class 'rl_agents.agents.tree_search.deterministic.DeterministicPlannerAgent'>",
@@ -16,7 +16,7 @@ agent_config = {
 }
 agent = agent_factory(env, agent_config)
 
-def record_videos(env, video_folder="videos_intersection_expert"):
+def record_videos(env, video_folder="highway_opd_videos"):
     wrapped = RecordVideo(env, video_folder=video_folder, episode_trigger=lambda e: True)
 
     # Capture intermediate frames
@@ -24,15 +24,42 @@ def record_videos(env, video_folder="videos_intersection_expert"):
 
     return wrapped
 
-# env = record_videos(env)
+env = record_videos(env)
 
-for _ in range(5):
+total_rewards = []  # List to store total rewards per episode
+episode_lengths = []  # List to store episode lengths
+truncated_episodes = 0  # Counter for truncated episodes
+
+for episode in range(25):
+    env.seed(episode)  # set the seed for the environment
+
     obs, info = env.reset()
     done = truncated = False
+    total_reward = 0  # Reset total reward for the new episode
+
     while not (done or truncated):
         print(f"Observation:\n{np.round(obs, 3)}")
         action = agent.act(obs)
         print(f"Action: {action}")
+
         obs, reward, done, truncated, info = env.step(action)
+        total_reward += reward  # Add the reward to the total reward
+
+    total_rewards.append(total_reward)  # Store total reward for this episode
+    episode_lengths.append(info['steps'])  # Store episode length
+
+    if truncated:
+        truncated_episodes += 1  # Increment counter if episode was truncated
+
+    print(f"Total reward: {total_reward}")
+    print(f"Episode length: {info['steps']} steps")
+
+average_reward = np.mean(total_rewards)
+average_length = np.mean(episode_lengths)
+collision_rate = truncated_episodes / len(total_rewards)
+
+print(f"Average reward per episode: {average_reward}")
+print(f"Average episode length: {average_length} steps")
+print(f"Collision rate: {collision_rate}")
 
 env.close()
