@@ -25,14 +25,14 @@ def get_action(env, x_prime, y_prime, x, y, theta):
 
     return distance, angle
 
-episodes = 1
+episodes = 10
 
 data = []
 individual_data = []
 
 for i in range(episodes):
 
-    observation = env.reset(0)
+    observation = env.reset(i)
     done = False
 
     print("Reset")
