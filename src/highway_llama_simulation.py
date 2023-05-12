@@ -38,7 +38,7 @@ for episode in range(25):
         prompt_so_far += f"Observation:\n{np.round(obs, 3)}\nAction: "
 
         response = model_handler.generate_text(
-            peft_model='models/highway-driver-final-3',
+            peft_model='models/roundabout-driver-final',
             text=prompt_so_far,
             generation_config=generation_config
         )
