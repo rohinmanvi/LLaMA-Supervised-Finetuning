@@ -27,6 +27,8 @@ def get_action(env, x_prime, y_prime, x, y, theta):
 
 episodes = 10
 
+total_reward = 0
+
 data = []
 individual_data = []
 
@@ -57,6 +59,8 @@ for i in range(episodes):
     while not done:
         action, _ = model.predict(observation)
         observation, reward, done, _ = env.step(action)
+
+        total_reward += reward
 
         step += 1
 
@@ -95,6 +99,9 @@ for i in range(episodes):
     sequence = sequence.strip()
     
     data.append({"text": sequence})
+
+total_reward /= episodes
+print("Average reward:", total_reward)
 
 random.shuffle(data)
 random.shuffle(individual_data)
