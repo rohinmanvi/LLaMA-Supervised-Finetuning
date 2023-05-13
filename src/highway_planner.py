@@ -3,6 +3,8 @@ import gymnasium as gym
 import highway_env
 from gymnasium.wrappers import RecordVideo
 from rl_agents.agents.common.factory import agent_factory
+import time
+import pandas as pd
 
 np.set_printoptions(suppress=True)
 
@@ -26,43 +28,65 @@ def record_videos(env, video_folder="highway_opd_videos"):
 
 env = record_videos(env)
 
-total_rewards = []  # List to store total rewards per episode
-episode_lengths = []  # List to store episode lengths
-truncated_episodes = 0  # Counter for truncated episodes
+total_rewards = []
+episode_lengths = []
+truncated_episodes = 0
+all_inference_times = []
 
 for episode in range(100):
     obs, info = env.reset()
     done = truncated = False
-    total_reward = 0  # Reset total reward for the new episode
-    steps = 0  # Reset steps counter for the new episode
+    total_reward = 0
+    steps = 0
+
+    inference_times = []
 
     while not (done or truncated):
         print(f"Observation:\n{np.round(obs, 3)}")
+        
+        start_time = time.time()
         action = agent.act(obs)
+        end_time = time.time()
+        
+        inference_time = end_time - start_time
+        inference_times.append(inference_time)
+        
         print(f"Action: {action}")
 
         obs, reward, done, truncated, info = env.step(action)
-        total_reward += reward  # Add the reward to the total reward
-        steps += 1  # Increment steps counter
+        total_reward += reward  
+        steps += 1
 
-    total_rewards.append(total_reward)  # Store total reward for this episode
-    episode_lengths.append(steps)  # Store episode length
+    total_rewards.append(total_reward)
+    episode_lengths.append(steps)
+    all_inference_times += inference_times
 
-max_episode_length = max(episode_lengths)  # Get the maximum episode length
+    print(f"Total reward: {total_reward}")
+    print(f"Episode length: {steps} steps")
+    print(f"Average episode inference time: {np.mean(inference_times)} seconds") 
+
+max_episode_length = max(episode_lengths)
 
 for length in episode_lengths:
     if length < max_episode_length:
-        truncated_episodes += 1  # Increment counter if episode was less than max length
-
-print(f"Total reward: {total_reward}")
-print(f"Episode length: {steps} steps")
+        truncated_episodes += 1
 
 average_reward = np.mean(total_rewards)
 average_length = np.mean(episode_lengths)
 collision_rate = truncated_episodes / len(total_rewards)
+average_inference_time = np.mean(all_inference_times)
 
 print(f"Average reward per episode: {average_reward}")
 print(f"Average episode length: {average_length} steps")
 print(f"Collision rate: {collision_rate}")
+print(f"Average inference time: {average_inference_time} seconds") 
+
+# Save results to csv file
+data = pd.DataFrame({
+    "total_rewards": total_rewards,
+    "episode_lengths": episode_lengths,
+    "inference_times": all_inference_times
+})
+data.to_csv('planner_highway_data.csv', index=False)
 
 env.close()

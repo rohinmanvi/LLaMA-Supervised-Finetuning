@@ -7,12 +7,13 @@ from rl_agents.agents.common.factory import agent_factory
 from transformers import GenerationConfig
 from model_handler import ModelHandler
 import time  # Import time module
+import pandas as pd  # Import pandas module
 
 np.set_printoptions(suppress=True)
 
 env = gym.make("highway-fast-v0", render_mode='rgb_array')
 
-def record_videos(env, video_folder="highway_videos"):
+def record_videos(env, video_folder="highway_llama_videos"):
     wrapped = RecordVideo(env, video_folder=video_folder, episode_trigger=lambda e: True)
 
     # Capture intermediate frames
@@ -25,22 +26,24 @@ env = record_videos(env)
 model_handler = ModelHandler("decapoda-research/llama-7b-hf")
 generation_config = GenerationConfig(max_new_tokens=1, do_sample=False)
 
-total_rewards = []  # List to store total rewards per episode
-episode_lengths = []  # List to store episode lengths
+total_rewards = []
+episode_lengths = []
+truncated_episodes = 0
+all_inference_times = []
 
-for episode in range(25):
+for episode in range(100):
     obs, info = env.reset()
     done = truncated = False
 
     prompt_so_far = ""
-    inference_times = []  # List to store inference times
+    inference_times = []
 
-    total_reward = 0  # Reset total reward for the new episode
+    total_reward = 0
 
     while not (done or truncated):
-        start_time = time.time()  # Start timer
-
         prompt_so_far += f"Observation:\n{np.round(obs, 3)}\nAction: "
+
+        start_time = time.time()
 
         response = model_handler.generate_text(
             peft_model='models/highway-driver-final-2',
@@ -48,20 +51,22 @@ for episode in range(25):
             generation_config=generation_config
         )
 
+        end_time = time.time()
+
         response = response[len(prompt_so_far):]
         action = int(response.strip())
 
         obs, reward, done, truncated, info = env.step(action)
-        total_reward += reward  # Add the reward to the total reward
+        total_reward += reward
 
         prompt_so_far += response + "\n"
 
-        end_time = time.time()  # End timer
-        inference_time = end_time - start_time  # Calculate inference time
-        inference_times.append(inference_time)  # Store inference time
+        inference_time = end_time - start_time
+        inference_times.append(inference_time)
 
-    total_rewards.append(total_reward)  # Store total reward for this episode
-    episode_lengths.append(len(inference_times))  # Store episode length
+    total_rewards.append(total_reward)
+    episode_lengths.append(len(inference_times))
+    all_inference_times += inference_times
 
     print(f"============================================================================")
     print(f"Episode {episode + 1}")
@@ -74,10 +79,28 @@ for episode in range(25):
     print(f"Episode length: {len(inference_times)} steps")
     print(f"============================================================================")
 
+max_episode_length = max(episode_lengths)
+
+for length in episode_lengths:
+    if length < max_episode_length:
+        truncated_episodes += 1
+
 average_reward = np.mean(total_rewards)
 average_length = np.mean(episode_lengths)
+collision_rate = truncated_episodes / len(total_rewards)
+average_inference_time = np.mean(all_inference_times)
 
 print(f"Average reward per episode: {average_reward}")
 print(f"Average episode length: {average_length} steps")
+print(f"Collision rate: {collision_rate}")
+print(f"Average inference time: {average_inference_time} seconds") 
+
+# Save results to csv file
+data = pd.DataFrame({
+    "total_rewards": total_rewards,
+    "episode_lengths": episode_lengths,
+    "inference_times": all_inference_times
+})
+data.to_csv('llama_highway_data.csv', index=False)
 
 env.close()
