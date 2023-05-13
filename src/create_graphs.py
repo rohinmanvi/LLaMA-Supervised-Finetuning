@@ -12,8 +12,8 @@ planner_df = pd.read_csv('planner_highway_data.csv')
 fig, ax = plt.subplots(tight_layout=True)
 
 # Plot histograms
-ax.hist(llama_df['total_rewards'], bins=20, alpha=0.5, color=pastelBlue, label='LLaMA')
-ax.hist(planner_df['total_rewards'], bins=20, alpha=0.5, color=pastelRed, label='OPD')
+ax.hist(llama_df['total_rewards'], bins=20, alpha=0.5, color=pastelRed, label='LLaMA')
+ax.hist(planner_df['total_rewards'], bins=20, alpha=0.5, color=pastelBlue, label='OPD')
 
 # Set labels
 ax.set_xlabel('Episode Rewards')
