@@ -16,7 +16,7 @@ ax.hist(llama_df['total_rewards'], bins=20, alpha=0.5, color=pastelBlue, label='
 ax.hist(planner_df['total_rewards'], bins=20, alpha=0.5, color=pastelRed, label='OPD')
 
 # Set labels
-ax.set_xlabel('Total Rewards')
+ax.set_xlabel('Episode Rewards')
 ax.set_ylabel('Frequency')
 
 # Show legend
