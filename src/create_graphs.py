@@ -5,21 +5,19 @@ import matplotlib.pyplot as plt
 llama_df = pd.read_csv('llama_highway_data.csv')
 planner_df = pd.read_csv('planner_highway_data.csv')
 
-# Create a figure and a set of subplots
-fig, axs = plt.subplots(1, 2, sharey=True, tight_layout=True)
+# Create a figure
+fig, ax = plt.subplots(tight_layout=True)
 
 # Plot histograms
-axs[0].hist(llama_df['total_rewards'], bins=20, alpha=0.5, color='blue', label='Llama')
-axs[1].hist(planner_df['total_rewards'], bins=20, alpha=0.5, color='red', label='Planner')
+ax.hist(llama_df['total_rewards'], bins=20, alpha=0.5, color='blue', label='LLaMA')
+ax.hist(planner_df['total_rewards'], bins=20, alpha=0.5, color='red', label='OPD')
 
 # Set labels
-axs[0].set_xlabel('LLaMA Episode Rewards')
-axs[0].set_ylabel('Frequency')
-axs[1].set_xlabel('OPD Episode Rewards')
+ax.set_xlabel('Total Rewards')
+ax.set_ylabel('Frequency')
 
 # Show legend
-axs[0].legend()
-axs[1].legend()
+ax.legend()
 
 # Save the figure
 plt.savefig('histogram.pdf')
