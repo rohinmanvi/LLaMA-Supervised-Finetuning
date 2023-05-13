@@ -11,9 +11,9 @@ import pandas as pd  # Import pandas module
 
 np.set_printoptions(suppress=True)
 
-env = gym.make("highway-fast-v0", render_mode='rgb_array')
+env = gym.make("roundabout-v0", render_mode='rgb_array')
 
-def record_videos(env, video_folder="highway_llama_videos"):
+def record_videos(env, video_folder="roundabout_llama_videos"):
     wrapped = RecordVideo(env, video_folder=video_folder, episode_trigger=lambda e: True)
 
     # Capture intermediate frames
@@ -48,7 +48,7 @@ for episode in range(100):
         start_time = time.time()
 
         response = model_handler.generate_text(
-            peft_model='models/highway-driver-final-2',
+            peft_model='models/roundabout-driver-final',
             text=prompt_so_far,
             generation_config=generation_config
         )
@@ -107,6 +107,6 @@ data = pd.DataFrame({
     "max_inference_times": max_inference_times,
     "avg_inference_times": avg_inference_times
 })
-data.to_csv('llama_highway_data.csv', index=False)
+data.to_csv('llama_roundabout_data.csv', index=False)
 
 env.close()
