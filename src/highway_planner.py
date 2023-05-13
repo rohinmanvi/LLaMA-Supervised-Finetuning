@@ -30,8 +30,10 @@ env = record_videos(env)
 
 total_rewards = []
 episode_lengths = []
+min_inference_times = []
+max_inference_times = []
+avg_inference_times = []
 truncated_episodes = 0
-all_inference_times = []
 
 for episode in range(100):
     obs, info = env.reset()
@@ -59,7 +61,10 @@ for episode in range(100):
 
     total_rewards.append(total_reward)
     episode_lengths.append(steps)
-    all_inference_times += inference_times
+    
+    min_inference_times.append(min(inference_times))
+    max_inference_times.append(max(inference_times))
+    avg_inference_times.append(sum(inference_times) / len(inference_times))
 
     print(f"Total reward: {total_reward}")
     print(f"Episode length: {steps} steps")
@@ -74,18 +79,19 @@ for length in episode_lengths:
 average_reward = np.mean(total_rewards)
 average_length = np.mean(episode_lengths)
 collision_rate = truncated_episodes / len(total_rewards)
-average_inference_time = np.mean(all_inference_times)
+average_inference_time = np.mean(avg_inference_times)
 
 print(f"Average reward per episode: {average_reward}")
 print(f"Average episode length: {average_length} steps")
 print(f"Collision rate: {collision_rate}")
 print(f"Average inference time: {average_inference_time} seconds") 
 
-# Save results to csv file
 data = pd.DataFrame({
     "total_rewards": total_rewards,
     "episode_lengths": episode_lengths,
-    "inference_times": all_inference_times
+    "min_inference_times": min_inference_times,
+    "max_inference_times": max_inference_times,
+    "avg_inference_times": avg_inference_times
 })
 data.to_csv('planner_highway_data.csv', index=False)
 
