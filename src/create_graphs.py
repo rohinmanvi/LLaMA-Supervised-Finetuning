@@ -16,7 +16,7 @@ fig, ax = plt.subplots(tight_layout=True)
 
 min_value = 0
 max_value = 30
-bin_width = 1
+bin_width = 2
 bin_edges = np.arange(min_value, max_value + bin_width, bin_width)
 
 # Plot histograms
@@ -59,7 +59,7 @@ fig, ax = plt.subplots(tight_layout=True)
 
 min_value = 0
 max_value = 11
-bin_width = 0.5
+bin_width = 1
 bin_edges = np.arange(min_value, max_value + bin_width, bin_width)
 
 # Plot histograms
