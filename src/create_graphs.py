@@ -14,8 +14,8 @@ planner_df = pd.read_csv('planner_highway_data.csv')
 fig, ax = plt.subplots(tight_layout=True)
 
 # Plot histograms
-ax.hist(llama_df['total_rewards'], bins=20, alpha=0.5, color=pastelBlue, label='LLaMA')
 ax.hist(planner_df['total_rewards'], bins=20, alpha=0.5, color=pastelRed, label='OPD')
+ax.hist(llama_df['total_rewards'], bins=20, alpha=0.5, color=pastelBlue, label='LLaMA')
 
 # Set labels
 ax.set_xlabel('Episode Rewards')
@@ -31,8 +31,8 @@ plt.savefig('plots/highway_rewards_histogram.pdf')
 fig, ax = plt.subplots(tight_layout=True)
 
 # Plot histograms
-ax.hist(llama_df['episode_lengths'], bins=20, alpha=0.5, color=pastelBlue, label='LLaMA')
 ax.hist(planner_df['episode_lengths'], bins=20, alpha=0.5, color=pastelRed, label='OPD')
+ax.hist(llama_df['episode_lengths'], bins=20, alpha=0.5, color=pastelBlue, label='LLaMA')
 
 # Set labels
 ax.set_xlabel('Episode Lengths')
@@ -52,8 +52,8 @@ planner_df = pd.read_csv('planner_roundabout_data.csv')
 fig, ax = plt.subplots(tight_layout=True)
 
 # Plot histograms
-ax.hist(llama_df['total_rewards'], bins=20, alpha=0.5, color=pastelBlue, label='LLaMA')
 ax.hist(planner_df['total_rewards'], bins=20, alpha=0.5, color=pastelRed, label='OPD')
+ax.hist(llama_df['total_rewards'], bins=20, alpha=0.5, color=pastelBlue, label='LLaMA')
 
 # Set labels
 ax.set_xlabel('Episode Rewards')
@@ -69,8 +69,8 @@ plt.savefig('plots/roundabout_rewards_histogram.pdf')
 fig, ax = plt.subplots(tight_layout=True)
 
 # Plot histograms
-ax.hist(llama_df['episode_lengths'], bins=20, alpha=0.5, color=pastelBlue, label='LLaMA')
 ax.hist(planner_df['episode_lengths'], bins=20, alpha=0.5, color=pastelRed, label='OPD')
+ax.hist(llama_df['episode_lengths'], bins=20, alpha=0.5, color=pastelBlue, label='LLaMA')
 
 # Set labels
 ax.set_xlabel('Episode Lengths')
