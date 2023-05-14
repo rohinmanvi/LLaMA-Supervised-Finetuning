@@ -31,6 +31,27 @@ plt.savefig('plots/highway_rewards_histogram.pdf')
 fig, ax = plt.subplots(tight_layout=True)
 
 # Plot histograms
+ax.hist(llama_df['episode_lengths'], bins=20, alpha=0.5, color=pastelRed, label='LLaMA')
+ax.hist(planner_df['episode_lengths'], bins=20, alpha=0.5, color=pastelBlue, label='OPD')
+
+# Set labels
+ax.set_xlabel('Episode Lengths')
+ax.set_ylabel('Frequency')
+
+# Show legend
+ax.legend()
+
+# Save the figure
+plt.savefig('plots/highway_length_histogram.pdf')
+
+# Load data
+llama_df = pd.read_csv('llama_roundabout_data.csv')
+planner_df = pd.read_csv('planner_roundabout_data.csv')
+
+# Create a figure
+fig, ax = plt.subplots(tight_layout=True)
+
+# Plot histograms
 ax.hist(llama_df['total_rewards'], bins=20, alpha=0.5, color=pastelRed, label='LLaMA')
 ax.hist(planner_df['total_rewards'], bins=20, alpha=0.5, color=pastelBlue, label='OPD')
 
@@ -42,6 +63,23 @@ ax.set_ylabel('Frequency')
 ax.legend()
 
 # Save the figure
-plt.savefig('plots/highway_rewards_histogram.pdf')
+plt.savefig('plots/roundabout_rewards_histogram.pdf')
+
+# Create a figure
+fig, ax = plt.subplots(tight_layout=True)
+
+# Plot histograms
+ax.hist(llama_df['episode_lengths'], bins=20, alpha=0.5, color=pastelRed, label='LLaMA')
+ax.hist(planner_df['episode_lengths'], bins=20, alpha=0.5, color=pastelBlue, label='OPD')
+
+# Set labels
+ax.set_xlabel('Episode Lengths')
+ax.set_ylabel('Frequency')
+
+# Show legend
+ax.legend()
+
+# Save the figure
+plt.savefig('plots/roundabout_length_histogram.pdf')
 
 
