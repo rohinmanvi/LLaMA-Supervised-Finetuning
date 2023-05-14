@@ -25,7 +25,7 @@ def get_action(env, x_prime, y_prime, x, y, theta):
 
     return distance, angle
 
-episodes = 10
+episodes = 100
 
 total_reward = 0
 
