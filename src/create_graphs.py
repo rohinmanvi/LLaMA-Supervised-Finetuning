@@ -13,9 +13,14 @@ planner_df = pd.read_csv('planner_highway_data.csv')
 # Create a figure
 fig, ax = plt.subplots(tight_layout=True)
 
+min_value = 0
+max_value = 30
+bin_width = 1
+bin_edges = np.arange(min_value, max_value + bin_width, bin_width)
+
 # Plot histograms
-ax.hist(planner_df['total_rewards'], bins=20, alpha=0.5, color=pastelRed, label='OPD')
-ax.hist(llama_df['total_rewards'], bins=20, alpha=0.5, color=pastelBlue, label='LLaMA')
+ax.hist(planner_df['total_rewards'], bins=bin_edges, alpha=0.5, color=pastelRed, label='OPD')
+ax.hist(llama_df['total_rewards'], bins=bin_edges, alpha=0.5, color=pastelBlue, label='LLaMA')
 
 # Set labels
 ax.set_xlabel('Episode Rewards')
@@ -31,8 +36,8 @@ plt.savefig('plots/highway_rewards_histogram.pdf')
 fig, ax = plt.subplots(tight_layout=True)
 
 # Plot histograms
-ax.hist(planner_df['episode_lengths'], bins=20, alpha=0.5, color=pastelRed, label='OPD')
-ax.hist(llama_df['episode_lengths'], bins=20, alpha=0.5, color=pastelBlue, label='LLaMA')
+ax.hist(planner_df['episode_lengths'], bins=bin_edges, alpha=0.5, color=pastelRed, label='OPD')
+ax.hist(llama_df['episode_lengths'], bins=bin_edges, alpha=0.5, color=pastelBlue, label='LLaMA')
 
 # Set labels
 ax.set_xlabel('Episode Lengths')
@@ -51,9 +56,14 @@ planner_df = pd.read_csv('planner_roundabout_data.csv')
 # Create a figure
 fig, ax = plt.subplots(tight_layout=True)
 
+min_value = 0
+max_value = 11
+bin_width = 1
+bin_edges = np.arange(min_value, max_value + bin_width, bin_width)
+
 # Plot histograms
-ax.hist(planner_df['total_rewards'], bins=20, alpha=0.5, color=pastelRed, label='OPD')
-ax.hist(llama_df['total_rewards'], bins=20, alpha=0.5, color=pastelBlue, label='LLaMA')
+ax.hist(planner_df['total_rewards'], bins=bin_edges, alpha=0.5, color=pastelRed, label='OPD')
+ax.hist(llama_df['total_rewards'], bins=bin_edges, alpha=0.5, color=pastelBlue, label='LLaMA')
 
 # Set labels
 ax.set_xlabel('Episode Rewards')
@@ -69,8 +79,8 @@ plt.savefig('plots/roundabout_rewards_histogram.pdf')
 fig, ax = plt.subplots(tight_layout=True)
 
 # Plot histograms
-ax.hist(planner_df['episode_lengths'], bins=20, alpha=0.5, color=pastelRed, label='OPD')
-ax.hist(llama_df['episode_lengths'], bins=20, alpha=0.5, color=pastelBlue, label='LLaMA')
+ax.hist(planner_df['episode_lengths'], bins=bin_edges, alpha=0.5, color=pastelRed, label='OPD')
+ax.hist(llama_df['episode_lengths'], bins=bin_edges, alpha=0.5, color=pastelBlue, label='LLaMA')
 
 # Set labels
 ax.set_xlabel('Episode Lengths')
