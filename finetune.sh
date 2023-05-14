@@ -21,5 +21,5 @@ python3 src/finetune.py \
     --lr_scheduler_type "cosine" \
     --logging_steps 100 \
     --fp16 True \
-    --model_max_length 4096 \
+    --model_max_length 1024 \
     --report_to wandb
