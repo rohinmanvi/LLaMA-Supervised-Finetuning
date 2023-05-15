@@ -98,10 +98,21 @@ def train():
     with open(data_args.data_path, 'r') as f:
         for line in f:
             data = json.loads(line)
-            text.append(data)
+            text.append(data['text'])
+
+    print("Determining max sequence length...")
+
+    tokenized_text = [tokenizer.encode(t, truncation=False) for t in text]
+    max_length = max(len(t) for t in tokenized_text)
+
+    if max_length < training_args.model_max_length:
+        training_args.model_max_length = max_length
+        print(f"Setting model_max_length to {max_length}")
+    else:
+        print(f"Keeping model_max_length at {training_args.model_max_length}")
 
     data = datasets.Dataset.from_list(text)
-    data = data.shuffle().map(lambda x: tokenizer(x['text'], padding='max_length', max_length=training_args.model_max_length, truncation=True))
+    data = data.shuffle().map(lambda t: tokenizer(t, padding='max_length', max_length=training_args.model_max_length, truncation=True))
 
     trainer = transformers.Trainer(
         model=model,
