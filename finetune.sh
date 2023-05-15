@@ -19,7 +19,7 @@ python3 src/finetune.py \
     --gradient_accumulation_steps 1 \
     --learning_rate 1e-3 \
     --lr_scheduler_type "cosine" \
-    --logging_steps 1 \
+    --logging_steps 10 \
     --fp16 True \
     --model_max_length 256 \
     --report_to wandb
