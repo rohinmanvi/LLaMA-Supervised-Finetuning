@@ -12,9 +12,9 @@ python3 src/finetune.py \
     --lora_alpha 16 \
     --lora_dropout 0.05 \
     --model_name_or_path decapoda-research/llama-7b-hf \
-    --data_path data/highway_planner_data_incremental.jsonl \
-    --output_dir models/highway-no-sequence \
-    --num_train_epochs 1 \
+    --data_path data/roundabout_planner_data_incremental.jsonl \
+    --output_dir models/roundabout-no-sequence \
+    --num_train_epochs 2 \
     --per_device_train_batch_size 16 \
     --gradient_accumulation_steps 1 \
     --learning_rate 1e-3 \
