@@ -2,7 +2,7 @@
 #SBATCH -p gpu
 #SBATCH -G 1
 #SBATCH -C GPU_MEM:32GB
-#SBATCH --time=00:30:00
+#SBATCH --time=20:00:00
 
 ml python/3.9.0 cuda/12.0.0 gcc/12.1.0
 nvidia-smi
@@ -14,7 +14,7 @@ python3 src/finetune.py \
     --model_name_or_path decapoda-research/llama-7b-hf \
     --data_path data/roundabout_planner_data_incremental.jsonl \
     --output_dir models/roundabout-no-sequence \
-    --num_train_epochs 2 \
+    --num_train_epochs 3 \
     --per_device_train_batch_size 128 \
     --gradient_accumulation_steps 1 \
     --learning_rate 1e-3 \
