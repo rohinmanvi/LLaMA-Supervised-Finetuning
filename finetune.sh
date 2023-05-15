@@ -15,7 +15,7 @@ python3 src/finetune.py \
     --data_path data/roundabout_planner_data_incremental.jsonl \
     --output_dir models/roundabout-no-sequence-test \
     --num_train_epochs 2 \
-    --per_device_train_batch_size 64 \
+    --per_device_train_batch_size 32 \
     --gradient_accumulation_steps 1 \
     --learning_rate 3e-3 \
     --lr_scheduler_type "cosine" \
