@@ -50,7 +50,7 @@ for episode in range(5):
         start_time = time.time()
 
         response = model_handler.generate_text(
-            peft_model='models/roundabout-driver-final',
+            peft_model='models/roundabout-no-sequence',
             text=prompt,
             generation_config=generation_config
         )
