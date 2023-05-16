@@ -11,7 +11,7 @@ import pandas as pd  # Import pandas module
 
 np.set_printoptions(suppress=True)
 
-env = gym.make("roundabout-v0", render_mode='rgb_array')
+env = gym.make("highway-fast-v0", render_mode='rgb_array')
 
 def record_videos(env, video_folder="roundabout_llama_videos"):
     wrapped = RecordVideo(env, video_folder=video_folder, episode_trigger=lambda e: True)
@@ -33,7 +33,7 @@ max_inference_times = []
 avg_inference_times = []
 truncated_episodes = 0
 
-for episode in range(20):
+for episode in range(10):
     obs, info = env.reset()
     done = truncated = False
 
@@ -50,7 +50,7 @@ for episode in range(20):
         start_time = time.time()
 
         response = model_handler.generate_text(
-            peft_model='models/roundabout-no-sequence',
+            peft_model='models/highway-no-sequence',
             text=prompt,
             generation_config=generation_config
         )
