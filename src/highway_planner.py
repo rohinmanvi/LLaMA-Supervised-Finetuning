@@ -44,7 +44,7 @@ for episode in range(3):
     inference_times = []
 
     while not (done or truncated):
-        print(f"Observation:\n{np.round(obs, 5)}")
+        print(f"Observation:\n{obs}")
         
         start_time = time.time()
         action = agent.act(obs)
