@@ -8,7 +8,7 @@ import os
 
 np.set_printoptions(suppress=True)
 
-env = gym.make('roundabout-v0')
+env = gym.make('highway-fast-v0')
 
 agent_config = {
     "__class__": "<class 'rl_agents.agents.tree_search.deterministic.DeterministicPlannerAgent'>",
@@ -28,7 +28,7 @@ def get_next_available_file_number(base_filename):
         counter += 1
 
 # Use the function to get the next available file number
-base_filename = "data/roundabout_planner_sequence_data_incremental"
+base_filename = "data/highway_planner_data_detailed"
 next_file_number = get_next_available_file_number(base_filename)
 
 # Create the full filename with the next available number
