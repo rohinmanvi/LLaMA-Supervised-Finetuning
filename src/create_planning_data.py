@@ -45,7 +45,7 @@ with open(filename, "a") as f:
         sequence = ""
 
         while not (done or truncated):
-            observation_string = f"Observation:\n{np.round(obs, 3)}"
+            observation_string = f"Observation:\n{np.round(obs, 5)}"
             sequence += observation_string + "\n"
 
             action = agent.act(obs)
