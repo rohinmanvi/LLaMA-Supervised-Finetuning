@@ -6,7 +6,7 @@ from rl_agents.agents.common.factory import agent_factory
 import time
 import pandas as pd
 
-np.set_printoptions(suppress=True)
+# np.set_printoptions(suppress=True)
 
 env = gym.make("highway-fast-v0", render_mode='rgb_array')
 
