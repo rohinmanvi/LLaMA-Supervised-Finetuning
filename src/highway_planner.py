@@ -8,7 +8,7 @@ import pandas as pd
 
 np.set_printoptions(suppress=True)
 
-env = gym.make("roundabout-v0", render_mode='rgb_array')
+env = gym.make("highway-fast-v0", render_mode='rgb_array')
 
 agent_config = {
     "__class__": "<class 'rl_agents.agents.tree_search.deterministic.DeterministicPlannerAgent'>",
@@ -18,7 +18,7 @@ agent_config = {
 }
 agent = agent_factory(env, agent_config)
 
-def record_videos(env, video_folder="roundabout_opd_videos"):
+def record_videos(env, video_folder="highway_opd_videos"):
     wrapped = RecordVideo(env, video_folder=video_folder, episode_trigger=lambda e: True)
 
     # Capture intermediate frames
@@ -86,13 +86,13 @@ print(f"Average episode length: {average_length} steps")
 print(f"Collision rate: {collision_rate}")
 print(f"Average inference time: {average_inference_time} seconds") 
 
-data = pd.DataFrame({
-    "total_rewards": total_rewards,
-    "episode_lengths": episode_lengths,
-    "min_inference_times": min_inference_times,
-    "max_inference_times": max_inference_times,
-    "avg_inference_times": avg_inference_times
-})
-data.to_csv('planner_roundabout_data.csv', index=False)
+# data = pd.DataFrame({
+#     "total_rewards": total_rewards,
+#     "episode_lengths": episode_lengths,
+#     "min_inference_times": min_inference_times,
+#     "max_inference_times": max_inference_times,
+#     "avg_inference_times": avg_inference_times
+# })
+# data.to_csv('planner_roundabout_data.csv', index=False)
 
 env.close()
