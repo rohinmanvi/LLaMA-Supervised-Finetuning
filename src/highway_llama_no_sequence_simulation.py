@@ -50,7 +50,7 @@ for episode in range(100):
         start_time = time.time()
 
         response = model_handler.generate_text(
-            peft_model='models/highway-no-sequence',
+            peft_model='models/highway-no-sequence-2',
             text=prompt,
             generation_config=generation_config
         )
@@ -102,13 +102,13 @@ print(f"Average episode length: {average_length} steps")
 print(f"Collision rate: {collision_rate}")
 print(f"Average inference time: {average_inference_time} seconds") 
 
-# data = pd.DataFrame({
-#     "total_rewards": total_rewards,
-#     "episode_lengths": episode_lengths,
-#     "min_inference_times": min_inference_times,
-#     "max_inference_times": max_inference_times,
-#     "avg_inference_times": avg_inference_times
-# })
-# data.to_csv('llama_roundabout_data.csv', index=False)
+data = pd.DataFrame({
+    "total_rewards": total_rewards,
+    "episode_lengths": episode_lengths,
+    "min_inference_times": min_inference_times,
+    "max_inference_times": max_inference_times,
+    "avg_inference_times": avg_inference_times
+})
+data.to_csv('llama_highway_no_sequence_data.csv', index=False)
 
 env.close()
