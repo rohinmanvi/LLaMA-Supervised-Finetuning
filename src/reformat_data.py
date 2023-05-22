@@ -1,7 +1,7 @@
 import json
 
-with open('data/highway_planner_sequence_data_incremental_final_2.jsonl', 'r') as f_in:
-    with open('data/highway_planner_data_incremental.jsonl', 'w') as f_out:
+with open('data/highway_planner_data_detailed_total_2.jsonl', 'r') as f_in:
+    with open('data/highway_planner_data_detailed_final.jsonl', 'w') as f_out:
         for line in f_in:
             data = json.loads(line)
             text = data['text']
