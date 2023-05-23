@@ -50,7 +50,7 @@ for episode in range(100):
         start_time = time.time()
 
         response = model_handler.generate_text(
-            peft_model='models/highway-no-sequence-2',
+            peft_model='models/highway-no-sequence-3',
             text=prompt,
             generation_config=generation_config
         )
@@ -109,6 +109,6 @@ data = pd.DataFrame({
     "max_inference_times": max_inference_times,
     "avg_inference_times": avg_inference_times
 })
-data.to_csv('llama_highway_no_sequence_data.csv', index=False)
+data.to_csv('llama_highway_no_sequence_2_data.csv', index=False)
 
 env.close()
