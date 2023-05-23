@@ -33,7 +33,7 @@ max_inference_times = []
 avg_inference_times = []
 truncated_episodes = 0
 
-for episode in range(100):
+for episode in range(25):
     obs, info = env.reset()
     done = truncated = False
 
