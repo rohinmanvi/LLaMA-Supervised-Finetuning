@@ -19,7 +19,7 @@ env = DriverEnv()
 
 model = PPO.load("models/PPO/best_model")
 
-observation = env.reset(3)
+observation = env.reset(2)
 
 done = False
 
@@ -64,6 +64,5 @@ else:
 # Set the aspect ratio to be equal for both axes
 plt.gca().set_aspect('equal', adjustable='box')
 
-plt.legend()
 plt.savefig('positions_plot.png', dpi=300)  # Increase the resolution by setting the DPI
 plt.close()
