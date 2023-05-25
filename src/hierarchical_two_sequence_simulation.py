@@ -6,6 +6,8 @@ from driver_env import DriverEnv
 from prompting import get_waypoint_sequence_shortest_prompt, extract_two_action
 from model_handler import ModelHandler
 
+import matplotlib.pyplot as plt
+
 np.set_printoptions(suppress=True)
 
 pastelBlue = "#0072B2"
