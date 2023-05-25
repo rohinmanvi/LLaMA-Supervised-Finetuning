@@ -70,42 +70,6 @@ class DriverEnv(gym.Env):
         if done:
             print(f"angle_r: {self.episode_r_angle / 100}, distance_r: {self.episode_r_distance / 100}")
 
-            ego_x, ego_y = zip(*self.ego_positions)
-            agent_x, agent_y = zip(*self.agent_positions)
-
-            # Plot ego vehicle positions with smaller dots and no connecting line
-            plt.scatter(ego_x, ego_y, s=0.25, c='b', marker='o', label='Ego Vehicle')
-            # Plot agent vehicle positions with smaller dots and no connecting line
-            plt.scatter(agent_x, agent_y, s=0.25, c='r', marker='o', label='Agent Vehicle')
-            plt.xlabel('X-axis (meters)')
-            plt.ylabel('Y-axis (meters)')
-
-            # Add larger dots every 10 steps (1 second)
-            for i in range(0, len(self.ego_positions), 10):
-                plt.scatter(self.ego_positions[i][0], self.ego_positions[i][1], s=10, c='b', marker='o')
-                plt.scatter(self.agent_positions[i][0], self.agent_positions[i][1], s=10, c='r', marker='o')
-
-            # Calculate the necessary x and y limits to achieve a 3:2 aspect ratio
-            min_x, max_x = plt.xlim()
-            min_y, max_y = plt.ylim()
-            width = max_x - min_x
-            height = max_y - min_y
-            desired_aspect_ratio = 3 / 2
-
-            if width / height > desired_aspect_ratio:
-                new_height = width / desired_aspect_ratio
-                plt.ylim(min_y - (new_height - height) / 2, max_y + (new_height - height) / 2)
-            else:
-                new_width = height * desired_aspect_ratio
-                plt.xlim(min_x - (new_width - width) / 2, max_x + (new_width - width) / 2)
-
-            # Set the aspect ratio to be equal for both axes
-            plt.gca().set_aspect('equal', adjustable='box')
-
-            plt.legend()
-            plt.savefig('positions_plot.png', dpi=300)  # Increase the resolution by setting the DPI
-            plt.close()
-
         return np.array(observation), float(reward), done, dict()
 
     def reset(self, seed=None):
