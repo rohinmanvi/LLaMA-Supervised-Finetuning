@@ -19,7 +19,7 @@ env = DriverEnv()
 
 model = PPO.load("models/PPO/best_model")
 
-observation = env.reset(2)
+observation = env.reset(3)
 
 done = False
 
