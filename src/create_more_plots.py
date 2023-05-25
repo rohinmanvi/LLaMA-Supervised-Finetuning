@@ -52,7 +52,7 @@ min_x, max_x = plt.xlim()
 min_y, max_y = plt.ylim()
 width = max_x - min_x
 height = max_y - min_y
-desired_aspect_ratio = 3 / 2
+desired_aspect_ratio = 2 / 1
 
 if width / height > desired_aspect_ratio:
     new_height = width / desired_aspect_ratio
