@@ -52,12 +52,12 @@ def main():
     agent_x, agent_y = zip(*agent_positions)
     expert_x, expert_y = zip(*expert_ego_positions)
 
-    # Plot ego vehicle positions with smaller dots and no connecting line
-    plt.scatter(ego_x, ego_y, s=0.25, c='b', marker='o', label='Ego Vehicle')
-    # Plot agent vehicle positions with smaller dots and no connecting line
-    plt.scatter(agent_x, agent_y, s=0.25, c='r', marker='o', label='Agent Vehicle')
     # Plot agent vehicle positions with smaller dots and no connecting line
     plt.scatter(expert_x, expert_y, s=0.25, c='g', marker='o', label='Expert Vehicle')
+    # Plot agent vehicle positions with smaller dots and no connecting line
+    plt.scatter(agent_x, agent_y, s=0.25, c='r', marker='o', label='Agent Vehicle')
+    # Plot ego vehicle positions with smaller dots and no connecting line
+    plt.scatter(ego_x, ego_y, s=0.25, c='b', marker='o', label='Ego Vehicle')
     plt.xlabel('X-axis (meters)')
     plt.ylabel('Y-axis (meters)')
 
