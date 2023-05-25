@@ -32,7 +32,7 @@ agent_positions = env.agent_positions
 
 env.close()
 
-ego_x, ego_y = zip(*ego_positions)
+expert_x, expert_y = zip(*expert_ego_positions)
 agent_x, agent_y = zip(*agent_positions)
 
 # Plot agent vehicle positions with smaller dots and no connecting line
