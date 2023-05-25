@@ -28,19 +28,17 @@ while not done:
     observation, reward, done, _ = env.step(action)
 
 expert_ego_positions = env.ego_positions
+agent_positions = env.agent_positions
 
 env.close()
 
 ego_x, ego_y = zip(*ego_positions)
 agent_x, agent_y = zip(*agent_positions)
-expert_x, expert_y = zip(*expert_ego_positions)
 
 # Plot agent vehicle positions with smaller dots and no connecting line
-plt.scatter(expert_x, expert_y, s=0.25, c=pastelGreen, marker='o', label='Expert Vehicle')
+plt.scatter(expert_x, expert_y, s=0.25, c=pastelGreen, marker='o', label='Ego Vehicle')
 # Plot agent vehicle positions with smaller dots and no connecting line
 plt.scatter(agent_x, agent_y, s=0.25, c=pastelRed, marker='o', label='Agent Vehicle')
-# Plot ego vehicle positions with smaller dots and no connecting line
-plt.scatter(ego_x, ego_y, s=0.25, c=pastelBlue, marker='o', label='Ego Vehicle')
 plt.xlabel('X-axis (meters)')
 plt.ylabel('Y-axis (meters)')
 
@@ -48,7 +46,6 @@ plt.ylabel('Y-axis (meters)')
 for i in range(0, len(ego_positions), 10):
     plt.scatter(expert_ego_positions[i][0], expert_ego_positions[i][1], s=10, c=pastelGreen, marker='o')
     plt.scatter(agent_positions[i][0], agent_positions[i][1], s=10, c=pastelRed, marker='o')
-    plt.scatter(ego_positions[i][0], ego_positions[i][1], s=10, c=pastelBlue, marker='o')
 
 # Calculate the necessary x and y limits to achieve a 3:2 aspect ratio
 min_x, max_x = plt.xlim()
