@@ -43,7 +43,7 @@ plt.xlabel('X-axis (meters)')
 plt.ylabel('Y-axis (meters)')
 
 # Add larger dots every 10 steps (1 second)
-for i in range(0, len(ego_positions), 10):
+for i in range(0, len(expert_ego_positions), 10):
     plt.scatter(expert_ego_positions[i][0], expert_ego_positions[i][1], s=10, c=pastelGreen, marker='o')
     plt.scatter(agent_positions[i][0], agent_positions[i][1], s=10, c=pastelRed, marker='o')
 
