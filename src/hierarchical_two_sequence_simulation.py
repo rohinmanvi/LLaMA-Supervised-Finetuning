@@ -53,19 +53,19 @@ def main():
     expert_x, expert_y = zip(*expert_ego_positions)
 
     # Plot agent vehicle positions with smaller dots and no connecting line
-    plt.scatter(expert_x, expert_y, s=0.25, c='g', marker='o', label='Expert Vehicle')
+    plt.scatter(expert_x, expert_y, s=0.25, c=pastelGreen, marker='o', label='Expert Vehicle')
     # Plot agent vehicle positions with smaller dots and no connecting line
-    plt.scatter(agent_x, agent_y, s=0.25, c='r', marker='o', label='Agent Vehicle')
+    plt.scatter(agent_x, agent_y, s=0.25, c=pastelRed, marker='o', label='Agent Vehicle')
     # Plot ego vehicle positions with smaller dots and no connecting line
-    plt.scatter(ego_x, ego_y, s=0.25, c='b', marker='o', label='Ego Vehicle')
+    plt.scatter(ego_x, ego_y, s=0.25, c=pastelBlue, marker='o', label='Ego Vehicle')
     plt.xlabel('X-axis (meters)')
     plt.ylabel('Y-axis (meters)')
 
     # Add larger dots every 10 steps (1 second)
     for i in range(0, len(ego_positions), 10):
-        plt.scatter(ego_positions[i][0], ego_positions[i][1], s=10, c='b', marker='o')
-        plt.scatter(agent_positions[i][0], agent_positions[i][1], s=10, c='r', marker='o')
-        plt.scatter(expert_ego_positions[i][0], expert_ego_positions[i][1], s=10, c='g', marker='o')
+        plt.scatter(expert_ego_positions[i][0], expert_ego_positions[i][1], s=10, c=pastelGreen, marker='o')
+        plt.scatter(agent_positions[i][0], agent_positions[i][1], s=10, c=pastelRed, marker='o')
+        plt.scatter(ego_positions[i][0], ego_positions[i][1], s=10, c=pastelBlue, marker='o')
 
     # Calculate the necessary x and y limits to achieve a 3:2 aspect ratio
     min_x, max_x = plt.xlim()
