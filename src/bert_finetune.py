@@ -17,12 +17,14 @@ class HighwayPlannerDataset(Dataset):
     def __len__(self):
         return len(self.labels)
 
-# Load data
 def load_data(file):
+    observations = []
+    actions = []
     with open(file, 'r') as f:
-        data = [json.loads(line) for line in f]
-    observations = [item['text'].split('Action:')[0].strip() for item in data]
-    actions = [int(item['text'].split('Action:')[1].strip()) for item in data]
+        for line in f:
+            data = json.loads(line)
+            observations.append(data['text'].split('Action:')[0].strip())
+            actions.append(int(data['text'].split('Action:')[1].strip()))
     return observations, actions
 
 # Load the BERT tokenizer and model
@@ -31,12 +33,14 @@ model = BertForSequenceClassification.from_pretrained('bert-base-uncased', num_l
 
 # Load and preprocess the data
 observations, actions = load_data('data/highway_planner_data_incremental.jsonl')
-inputs = tokenizer(observations, padding=True, truncation=True, return_tensors='pt')
 
 # Split the data into training and testing datasets
-train_inputs, test_inputs, train_labels, test_labels = train_test_split(inputs, actions, test_size=0.2, stratify=actions)
+train_observations, test_observations, train_labels, test_labels = train_test_split(observations, actions, test_size=0.2, stratify=actions)
 
-# Convert to datasets
+# Tokenize and convert to datasets
+train_inputs = tokenizer(train_observations, padding=True, truncation=True, return_tensors='pt')
+test_inputs = tokenizer(test_observations, padding=True, truncation=True, return_tensors='pt')
+
 train_dataset = HighwayPlannerDataset(train_inputs, train_labels)
 eval_dataset = HighwayPlannerDataset(test_inputs, test_labels)
 
