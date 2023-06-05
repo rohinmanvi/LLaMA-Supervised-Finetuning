@@ -1,4 +1,5 @@
 import json
+from tqdm import tqdm
 from sklearn.model_selection import train_test_split
 from transformers import BertTokenizer, BertForSequenceClassification, Trainer, TrainingArguments
 from torch.utils.data import Dataset, DataLoader
@@ -20,11 +21,18 @@ class HighwayPlannerDataset(Dataset):
 def load_data(file):
     observations = []
     actions = []
+    count = 0
+
     with open(file, 'r') as f:
         for line in f:
             data = json.loads(line)
             observations.append(data['text'].split('Action:')[0].strip())
             actions.append(int(data['text'].split('Action:')[1].strip()))
+
+            count += 1
+            if count % 1000 == 0:
+                print(f"{count} lines read")
+
     return observations, actions
 
 # Load the BERT tokenizer and model
