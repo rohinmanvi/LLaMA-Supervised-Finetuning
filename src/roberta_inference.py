@@ -48,7 +48,7 @@ for episode in range(10):
     total_reward = 0
 
     while not (done or truncated):
-        prompt = f"Observation:\n{np.round(obs, 5)}"
+        prompt = f"Observation:\n{np.round(obs, 3)}"
 
         prompt_so_far += prompt
 
