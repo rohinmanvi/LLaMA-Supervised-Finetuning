@@ -1,5 +1,4 @@
 import json
-from tqdm import tqdm
 from sklearn.model_selection import train_test_split
 from transformers import BertTokenizer, BertForSequenceClassification, Trainer, TrainingArguments
 from torch.utils.data import Dataset, DataLoader
@@ -28,42 +27,31 @@ def load_data(file):
             actions.append(int(data['text'].split('Action:')[1].strip()))
     return observations, actions
 
-print('a')
-
 # Load the BERT tokenizer and model
 tokenizer = BertTokenizer.from_pretrained('bert-base-uncased')
-print('b')
 model = BertForSequenceClassification.from_pretrained('bert-base-uncased', num_labels=5)  # Assuming 5 different actions
-print('c')
 
 # Load and preprocess the data
 observations, actions = load_data('data/highway_planner_data_incremental.jsonl')
-print('d')
 
 # Split the data into training and testing datasets
 train_observations, test_observations, train_labels, test_labels = train_test_split(observations, actions, test_size=0.2, stratify=actions)
-print('e')
 
 # Tokenize and convert to datasets
 train_inputs = tokenizer(train_observations, padding=True, truncation=True, return_tensors='pt')
 test_inputs = tokenizer(test_observations, padding=True, truncation=True, return_tensors='pt')
 
-print('f')
-
 train_dataset = HighwayPlannerDataset(train_inputs, train_labels)
 eval_dataset = HighwayPlannerDataset(test_inputs, test_labels)
 
-print('g')
-
 # Define the training arguments
 training_args = TrainingArguments(
-    output_dir='./results',          # output directory
-    num_train_epochs=3,              # total number of training epochs
+    output_dir='models/bert_driver',          # output directory
+    num_train_epochs=2,              # total number of training epochs
     per_device_train_batch_size=16,  # batch size per device during training
     per_device_eval_batch_size=64,   # batch size for evaluation
     warmup_steps=500,                # number of warmup steps for learning rate scheduler
     weight_decay=0.01,               # strength of weight decay
-    logging_dir='./logs',            # directory for storing logs
     logging_steps=10,
     report_to='wandb'
 )
@@ -78,3 +66,6 @@ trainer = Trainer(
 
 # Train the model
 trainer.train()
+
+trainer.save_model(training_args.output_dir)
+tokenizer.save_pretrained(training_args.output_dir)
