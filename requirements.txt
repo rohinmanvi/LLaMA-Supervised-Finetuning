@@ -1,4 +1,5 @@
 torch
+sklearn
 transformers @ git+https://github.com/huggingface/transformers.git
 peft @ git+https://github.com/huggingface/peft.git
 datasets
