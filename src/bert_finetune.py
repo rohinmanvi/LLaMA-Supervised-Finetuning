@@ -21,36 +21,39 @@ class HighwayPlannerDataset(Dataset):
 def load_data(file):
     observations = []
     actions = []
-    count = 0
-
     with open(file, 'r') as f:
         for line in f:
             data = json.loads(line)
             observations.append(data['text'].split('Action:')[0].strip())
             actions.append(int(data['text'].split('Action:')[1].strip()))
-
-            count += 1
-            if count % 1000 == 0:
-                print(f"{count} lines read")
-
     return observations, actions
+
+print('a')
 
 # Load the BERT tokenizer and model
 tokenizer = BertTokenizer.from_pretrained('bert-base-uncased')
+print('b')
 model = BertForSequenceClassification.from_pretrained('bert-base-uncased', num_labels=5)  # Assuming 5 different actions
+print('c')
 
 # Load and preprocess the data
 observations, actions = load_data('data/highway_planner_data_incremental.jsonl')
+print('d')
 
 # Split the data into training and testing datasets
 train_observations, test_observations, train_labels, test_labels = train_test_split(observations, actions, test_size=0.2, stratify=actions)
+print('e')
 
 # Tokenize and convert to datasets
 train_inputs = tokenizer(train_observations, padding=True, truncation=True, return_tensors='pt')
 test_inputs = tokenizer(test_observations, padding=True, truncation=True, return_tensors='pt')
 
+print('f')
+
 train_dataset = HighwayPlannerDataset(train_inputs, train_labels)
 eval_dataset = HighwayPlannerDataset(test_inputs, test_labels)
+
+print('g')
 
 # Define the training arguments
 training_args = TrainingArguments(
