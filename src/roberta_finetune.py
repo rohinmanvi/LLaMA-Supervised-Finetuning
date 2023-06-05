@@ -28,8 +28,8 @@ def load_data(file):
     return observations, actions
 
 # Load the RoBERTa tokenizer and model
-tokenizer = RobertaTokenizer.from_pretrained('xlm-roberta-base')
-model = RobertaForSequenceClassification.from_pretrained('xlm-roberta-base', num_labels=5)  # Assuming 5 different actions
+tokenizer = RobertaTokenizer.from_pretrained('roberta-base')
+model = RobertaForSequenceClassification.from_pretrained('roberta-base', num_labels=5)  # Assuming 5 different actions
 
 # Load and preprocess the data
 observations, actions = load_data('data/highway_planner_data_incremental.jsonl')
