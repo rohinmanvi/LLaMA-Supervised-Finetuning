@@ -1,6 +1,6 @@
 import json
 from sklearn.model_selection import train_test_split
-from transformers import BertTokenizer, BertForSequenceClassification, Trainer, TrainingArguments
+from transformers import RobertaTokenizer, RobertaForSequenceClassification, Trainer, TrainingArguments
 from torch.utils.data import Dataset, DataLoader
 import torch
 
@@ -27,9 +27,9 @@ def load_data(file):
             actions.append(int(data['text'].split('Action:')[1].strip()))
     return observations, actions
 
-# Load the BERT tokenizer and model
-tokenizer = BertTokenizer.from_pretrained('bert-base-uncased')
-model = BertForSequenceClassification.from_pretrained('bert-base-uncased', num_labels=5)  # Assuming 5 different actions
+# Load the RoBERTa tokenizer and model
+tokenizer = RobertaTokenizer.from_pretrained('xlm-roberta-base')
+model = RobertaForSequenceClassification.from_pretrained('xlm-roberta-base', num_labels=5)  # Assuming 5 different actions
 
 # Load and preprocess the data
 observations, actions = load_data('data/highway_planner_data_incremental.jsonl')
@@ -46,7 +46,7 @@ eval_dataset = HighwayPlannerDataset(test_inputs, test_labels)
 
 # Define the training arguments
 training_args = TrainingArguments(
-    output_dir='models/bert_driver_2',          # output directory
+    output_dir='models/roberta_driver',   # output directory
     num_train_epochs=4,              # total number of training epochs
     per_device_train_batch_size=32,  # batch size per device during training
     per_device_eval_batch_size=64,   # batch size for evaluation
