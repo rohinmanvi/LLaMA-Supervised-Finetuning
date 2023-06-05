@@ -11,14 +11,6 @@ np.set_printoptions(suppress=True)
 
 env = gym.make("highway-fast-v0", render_mode='rgb_array')
 
-agent_config = {
-    "__class__": "<class 'rl_agents.agents.tree_search.deterministic.DeterministicPlannerAgent'>",
-    "env_preprocessors": [{"method":"simplify"}],
-    "budget": 50,
-    "gamma": 0.7,
-}
-agent = agent_factory(env, agent_config)  # Planner agent
-
 def record_videos(env, video_folder="highway_bert_videos"):
     wrapped = RecordVideo(env, video_folder=video_folder, episode_trigger=lambda e: True)
 
@@ -64,19 +56,14 @@ for episode in range(100):
 
         # Generate an action using the trained BERT model
         response = classifier(prompt)[0]
-        action_bert = int(response['label'].split('_')[1])
-
-        # Generate an action using the deterministic planner agent
-        action_planner = agent.act(obs)
+        action = int(response['label'].split('_')[1])
 
         end_time = time.time()
 
-        # Here we take BERT's action as the final action.
-        # You could use action_planner instead to observe its effect on the environment
-        obs, reward, done, truncated, info = env.step(action_bert)
+        obs, reward, done, truncated, info = env.step(action)
         total_reward += reward
 
-        prompt_so_far += f"\nAction (BERT): {action_bert}, Action (Planner): {action_planner}\n"
+        prompt_so_far += f"\nAction: {action}\n"
 
         inference_time = end_time - start_time
         inference_times.append(inference_time)
