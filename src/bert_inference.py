@@ -21,7 +21,7 @@ def record_videos(env, video_folder="highway_bert_videos"):
 
 env = record_videos(env)
 
-model_dir = "models/bert_driver"
+model_dir = "models/bert_driver_2"
 
 # Load the trained BERT model and tokenizer
 tokenizer = BertTokenizer.from_pretrained(model_dir)
