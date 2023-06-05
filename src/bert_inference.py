@@ -56,7 +56,7 @@ for episode in range(3):
 
         # Generate an action using the trained BERT model
         response = classifier(prompt)[0]
-        action = response['label']
+        action = int(response['label'].split('_')[1])
 
         end_time = time.time()
 
