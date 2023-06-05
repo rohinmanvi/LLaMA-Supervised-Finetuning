@@ -38,7 +38,7 @@ max_inference_times = []
 avg_inference_times = []
 truncated_episodes = 0
 
-for episode in range(3):
+for episode in range(100):
     obs, info = env.reset()
     done = truncated = False
 
@@ -63,7 +63,7 @@ for episode in range(3):
         obs, reward, done, truncated, info = env.step(action)
         total_reward += reward
 
-        prompt_so_far += f"\nAction: {response}\n"
+        prompt_so_far += f"\nAction: {action}\n"
 
         inference_time = end_time - start_time
         inference_times.append(inference_time)
