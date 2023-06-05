@@ -109,6 +109,6 @@ data = pd.DataFrame({
     "max_inference_times": max_inference_times,
     "avg_inference_times": avg_inference_times
 })
-data.to_csv('bert_highway_data_2.csv', index=False)
+data.to_csv('bert_highway_data.csv', index=False)
 
 env.close()
