@@ -46,11 +46,11 @@ print(actions[:5])
 
 
 INPUT_SIZE = len(observations[0])
-HIDDEN_SIZE = 256
+HIDDEN_SIZE = 128
 NUM_CLASSES = 5
 NUM_EPOCHS = 4
 BATCH_SIZE = 32
-LEARNING_RATE = 0.005
+LEARNING_RATE = 0.01
 
 # Initialize the model, loss function, and optimizer
 model = MLP(INPUT_SIZE, HIDDEN_SIZE, NUM_CLASSES)
