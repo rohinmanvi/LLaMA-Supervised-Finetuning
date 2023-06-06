@@ -70,17 +70,15 @@ for episode in range(100):
     inference_times = []
     total_reward = 0
 
-    while not done and not truncated:
-        obs_text = re.findall(r'\[.*?\]', str(obs))
-        obs_values = [list(map(float, re.findall(r'[-+]?[.]?[\d]+(?:,\d\d\d)*[\.]?\d*(?:[eE][-+]?\d+)?', line))) for line in obs_text]
-        obs_values = np.array(obs_values).flatten().tolist()
+    while not (done or truncated):
+        obs_values = obs.flatten().tolist()
         obs_values = scaler.transform([obs_values])  # Scale the observation values
 
         start_time = time.time()
         action = torch.argmax(model(torch.tensor(obs_values, dtype=torch.float32))).item()
         end_time = time.time()
 
-        obs, reward, done, info = env.step(action)
+        obs, reward, done, truncated, info = env.step(action)
         total_reward += reward
 
         inference_time = end_time - start_time
