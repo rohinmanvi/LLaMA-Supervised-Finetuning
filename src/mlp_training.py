@@ -48,7 +48,7 @@ scaler = StandardScaler()
 observations = scaler.fit_transform(observations)
 
 INPUT_SIZE = len(observations[0])
-HIDDEN_SIZE = 32
+HIDDEN_SIZE = 64
 NUM_CLASSES = 5
 NUM_EPOCHS = 10
 BATCH_SIZE = 256
