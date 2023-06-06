@@ -50,7 +50,7 @@ HIDDEN_SIZE = 128
 NUM_CLASSES = 5
 NUM_EPOCHS = 10
 BATCH_SIZE = 256
-LEARNING_RATE = 0.005
+LEARNING_RATE = 0.01
 
 # Initialize the model, loss function, and optimizer
 model = MLP(INPUT_SIZE, HIDDEN_SIZE, NUM_CLASSES)
