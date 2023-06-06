@@ -46,7 +46,7 @@ print(actions[:5])
 
 
 INPUT_SIZE = len(observations[0])
-HIDDEN_SIZE = 128
+HIDDEN_SIZE = 256
 NUM_CLASSES = 5
 NUM_EPOCHS = 4
 BATCH_SIZE = 32
