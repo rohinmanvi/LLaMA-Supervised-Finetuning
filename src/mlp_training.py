@@ -85,3 +85,25 @@ for epoch in range(NUM_EPOCHS):
 
 # Save the model
 torch.save(model.state_dict(), 'models/mlp_model.pth')
+
+# Set the model to evaluation mode
+model.eval()
+
+# Initialize a list to store the model's predictions
+predictions = []
+
+# Iterate over the test data and generate predictions
+with torch.no_grad():
+    correct = 0
+    total = 0
+    for observations, labels in test_loader:
+        outputs = model(observations)
+        _, predicted = torch.max(outputs.data, 1)
+        predictions.extend(predicted.numpy())
+        total += labels.size(0)
+        correct += (predicted == labels).sum().item()
+
+    # Calculate the accuracy of the model on the test data
+    accuracy = correct / total
+
+print(f'Test Accuracy of the model on the test observations: {accuracy * 100}%')
