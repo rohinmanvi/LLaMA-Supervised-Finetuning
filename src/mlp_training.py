@@ -39,6 +39,7 @@ def load_data(file):
 observations, actions = load_data('data/highway_planner_data_incremental.jsonl')
 
 print(observations[:5])
+print(actions[:5])
 
 
 INPUT_SIZE = len(observations[0])
