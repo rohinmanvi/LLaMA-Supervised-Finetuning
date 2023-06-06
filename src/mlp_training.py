@@ -17,8 +17,8 @@ class MLP(nn.Module):
 
     def forward(self, x):
         out = self.layer1(x)
-        # out = self.relu(out)
-        # out = self.layer2(out)
+        out = self.relu(out)
+        out = self.layer2(out)
         out = self.relu(out)
         out = self.layer3(out)
         return out
