@@ -48,7 +48,7 @@ print(actions[:5])
 INPUT_SIZE = len(observations[0])
 HIDDEN_SIZE = 64
 NUM_CLASSES = 5
-NUM_EPOCHS = 10
+NUM_EPOCHS = 20
 BATCH_SIZE = 256
 LEARNING_RATE = 0.01
 
