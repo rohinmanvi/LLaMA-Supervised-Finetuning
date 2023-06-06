@@ -7,6 +7,7 @@ import torch.nn as nn
 import torch.optim as optim
 from torch.utils.data import TensorDataset, DataLoader
 from torch.optim.lr_scheduler import CosineAnnealingLR
+from sklearn.preprocessing import StandardScaler
 
 
 class MLP(nn.Module):
@@ -43,9 +44,8 @@ def load_data(file):
 # Load and preprocess the data
 observations, actions = load_data('data/highway_planner_data_incremental.jsonl')
 
-print(observations[:5])
-print(actions[:5])
-
+scaler = StandardScaler()
+observations = scaler.fit_transform(observations)
 
 INPUT_SIZE = len(observations[0])
 HIDDEN_SIZE = 64
