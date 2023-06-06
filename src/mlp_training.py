@@ -6,6 +6,8 @@ import torch
 import torch.nn as nn
 import torch.optim as optim
 from torch.utils.data import TensorDataset, DataLoader
+from torch.optim.lr_scheduler import CosineAnnealingLR
+
 
 class MLP(nn.Module):
     def __init__(self, input_size, hidden_size, num_classes):
