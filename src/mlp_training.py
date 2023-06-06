@@ -48,7 +48,7 @@ print(actions[:5])
 INPUT_SIZE = len(observations[0])
 HIDDEN_SIZE = 64
 NUM_CLASSES = 5
-NUM_EPOCHS = 20
+NUM_EPOCHS = 10
 BATCH_SIZE = 256
 LEARNING_RATE = 0.01
 
@@ -56,6 +56,7 @@ LEARNING_RATE = 0.01
 model = MLP(INPUT_SIZE, HIDDEN_SIZE, NUM_CLASSES)
 criterion = nn.CrossEntropyLoss()
 optimizer = torch.optim.Adam(model.parameters(), lr=LEARNING_RATE)
+scheduler = CosineAnnealingLR(optimizer, T_max=NUM_EPOCHS)
 
 # Split the data into training and testing datasets
 train_observations, test_observations, train_labels, test_labels = train_test_split(observations, actions, test_size=0.1, stratify=actions)
@@ -82,6 +83,8 @@ for epoch in range(NUM_EPOCHS):
 
         if (i+1) % 100 == 0:
             print(f'Epoch [{epoch+1}/{NUM_EPOCHS}], Step [{i+1}/{len(train_loader)}], Loss: {loss.item():.4f}')
+        
+    scheduler.step()
 
 # Save the model
 torch.save(model.state_dict(), 'models/mlp_model.pth')
