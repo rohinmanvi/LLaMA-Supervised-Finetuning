@@ -12,7 +12,7 @@ python3 src/finetune.py \
     --lora_alpha 16 \
     --lora_dropout 0.05 \
     --model_name_or_path decapoda-research/llama-7b-hf \
-    --data_path data/data_large_cheap.jsonl \
+    --data_path data/data_large_cheap_train.jsonl \
     --output_dir models/asset-index-address-places \
     --num_train_epochs 3 \
     --per_device_train_batch_size 16 \
