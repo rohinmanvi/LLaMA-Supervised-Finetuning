@@ -76,8 +76,9 @@ def train():
         cache_dir=training_args.cache_dir,
         load_in_8bit=True, 
         torch_dtype=torch.float16, 
-        device_map={'':0}
-    )
+        device_map={'':0},
+        trust_remote_code=True
+    ).half().cuda()
     lora_config = LoraConfig(
         r=lora_args.lora_r,
         lora_alpha=lora_args.lora_alpha,

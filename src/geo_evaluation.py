@@ -1,8 +1,9 @@
 import numpy as np
 import json
 
-from transformers import GenerationConfig
+from sklearn.metrics import mean_squared_error, mean_absolute_error, r2_score
 
+from transformers import GenerationConfig
 from model_handler import ModelHandler
 
 examples = []
@@ -26,10 +27,19 @@ generation_config = GenerationConfig(
     do_sample=False
 )
 
+predictions = []
+labels = []
+
 for example in examples:
 
-    prompt = example['prompt']
-    completion = example['completion']
+    prompt = example['text']
+
+    index = prompt.rfind(">")
+
+    label = float(prompt[index + 1:].strip())
+    labels.append(label)
+
+    prompt = prompt[:index + 1]
 
     response = model_handler.generate_text(
         peft_model='models/asset-index-address-places',
@@ -44,8 +54,8 @@ for example in examples:
     print(f"Answer: {completion}")
     print("============================================================================")
 
-predictions = predictions_output.predictions.squeeze()
-labels = test_df['target'].to_numpy()
+predictions = np.array(predictions)
+labels = np.array(labels)
 
 mse = mean_squared_error(labels, predictions)
 mae = mean_absolute_error(labels, predictions)
