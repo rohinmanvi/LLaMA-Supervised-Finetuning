@@ -1,7 +1,6 @@
 #!/bin/bash
 #SBATCH -p gpu
 #SBATCH -G 1
-#SBATCH -C GPU_MEM:32GB
 #SBATCH --time=0:10:00
 
 ml python/3.9.0 cuda/12.0.0 gcc/12.1.0
@@ -14,8 +13,8 @@ python3 src/finetune.py \
     --model_name_or_path decapoda-research/llama-7b-hf \
     --data_path data/data_large_cheap_train.jsonl \
     --output_dir models/asset-index-address-places \
-    --num_train_epochs 3 \
-    --per_device_train_batch_size 16 \
+    --num_train_epochs 4 \
+    --per_device_train_batch_size 8 \
     --gradient_accumulation_steps 1 \
     --learning_rate 1e-3 \
     --lr_scheduler_type "cosine" \
